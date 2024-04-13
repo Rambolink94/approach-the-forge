@@ -1,0 +1,113 @@
+[gd_scene load_steps=6 format=3 uid="uid://1qccvg77muwg"]
+
+[ext_resource type="Texture2D" uid="uid://tyri0xiae4o1" path="res://Art/ResourceImages/resourceBorder-32x32.png" id="1_p22wj"]
+[ext_resource type="Texture2D" uid="uid://b3u6wyyc08xop" path="res://Art/ResourceImages/commonDrop_32x32.png" id="2_4dafu"]
+[ext_resource type="Texture2D" uid="uid://blmk3ng8elr2n" path="res://Art/ResourceImages/ResourceQuantity-32x32.png" id="3_xya2w"]
+[ext_resource type="Texture2D" uid="uid://bex1uh0f8hfm8" path="res://Art/ResourceImages/rareDrop_32x32.png" id="4_wj15u"]
+[ext_resource type="Texture2D" uid="uid://ca2l5w35pcwy" path="res://Art/ResourceImages/superDrop_32x32.png" id="5_lyb4y"]
+
+[node name="ResourceDisplay" type="CanvasLayer"]
+
+[node name="ResourceIcons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Common" type="TextureRect" parent="ResourceIcons"]
+z_index = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_p22wj")
+
+[node name="Icon" type="TextureRect" parent="ResourceIcons/Common"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_4dafu")
+
+[node name="Quantity" type="TextureRect" parent="ResourceIcons/Common"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 32.0
+offset_bottom = 64.0
+texture = ExtResource("3_xya2w")
+expand_mode = 1
+
+[node name="Number" type="Label" parent="ResourceIcons/Common/Quantity"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rare" type="TextureRect" parent="ResourceIcons"]
+z_index = 1
+layout_mode = 0
+offset_left = 40.0
+offset_right = 80.0
+offset_bottom = 40.0
+texture = ExtResource("1_p22wj")
+
+[node name="Icon" type="TextureRect" parent="ResourceIcons/Rare"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_wj15u")
+
+[node name="Quantity" type="TextureRect" parent="ResourceIcons/Rare"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 1.0
+anchor_right = 0.2
+anchor_bottom = 1.0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = ExtResource("3_xya2w")
+expand_mode = 1
+
+[node name="Number" type="Label" parent="ResourceIcons/Rare/Quantity"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Epic" type="TextureRect" parent="ResourceIcons"]
+z_index = 1
+layout_mode = 0
+offset_left = 80.0
+offset_right = 120.0
+offset_bottom = 40.0
+texture = ExtResource("1_p22wj")
+
+[node name="Icon" type="TextureRect" parent="ResourceIcons/Epic"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_lyb4y")
+
+[node name="Quantity" type="TextureRect" parent="ResourceIcons/Epic"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 1.0
+anchor_right = 0.2
+anchor_bottom = 1.0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = ExtResource("3_xya2w")
+expand_mode = 1
+
+[node name="Number" type="Label" parent="ResourceIcons/Epic/Quantity"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+text = "8"
+horizontal_alignment = 1
+vertical_alignment = 1
