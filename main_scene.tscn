@@ -20,11 +20,11 @@ position = Vector2(547, 442)
 script = ExtResource("2_c156m")
 _overrideGravity = true
 _gravityOverride = 1000.0
-_maxSpeed = 200.0
-_maxSprintSpeed = 400.0
-_acceleration = 80.0
+_maxSpeed = 300.0
+_maxSprintSpeed = 600.0
+_acceleration = 10.0
 _sprintAcceleration = 40.0
-_deceleration = 100.0
+_deceleration = 10.0
 _jumpVelocity = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -35,8 +35,10 @@ texture_filter = 1
 texture = ExtResource("3_blnnn")
 
 [node name="CameraRoot" type="Node2D" parent="Player"]
+position = Vector2(-547, -442)
 
 [node name="Camera2D" type="Camera2D" parent="Player/CameraRoot"]
+position = Vector2(547, 442)
 
 [node name="Environment" type="Node2D" parent="."]
 

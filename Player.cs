@@ -35,7 +35,6 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		_velocity.Y += _gravity * (float)delta;
-		GD.Print(_velocity);
 		var horizontalVelocity = _velocity;
 		horizontalVelocity.Y = 0;
 
@@ -70,7 +69,6 @@ public partial class Player : CharacterBody2D
 		_input = input.Normalized();
 		if (Input.IsActionJustPressed("player_jump") && IsOnFloor())
 		{
-			GD.Print("JUMP");
 			_velocity.Y = -_jumpVelocity;
 		}
 
