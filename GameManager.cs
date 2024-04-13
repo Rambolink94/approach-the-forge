@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace ApproachTheForge;
 
 public partial class GameManager : Node2D
 {
