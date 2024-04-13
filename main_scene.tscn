@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=8 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="Script" path="res://GameManager.cs" id="1_7kf6s"]
 [ext_resource type="Script" path="res://Player.cs" id="2_c156m"]
@@ -11,6 +11,9 @@ height = 62.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
 size = Vector2(3000, 383)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc6w6"]
+size = Vector2(50, 1000)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_7kf6s")
@@ -34,11 +37,12 @@ shape = SubResource("CapsuleShape2D_06dbx")
 texture_filter = 1
 texture = ExtResource("3_blnnn")
 
-[node name="CameraRoot" type="Node2D" parent="Player"]
-position = Vector2(-547, -442)
-
-[node name="Camera2D" type="Camera2D" parent="Player/CameraRoot"]
-position = Vector2(547, 442)
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = -925
+limit_right = 2080
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -55,3 +59,17 @@ region_rect = Rect2(0, 0, 3000, 63)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor/StaticBody2D"]
 position = Vector2(0, 160.5)
 shape = SubResource("RectangleShape2D_1aqxm")
+
+[node name="Wall" type="StaticBody2D" parent="Environment"]
+position = Vector2(-920, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall"]
+position = Vector2(-25, 0)
+shape = SubResource("RectangleShape2D_lc6w6")
+
+[node name="Wall2" type="StaticBody2D" parent="Environment"]
+position = Vector2(2127, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall2"]
+position = Vector2(-25, 0)
+shape = SubResource("RectangleShape2D_lc6w6")
