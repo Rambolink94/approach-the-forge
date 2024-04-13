@@ -22,6 +22,7 @@ offset_bottom = 40.0
 texture = ExtResource("1_p22wj")
 
 [node name="Icon" type="TextureRect" parent="ResourceIcons/Common"]
+z_as_relative = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -53,6 +54,7 @@ offset_bottom = 40.0
 texture = ExtResource("1_p22wj")
 
 [node name="Icon" type="TextureRect" parent="ResourceIcons/Rare"]
+z_as_relative = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -87,6 +89,7 @@ offset_bottom = 40.0
 texture = ExtResource("1_p22wj")
 
 [node name="Icon" type="TextureRect" parent="ResourceIcons/Epic"]
+z_as_relative = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
