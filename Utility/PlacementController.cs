@@ -1,8 +1,7 @@
-using System;
 using System.Diagnostics;
 using Godot;
 
-namespace ApproachTheForge;
+namespace ApproachTheForge.Utility;
 
 public partial class PlacementController : Node2D
 {
@@ -38,7 +37,6 @@ public partial class PlacementController : Node2D
 		_placementRay = GetNode<RayCast2D>("PlacementRay");
 		_validityRay = GetNode<RayCast2D>("ValidityRay");
 		_audioStream = GetNode<AudioStreamPlayer2D>("PlacementPlayer");
-		_camera = GetViewport().GetCamera2D();
 
 		var tower = CreatePlaceable<IPlaceable>(GlobalPosition, _towerArtwork, false, this);
 
@@ -60,7 +58,8 @@ public partial class PlacementController : Node2D
 		DebugDraw();
 
 		if (!_placementActive) return;
-		
+
+		_camera ??= GetViewport().GetCamera2D();
 		Vector2 mousePos = _camera.GetGlobalMousePosition();
 
 		Vector2 rayOffset = mousePos + Vector2.Up * GetViewport().GetVisibleRect().Size.Y;
@@ -157,15 +156,4 @@ public partial class PlacementController : Node2D
 			return;
 		}
 	}
-}
-
-public interface IPlaceable
-{
-	public static event Action OnPlacement;
-	
-	public bool Visible { get; set; }
-	
-	public Vector2 GlobalPosition { get; set; }
-	
-	public Sprite2D Sprite { get; }
 }

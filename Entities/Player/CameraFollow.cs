@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ApproachTheForge;
+namespace ApproachTheForge.Entities.Player;
 
 public partial class CameraFollow : Node2D
 {

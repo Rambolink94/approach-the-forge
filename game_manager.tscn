@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://mofr601tdp43"]
+
+[ext_resource type="Script" path="res://Utility/GameManager.cs" id="1_ow743"]
+[ext_resource type="Script" path="res://Utility/ResourceManager.cs" id="2_g3bmv"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_ow743")
+
+[node name="ResourceManager" type="Node2D" parent="."]
+script = ExtResource("2_g3bmv")
+Common = 50
+Rare = 99
+Super = 420

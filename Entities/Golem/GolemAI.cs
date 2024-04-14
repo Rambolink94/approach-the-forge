@@ -1,15 +1,14 @@
+using ApproachTheForge.Utility;
 using Godot;
-using System;
-using System.Runtime.InteropServices.ObjectiveC;
 
-namespace ApproachTheForge
+namespace ApproachTheForge.Entities.Golem
 {
 	public enum Bearing
 	{
 		Left = -1,
 		Right = 1,
 	}
-	public abstract partial class GolemAI : CharacterBody2D
+	public abstract partial class GolemAI : Entity
 	{
 		public const float Speed = 100.0f;
 		public const float JumpVelocity = -100.0f;
@@ -19,7 +18,7 @@ namespace ApproachTheForge
 		protected Vector2 _Velocity = new Vector2();
 
 		protected Node2D Target = new Node2D();
-
+		
 		protected abstract Bearing ObjectiveBearing { get; }
 
 		protected Area2D WallDetector;
@@ -27,8 +26,8 @@ namespace ApproachTheForge
 		protected Area2D DetectionArea;
 
 		// Get the gravity from the project settings to be synced with RigidBody nodes.
-		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
-
+		protected float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		
 		public override void _Ready()
 		{
 			base._Ready();
@@ -40,14 +39,7 @@ namespace ApproachTheForge
 
 		protected bool FindWalls()
 		{
-			if(this.WallDetector.HasOverlappingBodies())
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return this.WallDetector.HasOverlappingBodies();
 		}
 
 		protected void Jump()
