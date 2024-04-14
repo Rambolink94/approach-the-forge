@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=11 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="Script" path="res://GameManager.cs" id="1_7kf6s"]
-[ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Actors/player.tscn" id="2_c76nu"]
+[ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Entities/Player/player.tscn" id="2_c76nu"]
+[ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="3_mu17a"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
 [ext_resource type="Script" path="res://PlacementController.cs" id="5_dvmvm"]
@@ -19,11 +20,21 @@ script = ExtResource("1_7kf6s")
 
 [node name="PlacementController" type="Node2D" parent="."]
 script = ExtResource("5_dvmvm")
+_showDebugInfo = false
 
 [node name="PlacementRay" type="RayCast2D" parent="PlacementController"]
 target_position = Vector2(0, 5000)
 
+[node name="ValidityRay" type="RayCast2D" parent="PlacementController"]
+target_position = Vector2(0, 5000)
+collision_mask = 4
+
 [node name="PlaceableParent" type="Node2D" parent="PlacementController"]
+
+[node name="PlacementPlayer" type="AudioStreamPlayer2D" parent="PlacementController"]
+stream = ExtResource("3_mu17a")
+volume_db = 5.0
+max_distance = 10000.0
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -60,6 +71,8 @@ position = Vector2(-5312, 512)
 
 [node name="Player" parent="." instance=ExtResource("2_c76nu")]
 position = Vector2(-4675, 402)
+collision_layer = 2
+collision_mask = 9
 _gravityOverride = 1500.0
 
 [node name="AbilityUI" parent="." instance=ExtResource("7_sjsh6")]

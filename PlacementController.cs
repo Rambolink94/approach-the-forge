@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using System.Diagnostics;
 using Godot;
 
@@ -6,37 +6,48 @@ namespace ApproachTheForge;
 
 public partial class PlacementController : Node2D
 {
-	[Export] private int _snapIncrement = 64;
-	[Export] private bool _useSnapping = true;
+	[Export] private int _unitSize = 64;
+	[Export] private Color _invalidColor = Colors.Red;
+	[Export] private Color _validColor = Colors.Green;
 	[Export] private bool _showDebugInfo = true;
 	
-	private PackedScene _tower = GD.Load<PackedScene>("res://Actors/tower.tscn");
+	private PackedScene _tower = GD.Load<PackedScene>("res://Entities/Tower/tower.tscn");
+	private PackedScene _towerArtwork = GD.Load<PackedScene>("res://Entities/Tower/tower_placement_template.tscn");
 
-	private Dictionary<string, IPlaceable> _inputMap;
-	private Dictionary<IPlaceable, PackedScene> _instanceMap;
+	private System.Collections.Generic.Dictionary<string, IPlaceable> _inputMap;
+	private System.Collections.Generic.Dictionary<IPlaceable, PackedScene> _instanceMap;
 	private IPlaceable _activePlaceable;
 	private bool _placementActive;
 	private bool _validPlacement;
 	private bool _mouseButtonConsumed = true;
+	
 	private RayCast2D _placementRay;
+	private RayCast2D _validityRay;
 	private Camera2D _camera;
 	private Node2D _placeableParent;
+	private AudioStreamPlayer2D _audioStream;
+	
+	// Debug
+	private Vector2 _leftInvalidPosition;
+	private Vector2 _rightInvalidPosition;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_placeableParent = GetNode<Node2D>("PlaceableParent");
 		_placementRay = GetNode<RayCast2D>("PlacementRay");
+		_validityRay = GetNode<RayCast2D>("ValidityRay");
+		_audioStream = GetNode<AudioStreamPlayer2D>("PlacementPlayer");
 		_camera = GetViewport().GetCamera2D();
 
-		var tower = CreatePlaceable<IPlaceable>(GlobalPosition, _tower, false, this);
+		var tower = CreatePlaceable<IPlaceable>(GlobalPosition, _towerArtwork, false, this);
 
-		_inputMap = new Dictionary<string, IPlaceable>
+		_inputMap = new System.Collections.Generic.Dictionary<string, IPlaceable>
 		{
 			{ "player_tower_select", tower },
 		};
 
-		_instanceMap = new Dictionary<IPlaceable, PackedScene>
+		_instanceMap = new System.Collections.Generic.Dictionary<IPlaceable, PackedScene>
 		{
 			{ tower, _tower },
 		};
@@ -51,62 +62,19 @@ public partial class PlacementController : Node2D
 		if (!_placementActive) return;
 		
 		Vector2 mousePos = _camera.GetGlobalMousePosition();
-		
-		_placementRay.GlobalPosition = mousePos + Vector2.Up * GetViewport().GetVisibleRect().Size.Y;
+
+		Vector2 rayOffset = mousePos + Vector2.Up * GetViewport().GetVisibleRect().Size.Y;
+		_placementRay.GlobalPosition = rayOffset;
+		_validityRay.GlobalPosition = rayOffset;
 		
 		if (_placementRay.IsColliding())
 		{
 			Vector2 normal = _placementRay.GetCollisionNormal();
-			if (normal.Dot(Vector2.Up) >= 1)
-			{
-				_validPlacement = true;
-				Vector2 point = _placementRay.GetCollisionPoint();
-				if (_useSnapping)
-				{
-					var spaceState = GetWorld2D().DirectSpaceState;
-					var queryOffsetPos = point + Vector2.Up * _snapIncrement / 2;
-					var raycastRight = PhysicsRayQueryParameters2D.Create(queryOffsetPos, Vector2.Right * _snapIncrement);
-					var raycastLeft = PhysicsRayQueryParameters2D.Create(queryOffsetPos, Vector2.Left * _snapIncrement);
-
-					var leftIntersections = spaceState.IntersectRay(raycastLeft);
-					var rightIntersections = spaceState.IntersectRay(raycastRight);
-					if (leftIntersections.Count > 0
-					    || rightIntersections.Count > 0)
-					{
-						_validPlacement = false;
-					}
-					
-					point.X = Mathf.Round(point.X / _snapIncrement) * _snapIncrement;
-				}
-				
-				_activePlaceable.GlobalPosition = point;
-			}
-			else
-			{
-				GD.Print("INVALID");
-				_validPlacement = false;
-			}
-		}
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Left } mouseEvent
-		    && _placementActive
-		    && _validPlacement)
-		{
-			if (mouseEvent.Pressed && _mouseButtonConsumed)
-			{
-				_mouseButtonConsumed = false;
-				if (_instanceMap.TryGetValue(_activePlaceable, out PackedScene package))
-				{
-					CreatePlaceable<IPlaceable>(_activePlaceable.GlobalPosition, package, true);
-				}
-			}
-			else if (!mouseEvent.Pressed)
-			{
-				_mouseButtonConsumed = true;
-			}
+			Vector2 point = _placementRay.GetCollisionPoint();
+			bool isValid = normal.Dot(Vector2.Up) >= 1 && !_validityRay.IsColliding();
+			MarkValidity(isValid);
+			
+			_activePlaceable.GlobalPosition = point;
 		}
 	}
 
@@ -118,10 +86,6 @@ public partial class PlacementController : Node2D
 		DrawLine(
 			position + Vector2.Up * GetViewport().GetVisibleRect().Size.Y,
 			position, Colors.Aqua, 4f);
-
-		var offsetPos = position + Vector2.Up * _snapIncrement / 2;
-		DrawLine(offsetPos, offsetPos + Vector2.Right * _snapIncrement, Colors.Red, 4f);
-		DrawLine(offsetPos, offsetPos + Vector2.Left * _snapIncrement, Colors.Blue, 4f);
 	}
 
 	[Conditional("DEBUG")]
@@ -133,20 +97,43 @@ public partial class PlacementController : Node2D
 		}
 	}
 
-	private T CreatePlaceable<T>(Vector2 position, PackedScene package, bool isVisible, Node2D parent = null)
+	private void MarkValidity(bool isValid)
+	{
+		_validPlacement = isValid;
+		_activePlaceable.Sprite.Modulate = isValid ? _validColor : _invalidColor;
+	}
+
+	private T CreatePlaceable<T>(Vector2 position, PackedScene package, bool isVisible, Node2D parent = null, bool isReal = false)
 		where T : class, IPlaceable
 	{
 		var placeable = package.Instantiate<T>();
 		placeable.Visible = isVisible;
 		placeable.GlobalPosition = position;
-
+		
 		parent ??= _placeableParent;
-		parent.AddChild(placeable as Node2D);
+		if (placeable is Node2D node)
+		{
+			parent.AddChild(node);
+		}
+
+		if (isReal)
+		{
+			_audioStream.Play();
+		}
+
 		return placeable;
 	}
 
 	private void ProcessInput()
 	{
+		if (Input.IsActionJustPressed("player_action"))
+		{
+			if (_validPlacement && _instanceMap.TryGetValue(_activePlaceable, out PackedScene package))
+			{
+				CreatePlaceable<IPlaceable>(_activePlaceable.GlobalPosition, package, true, isReal: true);
+			}
+		}
+		
 		foreach (var pair in _inputMap)
 		{
 			if (!Input.IsActionJustPressed(pair.Key)) continue;
@@ -174,7 +161,11 @@ public partial class PlacementController : Node2D
 
 public interface IPlaceable
 {
+	public static event Action OnPlacement;
+	
 	public bool Visible { get; set; }
 	
 	public Vector2 GlobalPosition { get; set; }
+	
+	public Sprite2D Sprite { get; }
 }

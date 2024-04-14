@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dya7savn80y2y"]
 
-[ext_resource type="Script" path="res://Player.cs" id="1_2alft"]
+[ext_resource type="Script" path="res://Entities/Player/Player.cs" id="1_2alft"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="2_tu07s"]
 [ext_resource type="Texture2D" uid="uid://df55qkfq07tlg" path="res://Art/Placeholder/Puff.png" id="3_lhbfh"]
 
@@ -64,3 +64,6 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 local_coords = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
