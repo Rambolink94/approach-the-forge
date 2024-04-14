@@ -1,10 +1,6 @@
-using Godot;
-using Godot.Collections;
-using System;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 
-namespace ApproachTheForge {
+namespace ApproachTheForge.Entities.Golem {
 
 	public partial class EnemyGolemAI : GolemAI
 	{
@@ -17,7 +13,7 @@ namespace ApproachTheForge {
 			// Add the gravity.
 			if (!IsOnFloor())
 			{
-				this._Velocity.Y += gravity * (float)delta;
+				this._Velocity.Y += Gravity * (float)delta;
 			}
 
 			if(SearchForPlayerEntity())

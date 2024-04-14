@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dya7savn80y2y"]
+[gd_scene load_steps=9 format=3 uid="uid://dya7savn80y2y"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.cs" id="1_2alft"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="2_tu07s"]
@@ -29,10 +29,13 @@ scale_max = 0.5
 color_ramp = SubResource("GradientTexture1D_flj1y")
 turbulence_noise_speed_random = 2.39
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ommk4"]
+radius = 50.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_2alft")
 _overrideGravity = true
-_gravityOverride = 1000.0
+_gravityOverride = 1500.0
 _maxSpeed = 300.0
 _maxSprintSpeed = 600.0
 _acceleration = 10.0
@@ -67,3 +70,8 @@ local_coords = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
+
+[node name="CollectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionArea"]
+shape = SubResource("CircleShape2D_ommk4")

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ApproachTheForge.Entities;
+namespace ApproachTheForge.Utility;
 
 public partial class PlaceableTemplate : Node2D, IPlaceable
 {
