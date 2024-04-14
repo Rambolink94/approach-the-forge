@@ -43,11 +43,9 @@ namespace ApproachTheForge {
 
 		private bool SearchForPlayerEntity()
 		{
-			Area2D detectionArea = GetNode<Area2D>("Detection Area");
-
-			if (detectionArea.HasOverlappingBodies())
+			if (this.DetectionArea.HasOverlappingBodies())
 			{
-				this.Target = detectionArea.GetOverlappingBodies().FirstOrDefault();
+				this.Target = this.DetectionArea.GetOverlappingBodies().FirstOrDefault();
 
 				return true;
 			}

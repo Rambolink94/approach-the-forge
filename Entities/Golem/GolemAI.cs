@@ -22,14 +22,25 @@ namespace ApproachTheForge
 
 		protected abstract Bearing ObjectiveBearing { get; }
 
-		// Get the gravity from the project settings to be synced with RigidBody nodes.
-		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		protected Area2D WallDetector;
 
-		protected bool FindWalls()
+        protected Area2D DetectionArea;
+
+        // Get the gravity from the project settings to be synced with RigidBody nodes.
+        public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+
+        public override void _Ready()
+        {
+            base._Ready();
+
+			this.WallDetector = GetNode<Area2D>("Wall Detector");
+
+            this.DetectionArea = GetNode<Area2D>("Detection Area");
+        }
+
+        protected bool FindWalls()
 		{
-			Area2D wallDetector = GetNode<Area2D>("Wall Detector");
-
-			if(wallDetector.HasOverlappingBodies())
+			if(this.WallDetector.HasOverlappingBodies())
 			{
 				return true;
 			}
@@ -46,14 +57,11 @@ namespace ApproachTheForge
 
 		protected void FaceTarget()
 		{
-			Area2D wallDetector = GetNode<Area2D>("Wall Detector");
-
-			
 			float direction = this.Target.Position.X - this.Position.X;
 
 			this.Bearing = direction > 0 ? Bearing.Right : Bearing.Left;
 
-			wallDetector.Scale = new Vector2((int)this.Bearing, 1);		
+			this.WallDetector.Scale = new Vector2((int)this.Bearing, 1);		
 		}
 
 		protected void FaceObjective()
