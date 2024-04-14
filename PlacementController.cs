@@ -63,8 +63,6 @@ public partial class PlacementController : Node2D
 				Vector2 point = _placementRay.GetCollisionPoint();
 				if (_useSnapping)
 				{
-					/*
-					TODO: Revisit this.
 					var spaceState = GetWorld2D().DirectSpaceState;
 					var queryOffsetPos = point + Vector2.Up * _snapIncrement / 2;
 					var raycastRight = PhysicsRayQueryParameters2D.Create(queryOffsetPos, Vector2.Right * _snapIncrement);
@@ -77,7 +75,6 @@ public partial class PlacementController : Node2D
 					{
 						_validPlacement = false;
 					}
-					*/
 					
 					point.X = Mathf.Round(point.X / _snapIncrement) * _snapIncrement;
 				}

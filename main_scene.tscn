@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=10 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="Script" path="res://GameManager.cs" id="1_7kf6s"]
 [ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Actors/player.tscn" id="2_c76nu"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
-[ext_resource type="PackedScene" uid="uid://dbld08oxg712m" path="res://tileScene.tscn" id="5_4aey8"]
+[ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
 [ext_resource type="Script" path="res://PlacementController.cs" id="5_dvmvm"]
-[ext_resource type="PackedScene" uid="uid://vrenkrcqakkv" path="res://Actors/tower.tscn" id="6_mxjhl"]
 [ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
 [ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
 
@@ -25,10 +24,6 @@ script = ExtResource("5_dvmvm")
 target_position = Vector2(0, 5000)
 
 [node name="PlaceableParent" type="Node2D" parent="PlacementController"]
-
-[node name="Player" parent="." instance=ExtResource("2_c76nu")]
-position = Vector2(-4675, 402)
-_gravityOverride = 1500.0
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -63,8 +58,9 @@ shape = SubResource("RectangleShape2D_lc6w6")
 [node name="Tileset" parent="Environment" instance=ExtResource("5_4aey8")]
 position = Vector2(-5312, 512)
 
-[node name="Tower" parent="." instance=ExtResource("6_mxjhl")]
-position = Vector2(0, 376)
+[node name="Player" parent="." instance=ExtResource("2_c76nu")]
+position = Vector2(-4675, 402)
+_gravityOverride = 1500.0
 
 [node name="AbilityUI" parent="." instance=ExtResource("7_sjsh6")]
 
