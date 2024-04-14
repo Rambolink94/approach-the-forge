@@ -24,21 +24,21 @@ namespace ApproachTheForge
 
 		protected Area2D WallDetector;
 
-        protected Area2D DetectionArea;
+		protected Area2D DetectionArea;
 
-        // Get the gravity from the project settings to be synced with RigidBody nodes.
-        public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		// Get the gravity from the project settings to be synced with RigidBody nodes.
+		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
-        public override void _Ready()
-        {
-            base._Ready();
+		public override void _Ready()
+		{
+			base._Ready();
 
 			this.WallDetector = GetNode<Area2D>("Wall Detector");
 
-            this.DetectionArea = GetNode<Area2D>("Detection Area");
-        }
+			this.DetectionArea = GetNode<Area2D>("Detection Area");
+		}
 
-        protected bool FindWalls()
+		protected bool FindWalls()
 		{
 			if(this.WallDetector.HasOverlappingBodies())
 			{
@@ -68,9 +68,7 @@ namespace ApproachTheForge
 		{
 			this.Bearing = this.ObjectiveBearing;
 
-			Area2D wallDetector = GetNode<Area2D>("Wall Detector");
-
-			wallDetector.Scale = new Vector2((int)this.Bearing, 1);
+			this.WallDetector.Scale = new Vector2((int)this.Bearing, 1);
 		}
 	}
 }
