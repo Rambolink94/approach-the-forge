@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq2er6obga7om"]
+
+[ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_mgs2c"]
+[ext_resource type="Script" path="res://Entities/Golem/EnemyGolemAI.cs" id="2_ldfi0"]
+
+[node name="HostileGolem" instance=ExtResource("1_mgs2c")]
+script = ExtResource("2_ldfi0")
+
+[node name="EnvironmentCollision" parent="." index="0"]
+position = Vector2(0.5, 1.5)
