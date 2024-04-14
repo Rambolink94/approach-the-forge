@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vrenkrcqakkv"]
+
+[ext_resource type="Script" path="res://Entities/Tower/Tower.cs" id="1_yu8en"]
+[ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_q6c2o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3hdm"]
+size = Vector2(76, 152)
+
+[node name="Tower" type="Node2D"]
+script = ExtResource("1_yu8en")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -96)
+texture = ExtResource("2_q6c2o")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -76)
+shape = SubResource("RectangleShape2D_i3hdm")

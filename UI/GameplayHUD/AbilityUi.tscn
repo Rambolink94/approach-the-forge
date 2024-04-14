@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://bexgxquxepwnq"]
+
+[ext_resource type="Texture2D" uid="uid://tyri0xiae4o1" path="res://Art/ResourceImages/resourceBorder-32x32.png" id="1_mjar5"]
+
+[node name="AbilityUI" type="CanvasLayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.59
+offset_top = -88.0
+offset_right = 268.59
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="TowerButton" type="TextureButton" parent="HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture_normal = ExtResource("1_mjar5")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/TowerButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TOWER"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="GolemButton" type="TextureButton" parent="HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture_normal = ExtResource("1_mjar5")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/GolemButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GOLEM"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="DashButton" type="TextureButton" parent="HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture_normal = ExtResource("1_mjar5")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/DashButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "DASH"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

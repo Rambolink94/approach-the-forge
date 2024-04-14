@@ -19,11 +19,15 @@ public partial class Player : CharacterBody2D
 	private bool _isSprinting;
 	private float _gravity;
 	private Vector2 _velocity;
+	private Sprite2D _sprite;
+	private GpuParticles2D _jumpPuff;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_gravity = _overrideGravity ? _gravityOverride : _defaultGravity;
+		_sprite = GetNode<Sprite2D>("PlayerArt");
+		_jumpPuff = GetNode<GpuParticles2D>("JumpPuff");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,13 +66,21 @@ public partial class Player : CharacterBody2D
 	{
 		var input = new Vector2();
 		if (Input.IsActionPressed("player_left"))
+		{
 			input.X = -1;
+			_sprite.FlipH = true;
+		}
+
 		if (Input.IsActionPressed("player_right"))
+		{
 			input.X = 1;
+			_sprite.FlipH = false;
+		}
 
 		_input = input.Normalized();
 		if (Input.IsActionJustPressed("player_jump") && IsOnFloor())
 		{
+			_jumpPuff.Restart();
 			_velocity.Y = -_jumpVelocity;
 		}
 

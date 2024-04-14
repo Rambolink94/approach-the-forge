@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://k6l7nrvosfuj"]
+
+[ext_resource type="Script" path="res://Entities/PlaceableTemplate.cs" id="1_d2qnt"]
+[ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_4huhx"]
+
+[node name="Artwork" type="Node2D"]
+position = Vector2(0, 379)
+script = ExtResource("1_d2qnt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -96)
+texture = ExtResource("2_4huhx")
