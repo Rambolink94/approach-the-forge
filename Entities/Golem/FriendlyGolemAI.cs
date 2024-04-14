@@ -19,39 +19,30 @@ public partial class FriendlyGolemAI : GolemAI
 
 	public override void _PhysicsProcess(double delta)
 	{
-		this._Velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor())
-		{
-			this._Velocity.Y += gravity * (float)delta;
-		}
+		base._PhysicsProcess(delta);
 
 		if (SearchForEnemies())
 		{
 			this.FaceTarget();
+		}
+		else
+		{
+			this.FaceObjective();
+		}
+	}
 
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+
+		if (SearchForEnemies())
+		{
 			this.AttackTargetInRange();
 		}
 		else
 		{
 			this.FaceObjective();
 		}
-
-		if (this.FindWalls())
-		{
-			this.Jump();
-		}
-
-		this._Velocity.X = this.CurrentState == GolemStates.Walking ? (int)this.Bearing * Speed : 0;
-
-		this.Velocity = this._Velocity + this.TotalKnockback;
-
-		this.TotalKnockback = new Vector2();
-
-
-		MoveAndSlide();
-		ManageAnimation();
 	}
 
 	public bool SearchForEnemies()

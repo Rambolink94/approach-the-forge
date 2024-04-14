@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://PlacementController.cs" id="5_dvmvm"]
 [ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
 [ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
-[ext_resource type="PackedScene" uid="uid://bq2er6obga7om" path="res://Entities/Golem/Hostile_Golem.tscn" id="5_lk62w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
 size = Vector2(3000, 383)

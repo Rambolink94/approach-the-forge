@@ -45,3 +45,7 @@ shape = SubResource("SegmentShape2D_nh1un")
 [node name="Rate Of Fire Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="Attack Delay Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
