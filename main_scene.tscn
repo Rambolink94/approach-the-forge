@@ -1,13 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=11 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="Script" path="res://GameManager.cs" id="1_7kf6s"]
-[ext_resource type="Script" path="res://Player.cs" id="2_c156m"]
-[ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="3_blnnn"]
+[ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Actors/player.tscn" id="2_c76nu"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06dbx"]
-radius = 14.0
-height = 62.0
+[ext_resource type="PackedScene" uid="uid://dbld08oxg712m" path="res://tileScene.tscn" id="5_4aey8"]
+[ext_resource type="Script" path="res://PlacementController.cs" id="5_dvmvm"]
+[ext_resource type="PackedScene" uid="uid://vrenkrcqakkv" path="res://Actors/tower.tscn" id="6_mxjhl"]
+[ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
+[ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
 size = Vector2(3000, 383)
@@ -18,38 +18,24 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_7kf6s")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(547, 442)
-script = ExtResource("2_c156m")
-_overrideGravity = true
-_gravityOverride = 1000.0
-_maxSpeed = 300.0
-_maxSprintSpeed = 600.0
-_acceleration = 10.0
-_sprintAcceleration = 40.0
-_deceleration = 10.0
-_jumpVelocity = 500.0
+[node name="PlacementController" type="Node2D" parent="."]
+script = ExtResource("5_dvmvm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CapsuleShape2D_06dbx")
+[node name="PlacementRay" type="RayCast2D" parent="PlacementController"]
+target_position = Vector2(0, 5000)
 
-[node name="PlayerArt" type="Sprite2D" parent="Player"]
-texture_filter = 1
-texture = ExtResource("3_blnnn")
+[node name="PlaceableParent" type="Node2D" parent="PlacementController"]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-limit_left = -925
-limit_right = 2080
-limit_smoothed = true
-position_smoothing_enabled = true
-editor_draw_limits = true
+[node name="Player" parent="." instance=ExtResource("2_c76nu")]
+position = Vector2(-4675, 402)
+_gravityOverride = 1500.0
 
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="Floor" type="Sprite2D" parent="Environment"]
 texture_filter = 1
 texture_repeat = 3
-position = Vector2(581, 509)
+position = Vector2(5599, 542)
 texture = ExtResource("4_x7sl4")
 region_enabled = true
 region_rect = Rect2(0, 0, 3000, 63)
@@ -61,15 +47,25 @@ position = Vector2(0, 160.5)
 shape = SubResource("RectangleShape2D_1aqxm")
 
 [node name="Wall" type="StaticBody2D" parent="Environment"]
-position = Vector2(-920, 0)
+position = Vector2(-5313, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall"]
 position = Vector2(-25, 0)
 shape = SubResource("RectangleShape2D_lc6w6")
 
 [node name="Wall2" type="StaticBody2D" parent="Environment"]
-position = Vector2(2127, 0)
+position = Vector2(6634, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Wall2"]
 position = Vector2(-25, 0)
 shape = SubResource("RectangleShape2D_lc6w6")
+
+[node name="Tileset" parent="Environment" instance=ExtResource("5_4aey8")]
+position = Vector2(-5312, 512)
+
+[node name="Tower" parent="." instance=ExtResource("6_mxjhl")]
+position = Vector2(0, 376)
+
+[node name="AbilityUI" parent="." instance=ExtResource("7_sjsh6")]
+
+[node name="ResourceDisplay" parent="." instance=ExtResource("8_cca78")]

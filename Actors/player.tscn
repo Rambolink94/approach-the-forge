@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://dya7savn80y2y"]
+
+[ext_resource type="Script" path="res://Player.cs" id="1_2alft"]
+[ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="2_tu07s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06dbx"]
+radius = 14.0
+height = 62.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(-308, 236)
+script = ExtResource("1_2alft")
+_overrideGravity = true
+_gravityOverride = 1000.0
+_maxSpeed = 300.0
+_maxSprintSpeed = 600.0
+_acceleration = 10.0
+_sprintAcceleration = 40.0
+_deceleration = 10.0
+_jumpVelocity = 500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_06dbx")
+
+[node name="PlayerArt" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_tu07s")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -5320
+limit_right = 6590
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
