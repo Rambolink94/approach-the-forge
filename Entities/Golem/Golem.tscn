@@ -1,0 +1,83 @@
+[gd_scene load_steps=15 format=3 uid="uid://dktkrx7x5q72l"]
+
+[ext_resource type="Texture2D" uid="uid://bvgdvkxpeu71i" path="res://Entities/Golem/GolemWalk/sprite_00.png" id="1_pn4b6"]
+[ext_resource type="Texture2D" uid="uid://bobhpjdhpiyvf" path="res://Entities/Golem/GolemWalk/sprite_02.png" id="2_5sdhb"]
+[ext_resource type="Texture2D" uid="uid://nrpqs06whdf" path="res://Entities/Golem/GolemWalk/sprite_01.png" id="3_18x83"]
+[ext_resource type="Texture2D" uid="uid://bf1yc37jqrv2w" path="res://Entities/Golem/GolemWalk/sprite_03.png" id="4_qquny"]
+[ext_resource type="Texture2D" uid="uid://coyuw6uhma5sp" path="res://Entities/Golem/GolemWalk/sprite_04.png" id="5_3ihbd"]
+[ext_resource type="Texture2D" uid="uid://y4h73qu1fwv3" path="res://Entities/Golem/GolemWalk/sprite_05.png" id="6_vbpgr"]
+[ext_resource type="Texture2D" uid="uid://drcoewkp1gff2" path="res://Entities/Golem/GolemWalk/sprite_06.png" id="7_20pjo"]
+[ext_resource type="Texture2D" uid="uid://bf5fah5qbvepo" path="res://Entities/Golem/GolemWalk/sprite_07.png" id="8_q64me"]
+[ext_resource type="Texture2D" uid="uid://chg15lwius8ve" path="res://Entities/Golem/GolemWalk/sprite_08.png" id="9_ep87y"]
+[ext_resource type="Texture2D" uid="uid://b4s4r06m5bfa" path="res://Entities/Golem/GolemWalk/sprite_09.png" id="10_6vs25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5heab"]
+size = Vector2(35, 63)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r300n"]
+radius = 300.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_nh1un"]
+b = Vector2(20, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7680n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pn4b6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5sdhb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_18x83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qquny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3ihbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vbpgr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_20pjo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_q64me")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ep87y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_6vs25")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[node name="Golem" type="CharacterBody2D"]
+
+[node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5heab")
+
+[node name="Detection Area" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
+shape = SubResource("CircleShape2D_r300n")
+
+[node name="Wall Detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall Detector"]
+position = Vector2(20, 0)
+shape = SubResource("SegmentShape2D_nh1un")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7680n")
+animation = &"Walk"
