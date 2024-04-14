@@ -8,7 +8,7 @@ namespace ApproachTheForge
 		Left = -1,
 		Right = 1,
 	}
-	public abstract partial class GolemAI : CharacterBody2D
+	public abstract partial class GolemAI : CharacterBody2D, Damageable
 	{
 		public const float Speed = 100.0f;
 		public const float JumpVelocity = -100.0f;
@@ -21,8 +21,10 @@ namespace ApproachTheForge
 
 		protected abstract Bearing ObjectiveBearing { get; }
 
+		protected GolemStates CurrentState;
+
 		/// <summary>
-		///  Components fields
+		///		Components fields
 		/// </summary>
 		protected Area2D WallDetector;
 
@@ -32,7 +34,21 @@ namespace ApproachTheForge
 
 		protected AnimatedSprite2D AnimatedSprite;
 
-		protected GolemStates CurrentState;
+		protected Timer AttackTimer;
+
+		/// <summary>
+		///		Combat fields and properties
+		/// </summary>
+		protected abstract double RateOfFire { get; }
+
+		protected bool CanAttack => this.AttackTimer.TimeLeft == 0;
+
+		protected abstract DamageData DamageToApply { get; }
+
+		protected abstract double Health { get; set; }
+
+		protected Vector2 TotalKnockback = new Vector2();
+
 
 		// Get the gravity from the project settings to be synced with RigidBody nodes.
 		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -48,6 +64,10 @@ namespace ApproachTheForge
 			this.WallDetector = this.GetNode<Area2D>("Wall Detector");
 
 			this.AnimatedSprite = this.GetNode<AnimatedSprite2D>("Animated Golem");
+
+			this.AttackTimer = this.GetNode<Timer>("Rate Of Fire Timer");
+
+			this.AttackTimer.Start(this.RateOfFire);
 		}
 
 		protected void AttackTargetInRange()
@@ -55,6 +75,16 @@ namespace ApproachTheForge
 			if (this.AttackRange.GetOverlappingBodies().Contains(this.Target))
 			{
 				this.CurrentState = GolemStates.Attacking;
+
+				if (CanAttack)
+				{
+					if(this.Target is Damageable)
+					{
+						(this.Target as Damageable).ApplyDamage(this.DamageToApply);
+					}
+					this.AttackTimer.Start(this.RateOfFire);
+					this.AttackTimer.Paused = false;
+				}
 			}
 			else
 			{
@@ -112,6 +142,21 @@ namespace ApproachTheForge
 			}
 		}
 
+		public bool ApplyDamage(DamageData damageData)
+		{
+			this.TotalKnockback += damageData.Knockback;
+
+			if (this.Health - damageData.Damage <= 0)
+			{
+				this.Health = 0;
+				return true;
+			}
+			else
+			{
+				this.Health -= damageData.Damage;
+				return false;
+			}
+		}
 	}
 }
 

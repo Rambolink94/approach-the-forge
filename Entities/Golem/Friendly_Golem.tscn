@@ -57,7 +57,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Golem Attack",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -102,7 +102,7 @@ position = Vector2(0, 2)
 
 [node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_oe635")
-animation = &"Golem Attack"
+animation = &"Golem Walk"
 
 [node name="Detection Area" parent="." index="2"]
 collision_layer = 16

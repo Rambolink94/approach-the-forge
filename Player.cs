@@ -2,7 +2,7 @@ using Godot;
 
 namespace ApproachTheForge;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, Damageable
 {
 	[Export] private bool _overrideGravity;
 	[Export] private float _gravityOverride = 10;
@@ -76,5 +76,10 @@ public partial class Player : CharacterBody2D
 		{
 			_isSprinting = !_isSprinting;
 		}
+	}
+
+	public bool ApplyDamage(DamageData damageInstance)
+	{
+		return false;
 	}
 }
