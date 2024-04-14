@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq2er6obga7om"]
+
+[ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_mgs2c"]
+[ext_resource type="Script" path="res://Entities/Golem/EnemyGolemAI.cs" id="2_ldfi0"]
+[ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="3_7upu2"]
+
+[node name="HostileGolem" instance=ExtResource("1_mgs2c")]
+script = ExtResource("2_ldfi0")
+
+[node name="EnvironmentCollision" parent="." index="0"]
+position = Vector2(0.5, 1.5)
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_7upu2")
