@@ -153,9 +153,12 @@ namespace ApproachTheForge
 				{
 					this.IsAttacking = true;
 
-					// Trigger the damage halfway through the attack animation
-					this.AttackDelayTimer.Start(this.RateOfFire/2);
+					// The strike is on the 7th frame out of the 10 frame animation and the rate of fire is 1:1 with the attack animation
+					this.AttackDelayTimer.Start( 7 * this.RateOfFire / 10);
 					this.AttackDelayTimer.Paused = false;
+
+					this.AttackTimer.Start(this.RateOfFire);
+					this.AttackTimer.Paused = false;
 				}
 			}
 			else
@@ -166,7 +169,7 @@ namespace ApproachTheForge
 
 		protected void ApplyDamageOnDelay()
 		{
-			if (this.AttackDelayTimer.TimeLeft == 0 && CanAttack)
+			if (this.AttackDelayTimer.TimeLeft == 0)
 			{
 				if (this.Target is Damageable)
 				{
@@ -174,11 +177,10 @@ namespace ApproachTheForge
 					{
 						// The target will remove itself from the game. Update the target reference
 						this.Target = new Node2D();
-
-						this.AttackTimer.Start(this.RateOfFire);
-						this.AttackTimer.Paused = false;
 					}
 				}
+
+				this.IsAttacking = false;
 			}
 		}
 

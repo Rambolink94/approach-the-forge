@@ -137,7 +137,7 @@ position = Vector2(0, 3)
 
 [node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_hme2t")
-animation = &"Golem Walk"
+animation = &"Golem Attack"
 
 [node name="Detection Area" parent="." index="2"]
 collision_mask = 14

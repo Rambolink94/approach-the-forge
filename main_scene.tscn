@@ -71,7 +71,6 @@ position = Vector2(-5312, 512)
 
 [node name="Player" parent="." instance=ExtResource("2_c76nu")]
 position = Vector2(-4675, 402)
-collision_layer = 2
 collision_mask = 9
 _gravityOverride = 1500.0
 
