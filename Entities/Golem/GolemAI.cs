@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Runtime.InteropServices.ObjectiveC;
 
 namespace ApproachTheForge
 {
@@ -18,13 +17,22 @@ namespace ApproachTheForge
 
 		protected Vector2 _Velocity = new Vector2();
 
-		protected Node2D Target = new Node2D();
+		protected Node2D Target;
 
 		protected abstract Bearing ObjectiveBearing { get; }
 
+		/// <summary>
+		///  Components fields
+		/// </summary>
 		protected Area2D WallDetector;
 
 		protected Area2D DetectionArea;
+
+		protected Area2D AttackRange;
+
+		protected AnimatedSprite2D AnimatedSprite;
+
+		protected GolemStates CurrentState;
 
 		// Get the gravity from the project settings to be synced with RigidBody nodes.
 		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -33,9 +41,25 @@ namespace ApproachTheForge
 		{
 			base._Ready();
 
-			this.WallDetector = GetNode<Area2D>("Wall Detector");
-
 			this.DetectionArea = GetNode<Area2D>("Detection Area");
+
+			this.AttackRange = this.DetectionArea.GetNode<Area2D>("Attack Range");
+
+			this.WallDetector = this.GetNode<Area2D>("Wall Detector");
+
+			this.AnimatedSprite = this.GetNode<AnimatedSprite2D>("Animated Golem");
+		}
+
+		protected void AttackTargetInRange()
+		{
+			if (this.AttackRange.GetOverlappingBodies().Contains(this.Target))
+			{
+				this.CurrentState = GolemStates.Attacking;
+			}
+			else
+			{
+				this.CurrentState = GolemStates.Walking;
+			}
 		}
 
 		protected bool FindWalls()
@@ -70,6 +94,24 @@ namespace ApproachTheForge
 
 			this.WallDetector.Scale = new Vector2((int)this.Bearing, 1);
 		}
+
+		protected void ManageAnimation()
+		{
+			// The negative 1 is because the drawn animation is facing to the left to start.
+			this.AnimatedSprite.Scale = new Vector2((int)this.Bearing * -1, 1);
+			switch (this.CurrentState)
+			{
+				case GolemStates.Walking:
+					this.AnimatedSprite.Play("Golem Walk");
+					break;
+				case GolemStates.Attacking:
+					this.AnimatedSprite.Play("Golem Attack");
+					break;
+				case GolemStates.Jumping:
+					break;
+			}
+		}
+
 	}
 }
 

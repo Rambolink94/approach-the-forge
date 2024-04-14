@@ -1,0 +1,115 @@
+[gd_scene load_steps=23 format=3 uid="uid://b2rfeky5c4pqn"]
+
+[ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_uqcce"]
+[ext_resource type="Script" path="res://Entities/Golem/FriendlyGolemAI.cs" id="2_eb38k"]
+[ext_resource type="Texture2D" uid="uid://bwac5hvvq3xgp" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_00.png" id="2_iq5jl"]
+[ext_resource type="Texture2D" uid="uid://bp75cx2mfcoy3" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_01.png" id="3_3x6rf"]
+[ext_resource type="Texture2D" uid="uid://dhoba13borhu" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_02.png" id="4_nhsy2"]
+[ext_resource type="Texture2D" uid="uid://hsjaatrusu3v" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_03.png" id="5_o5cam"]
+[ext_resource type="Texture2D" uid="uid://c2fdq46fc7l6w" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_04.png" id="6_hckhu"]
+[ext_resource type="Texture2D" uid="uid://tp3itgqs2s0k" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_05.png" id="7_hlbhc"]
+[ext_resource type="Texture2D" uid="uid://cv1qk6arvnp27" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_06.png" id="8_mw2xu"]
+[ext_resource type="Texture2D" uid="uid://cs0tjn3whnpiu" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_07.png" id="9_m76xr"]
+[ext_resource type="Texture2D" uid="uid://d24xhc56ysjpt" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_08.png" id="10_oil33"]
+[ext_resource type="Texture2D" uid="uid://b63mbi6vbgoxm" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_09.png" id="11_q0hel"]
+[ext_resource type="Texture2D" uid="uid://f6hl8p4t6hyn" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_0.png" id="12_wnr2q"]
+[ext_resource type="Texture2D" uid="uid://b3yino1uilci5" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_1.png" id="13_ei3jf"]
+[ext_resource type="Texture2D" uid="uid://q80gx34n6tag" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_2.png" id="14_e4nbf"]
+[ext_resource type="Texture2D" uid="uid://dcuyienqq4gwl" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_3.png" id="15_akprw"]
+[ext_resource type="Texture2D" uid="uid://mr170d1wb2iv" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_4.png" id="16_ovqf7"]
+[ext_resource type="Texture2D" uid="uid://b7yceg6xvrxd6" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_5.png" id="17_k5e03"]
+[ext_resource type="Texture2D" uid="uid://i82cpgylju53" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_6.png" id="18_fi8ky"]
+[ext_resource type="Texture2D" uid="uid://cng8uaexecbno" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_7.png" id="19_3tg4r"]
+[ext_resource type="Texture2D" uid="uid://cna4d1wwd2b" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_8.png" id="20_hctyv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oe635"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iq5jl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3x6rf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nhsy2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o5cam")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hckhu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hlbhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mw2xu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_m76xr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_oil33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_q0hel")
+}],
+"loop": true,
+"name": &"Golem Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_wnr2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ei3jf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_e4nbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_akprw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ovqf7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_k5e03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_fi8ky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_3tg4r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_hctyv")
+}],
+"loop": true,
+"name": &"Golem Walk",
+"speed": 6.0
+}]
+
+[node name="Friendly Golem" instance=ExtResource("1_uqcce")]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("2_eb38k")
+
+[node name="EnvironmentCollision" parent="." index="0"]
+position = Vector2(0, 2)
+
+[node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_oe635")
+animation = &"Golem Attack"
+
+[node name="Detection Area" parent="." index="2"]
+collision_layer = 16
+collision_mask = 16
+
+[node name="Attack Range" parent="Detection Area" index="1"]
+collision_mask = 16
+
+[node name="Wall Detector" parent="." index="3"]
+collision_mask = 1

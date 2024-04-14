@@ -23,6 +23,8 @@ namespace ApproachTheForge {
 			if(SearchForPlayerEntity())
 			{
 				this.FaceTarget();
+
+				this.AttackTargetInRange();
 			}
 			else
 			{
@@ -34,11 +36,12 @@ namespace ApproachTheForge {
 				this.Jump();
 			}
 
-			this._Velocity.X = (int)this.Bearing * Speed;
+			this._Velocity.X = this.CurrentState == GolemStates.Walking ? (int)this.Bearing * Speed : 0;
 
 			this.Velocity = this._Velocity;
 
 			MoveAndSlide();
+			ManageAnimation();
 		}
 
 		private bool SearchForPlayerEntity()

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Player.cs" id="2_c156m"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="3_blnnn"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
-[ext_resource type="PackedScene" uid="uid://bq2er6obga7om" path="res://Entities/Golem/hostile_golem.tscn" id="5_lk62w"]
+[ext_resource type="PackedScene" uid="uid://bq2er6obga7om" path="res://Entities/Golem/Hostile_Golem.tscn" id="5_lk62w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06dbx"]
 radius = 14.0
