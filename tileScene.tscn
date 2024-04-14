@@ -7705,7 +7705,7 @@ texture = ExtResource("1_k0s2p")
 63:33/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_i361x"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 129
 sources/0 = SubResource("TileSetAtlasSource_hw4n7")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhvn2"]
@@ -7723,7 +7723,7 @@ layer_0/tile_data = PackedInt32Array(0, 0, 40, 65536, 0, 41, 131072, 0, 42, 1966
 position = Vector2(4249, -227)
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(10522, -76)
+position = Vector2(3326, -152)
 collision_layer = 11
 script = ExtResource("3_sev6j")
 _overrideGravity = true

@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dktkrx7x5q72l"]
+[gd_scene load_steps=5 format=3 uid="uid://dktkrx7x5q72l"]
+
+[ext_resource type="Script" path="res://Entities/Golem/GolemAI.cs" id="1_8tbi5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5heab"]
 size = Vector2(35, 63)
@@ -6,16 +8,28 @@ size = Vector2(35, 63)
 [sub_resource type="CircleShape2D" id="CircleShape2D_r300n"]
 radius = 300.0
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_nh1un"]
+b = Vector2(20, 0)
+
 [node name="Golem" type="CharacterBody2D"]
+script = ExtResource("1_8tbi5")
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5heab")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="Detection Area" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
 shape = SubResource("CircleShape2D_r300n")
+
+[node name="Wall Detector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall Detector"]
+position = Vector2(20, 0)
+shape = SubResource("SegmentShape2D_nh1un")

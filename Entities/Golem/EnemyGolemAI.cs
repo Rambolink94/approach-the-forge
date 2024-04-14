@@ -5,53 +5,55 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 
 namespace ApproachTheForge {
-	public enum Bearing
+
+	public partial class EnemyGolemAI : GolemAI
 	{
-		Left = -1,
-		Right = 1,
-	}
-
-	public partial class EnemyGolemAI : CharacterBody2D
-	{
-		public const float Speed = 100.0f;
-
-		public Bearing Bearing = Bearing.Left;
-
-		public int DetectionRange = 200;
-
-		// Get the gravity from the project settings to be synced with RigidBody nodes.
-		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		protected override Bearing ObjectiveBearing => Bearing.Left;
 
 		public override void _PhysicsProcess(double delta)
 		{
-			Vector2 velocity = Velocity;
+			this._Velocity = Velocity;
 
 			// Add the gravity.
 			if (!IsOnFloor())
 			{
-				velocity.Y += gravity * (float)delta;
+				this._Velocity.Y += gravity * (float)delta;
 			}
 
-			SearchForPlayerEntity();
+			if(SearchForPlayerEntity())
+			{
+				this.FaceTarget();
+			}
+			else
+			{
+				this.FaceObjective();
+			}
 
-			velocity.X = (int)this.Bearing * Speed;
+			if(this.FindWalls())
+			{
+				this.Jump();
+			}
 
-			this.Velocity = velocity;
+			this._Velocity.X = (int)this.Bearing * Speed;
+
+			this.Velocity = this._Velocity;
 
 			MoveAndSlide();
 		}
 
-		private void SearchForPlayerEntity()
+		private bool SearchForPlayerEntity()
 		{
-			Area2D detectionArea = GetNode<Area2D>("DetectionArea");
+			Area2D detectionArea = GetNode<Area2D>("Detection Area");
 
 			if (detectionArea.HasOverlappingBodies())
 			{
-				Node2D firstTarget = detectionArea.GetOverlappingBodies().FirstOrDefault();
+				this.Target = detectionArea.GetOverlappingBodies().FirstOrDefault();
 
-				float direction = firstTarget.Position.X - this.Position.X;
-
-				this.Bearing = direction > 0 ? Bearing.Right : Bearing.Left;
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 	}

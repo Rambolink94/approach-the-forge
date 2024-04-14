@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|d:\\godotprojects\\approachtheforge\\approach-the-forge\\entities\\golem\\enemygolemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:entities\\golem\\enemygolemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|d:\\godotprojects\\approachtheforge\\approach-the-forge\\entities\\golem\\golemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:entities\\golem\\golemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GolemAI.cs",
+              "DocumentMoniker": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\GolemAI.cs",
+              "RelativeDocumentMoniker": "Entities\\Golem\\GolemAI.cs",
+              "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\GolemAI.cs",
+              "RelativeToolTip": "Entities\\Golem\\GolemAI.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAQwEAAAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T03:54:07.896Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +41,7 @@
               "RelativeDocumentMoniker": "Entities\\Golem\\EnemyGolemAI.cs",
               "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\EnemyGolemAI.cs",
               "RelativeToolTip": "Entities\\Golem\\EnemyGolemAI.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAAcAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAC0AAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-13T23:44:32.933Z",
               "EditorCaption": ""
