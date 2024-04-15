@@ -108,7 +108,7 @@ namespace ApproachTheForge.Entities.Golem
 			// Add the gravity.
 			if (!IsOnFloor())
 			{
-				this._Velocity.Y += gravity * (float)delta;
+				this._Velocity.Y += Gravity * (float)delta;
 			}
 
 			if(this.FindWalls())
