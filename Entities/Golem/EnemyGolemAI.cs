@@ -6,17 +6,21 @@ namespace ApproachTheForge.Entities.Golem {
 	{
 		protected override Bearing ObjectiveBearing => Bearing.Left;
 
+		protected override double RateOfFire => 1.5;
+
+		protected override DamageData DamageToApply => new DamageData() 
+		{
+			Damage = 30,
+			Knockback = new Vector2((int)this.Bearing * 300, 0),
+		};
+
+		protected override double Health { get; set; } = 100;
+
 		public override void _PhysicsProcess(double delta)
 		{
-			this._Velocity = Velocity;
+			base._PhysicsProcess(delta);
 
-			// Add the gravity.
-			if (!IsOnFloor())
-			{
-				this._Velocity.Y += Gravity * (float)delta;
-			}
-
-			if(SearchForPlayerEntity())
+			if (SearchForPlayerEntity())
 			{
 				this.FaceTarget();
 			}
@@ -24,17 +28,20 @@ namespace ApproachTheForge.Entities.Golem {
 			{
 				this.FaceObjective();
 			}
+		}
 
-			if(this.FindWalls())
+		public override void _Process(double delta)
+		{
+			base._Process(delta);
+
+			if (SearchForPlayerEntity())
 			{
-				this.Jump();
+				this.AttackTargetInRange();
 			}
-
-			this._Velocity.X = (int)this.Bearing * Speed;
-
-			this.Velocity = this._Velocity;
-
-			MoveAndSlide();
+			else
+			{
+				this.FaceObjective();
+			}
 		}
 
 		private bool SearchForPlayerEntity()
