@@ -8,6 +8,8 @@ size = Vector2(76, 152)
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_yu8en")
+ResourceType = 2
+ResourceConsumptionAmount = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -96)

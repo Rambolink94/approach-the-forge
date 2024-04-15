@@ -1,5 +1,6 @@
+using System;
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 
 namespace ApproachTheForge.Utility;
 
@@ -12,12 +13,12 @@ public partial class ResourceManager : Node2D
 	public delegate void ResourceChangedEventHandler(ResourceType resourceType, int newCount);
 	public static event ResourceChangedEventHandler ResourceChanged;
 
-	private Dictionary<ResourceType, int> _resourceMap;
+	private Godot.Collections.Dictionary<ResourceType, int> _resourceMap;
     
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_resourceMap = new Dictionary<ResourceType, int>()
+		_resourceMap = new Godot.Collections.Dictionary<ResourceType, int>()
 		{
 			{ ResourceType.Common, _initialCommon },
 			{ ResourceType.Rare, _initialRare },
@@ -41,6 +42,19 @@ public partial class ResourceManager : Node2D
 		return false;
 	}
 
+	public void AddResource(ResourceType resourceType, int count = 1)
+	{
+		if (_resourceMap.TryGetValue(resourceType, out var current))
+		{
+			var newCount = current + count;
+			_resourceMap[resourceType] = newCount;
+			ResourceChanged?.Invoke(resourceType, newCount);
+			return;
+		}
+
+		throw new InvalidOperationException($"Resource type of {resourceType} is not valid");
+	}
+
 	private void Init()
 	{
 		ResourceChanged?.Invoke(ResourceType.Common, _initialCommon);
@@ -51,6 +65,7 @@ public partial class ResourceManager : Node2D
 
 public enum ResourceType
 {
+	None,
 	Common,
 	Rare,
 	Super

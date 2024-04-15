@@ -96,16 +96,20 @@ animations = [{
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("2_eb38k")
+ResourceType = 1
+ResourceConsumptionAmount = 10
 
 [node name="EnvironmentCollision" parent="." index="0"]
-position = Vector2(0, 2)
+position = Vector2(0, -38)
 
 [node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
+position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_oe635")
 animation = &"Golem Walk"
 
 [node name="Detection Area" parent="." index="2"]
+position = Vector2(0, -40)
 collision_layer = 16
 collision_mask = 16
 
@@ -113,4 +117,5 @@ collision_mask = 16
 collision_mask = 16
 
 [node name="Wall Detector" parent="." index="3"]
+position = Vector2(0, -40)
 collision_mask = 1

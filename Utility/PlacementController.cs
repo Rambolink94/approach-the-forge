@@ -16,8 +16,6 @@ public partial class PlacementController : Node2D
 	
 	private PackedScene _tower = GD.Load<PackedScene>("res://Entities/Tower/tower.tscn");
 	private PackedScene _golem = GD.Load<PackedScene>("res://Entities/Golem/Friendly_Golem.tscn");
-	private PackedScene _towerArtwork = GD.Load<PackedScene>("res://Entities/Tower/tower_placement_template.tscn");
-	private PackedScene _golemArtwork = GD.Load<PackedScene>("res://Entities/Golem/golem_placement_template.tscn");
 
 	private Dictionary<string, IPlaceable> _inputMap;
 	private Dictionary<IPlaceable, PackedScene> _instanceMap;
@@ -46,8 +44,8 @@ public partial class PlacementController : Node2D
 		_audioStream = GetNode<AudioStreamPlayer2D>("PlacementPlayer");
 		_gameManager = GetNode<GameManager>("../GameManager");
 
-		var tower = CreatePlaceable<IPlaceable>(GlobalPosition, _towerArtwork, false, typeof(Tower), this);
-		var golem = CreatePlaceable<IPlaceable>(GlobalPosition, _golemArtwork, false, typeof(FriendlyGolemAI), this);
+		var tower = CreatePlaceable<IPlaceable>(GlobalPosition, _tower, false, this);
+		var golem = CreatePlaceable<IPlaceable>(GlobalPosition, _golem, false, this);
 
 		_inputMap = new Dictionary<string, IPlaceable>
 		{
@@ -87,7 +85,7 @@ public partial class PlacementController : Node2D
 			               && (!_validityRay.IsColliding()
 			                   || _validityRay.GetCollider() is Node2D collider
 			                   && collider.GetParentOrNull<Tower>() is not null
-			                   && _activePlaceable.PlaceableType == typeof(FriendlyGolemAI));
+			                   && _activePlaceable is FriendlyGolemAI);
 			
 			MarkValidity(isValid);
 			
@@ -120,11 +118,10 @@ public partial class PlacementController : Node2D
 		_activePlaceable.Modulate = isValid ? _validColor : _invalidColor;
 	}
 
-	private T CreatePlaceable<T>(Vector2 position, PackedScene package, bool isVisible, Type type, Node2D parent = null, bool isReal = false)
+	private T CreatePlaceable<T>(Vector2 position, PackedScene package, bool isVisible, Node2D parent = null, bool isReal = false)
 		where T : class, IPlaceable
 	{
 		var placeable = package.Instantiate<T>();
-		placeable.PlaceableType = type;
 		placeable.Visible = isVisible;
 		placeable.GlobalPosition = position;
 		
@@ -138,6 +135,10 @@ public partial class PlacementController : Node2D
 		{
 			_audioStream.Play();
 		}
+		else
+		{
+			placeable.SetAsPlacementTemplate();
+		}
 
 		return placeable;
 	}
@@ -146,9 +147,11 @@ public partial class PlacementController : Node2D
 	{
 		if (Input.IsActionJustPressed("player_action"))
 		{
-			if (_validPlacement && _instanceMap.TryGetValue(_activePlaceable, out PackedScene package))
+			if (_validPlacement
+			    && _instanceMap.TryGetValue(_activePlaceable, out PackedScene package)
+			    && _gameManager.ResourceManager.TryUseResource(_activePlaceable.ResourceType, _activePlaceable.ResourceConsumptionAmount))
 			{
-				CreatePlaceable<IPlaceable>(_activePlaceable.GlobalPosition, package, true, _activePlaceable.PlaceableType, isReal: true);
+				CreatePlaceable<IPlaceable>(_activePlaceable.GlobalPosition, package, true, isReal: true);
 			}
 		}
 		

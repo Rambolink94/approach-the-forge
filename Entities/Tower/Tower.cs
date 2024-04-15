@@ -13,8 +13,6 @@ public partial class Tower : Node2D, IPlaceable
 	private float _currentTime;
 	
 	public Sprite2D Sprite => _sprite ?? GetNode<Sprite2D>("Sprite2D");
-
-	public Type PlaceableType { get; set; }
 	
 	private Sprite2D _sprite;
 
@@ -26,5 +24,10 @@ public partial class Tower : Node2D, IPlaceable
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+	
+	public void SetAsPlacementTemplate()
+	{
+		GetNode<CollisionShape2D>("StaticBody2D/CollisionShape2D").Disabled = true;
 	}
 }

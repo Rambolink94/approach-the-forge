@@ -13,9 +13,12 @@ public interface IPlaceable
     
     public Color Modulate { get; set; }
     
-    public Type PlaceableType { get; set; }
-    
     public ResourceType ResourceType { get; set; }
     
     public int ResourceConsumptionAmount { get; set; }
+
+    /// <summary>
+    ///		Disables default functionality to turn the object into a placeable compatible instance.
+    /// </summary>
+    public void SetAsPlacementTemplate();
 }

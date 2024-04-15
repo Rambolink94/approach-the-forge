@@ -9,7 +9,7 @@ public partial class FriendlyGolemAI : GolemAI, IPlaceable
 {
 	[Export] public ResourceType ResourceType { get; set; }
 	[Export] public int ResourceConsumptionAmount { get; set; }
-	
+
 	public Sprite2D Sprite => GetNode<Sprite2D>("Animated Golem");
 
 	public Type PlaceableType { get; set; }
@@ -66,5 +66,16 @@ public partial class FriendlyGolemAI : GolemAI, IPlaceable
 		{
 			return false;
 		}
+	}
+	
+	public void SetAsPlacementTemplate()
+	{
+		// This is kinda weird. This process could definitely be done better.
+		GetNode<CollisionShape2D>("Detection Area/CollisionShape2D").Disabled = true;
+		GetNode<CollisionShape2D>("Detection Area/Attack Range/CollisionShape2D").Disabled = true;
+		GetNode<CollisionShape2D>("Wall Detector/CollisionShape2D").Disabled = true;
+		
+		AttackDelayTimer.Stop();
+		AttackTimer.Stop();
 	}
 }
