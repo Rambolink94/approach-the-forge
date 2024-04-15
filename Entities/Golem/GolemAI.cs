@@ -1,14 +1,14 @@
+using ApproachTheForge.Utility;
 using Godot;
-using System;
 
-namespace ApproachTheForge
+namespace ApproachTheForge.Entities.Golem
 {
 	public enum Bearing
 	{
 		Left = -1,
 		Right = 1,
 	}
-	public abstract partial class GolemAI : CharacterBody2D, Damageable
+	public abstract partial class GolemAI : Entity, Damageable
 	{
 		public const float Speed = 100.0f;
 		public const float JumpVelocity = -100.0f;
@@ -73,7 +73,7 @@ namespace ApproachTheForge
 
 
 		// Get the gravity from the project settings to be synced with RigidBody nodes.
-		public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		public float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 		/// <summary>
 		///		Called when the object first enters the scene.
@@ -190,14 +190,7 @@ namespace ApproachTheForge
 		/// <returns> True if a wall was found, false otherwise. </returns>
 		protected bool FindWalls()
 		{
-			if(this.WallDetector.HasOverlappingBodies())
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return this.WallDetector.HasOverlappingBodies();
 		}
 
 		/// <summary>

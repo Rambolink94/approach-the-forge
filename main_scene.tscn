@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=12 format=3 uid="uid://x0sjujl3kg1d"]
 
-[ext_resource type="Script" path="res://GameManager.cs" id="1_7kf6s"]
-[ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Entities/Player/player.tscn" id="2_c76nu"]
+[ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="1_3s7uq"]
+[ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golumn_spawner.tscn" id="3_j6643"]
 [ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="3_mu17a"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
-[ext_resource type="Script" path="res://PlacementController.cs" id="5_dvmvm"]
+[ext_resource type="Script" path="res://Utility/PlacementController.cs" id="5_dvmvm"]
 [ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
 [ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
+[ext_resource type="PackedScene" uid="uid://cawtldme2losh" path="res://Spawners/player_spawner.tscn" id="9_boe08"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
 size = Vector2(3000, 383)
@@ -16,7 +17,13 @@ size = Vector2(3000, 383)
 size = Vector2(50, 1000)
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_7kf6s")
+
+[node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
+
+[node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
+position = Vector2(5651, 284)
+
+[node name="GolumnSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
 
 [node name="PlacementController" type="Node2D" parent="."]
 script = ExtResource("5_dvmvm")
@@ -68,11 +75,6 @@ shape = SubResource("RectangleShape2D_lc6w6")
 
 [node name="Tileset" parent="Environment" instance=ExtResource("5_4aey8")]
 position = Vector2(-5312, 512)
-
-[node name="Player" parent="." instance=ExtResource("2_c76nu")]
-position = Vector2(-4675, 402)
-collision_mask = 9
-_gravityOverride = 1500.0
 
 [node name="AbilityUI" parent="." instance=ExtResource("7_sjsh6")]
 

@@ -1,8 +1,9 @@
+using ApproachTheForge.Utility;
 using Godot;
 
-namespace ApproachTheForge;
+namespace ApproachTheForge.Entities.Player;
 
-public partial class Player : CharacterBody2D, Damageable
+public partial class Player : Entity, Damageable
 {
 	[Export] private bool _overrideGravity;
 	[Export] private float _gravityOverride = 10;
@@ -21,13 +22,17 @@ public partial class Player : CharacterBody2D, Damageable
 	private Vector2 _velocity;
 	private Sprite2D _sprite;
 	private GpuParticles2D _jumpPuff;
-	
+	private Area2D _collectionArea;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_gravity = _overrideGravity ? _gravityOverride : _defaultGravity;
 		_sprite = GetNode<Sprite2D>("PlayerArt");
 		_jumpPuff = GetNode<GpuParticles2D>("JumpPuff");
+		_collectionArea = GetNode<Area2D>("CollectionArea");
+
+		_collectionArea.BodyEntered += OnAreaEntered;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -60,6 +65,11 @@ public partial class Player : CharacterBody2D, Damageable
 		}
 		
 		_velocity = Velocity;
+	}
+
+	private void OnAreaEntered(Node2D resource)
+	{
+		
 	}
 
 	private void HandleInput()

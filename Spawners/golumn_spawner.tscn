@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://kg5ulxh1auyb"]
+
+[ext_resource type="Script" path="res://GolemSpawner.cs" id="1_cmyh8"]
+
+[node name="GolumnSpawner" type="Node2D"]
+position = Vector2(6365, 370)
+script = ExtResource("1_cmyh8")

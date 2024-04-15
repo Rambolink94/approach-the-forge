@@ -1,11 +1,6 @@
-using Godot;
-using Godot.Collections;
-using System;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 
-namespace ApproachTheForge {
+namespace ApproachTheForge.Entities.Golem {
 
 	public partial class EnemyGolemAI : GolemAI
 	{
