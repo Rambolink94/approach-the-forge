@@ -21,7 +21,7 @@ size = Vector2(50, 1000)
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
-position = Vector2(5651, 284)
+position = Vector2(5997, 390)
 
 [node name="GolumnSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
 
