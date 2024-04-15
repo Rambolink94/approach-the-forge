@@ -2,6 +2,7 @@ using ApproachTheForge;
 using Godot;
 using System;
 using System.Linq;
+using ApproachTheForge.Entities.Golem;
 
 public partial class FriendlyGolemAI : GolemAI
 {

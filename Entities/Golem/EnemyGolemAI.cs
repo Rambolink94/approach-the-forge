@@ -1,7 +1,8 @@
 using System.Linq;
+using Godot;
 
-namespace ApproachTheForge.Entities.Golem {
-
+namespace ApproachTheForge.Entities.Golem
+{
 	public partial class EnemyGolemAI : GolemAI
 	{
 		protected override Bearing ObjectiveBearing => Bearing.Left;
