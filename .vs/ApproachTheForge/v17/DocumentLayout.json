@@ -9,6 +9,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\entities\\golem\\enemygolemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:entities\\golem\\enemygolemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\entities\\golem\\friendlygolemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:entities\\golem\\friendlygolemai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\entities\\golem\\golemstates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:entities\\golem\\golemstates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\damagedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:damagedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\damageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{36C27D42-B2AE-4A1F-B39B-772B72CFE20C}|ApproachTheForge.csproj|solutionrelative:damageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +34,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Damageable.cs",
+              "DocumentMoniker": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Damageable.cs",
+              "RelativeDocumentMoniker": "Damageable.cs",
+              "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Damageable.cs",
+              "RelativeToolTip": "Damageable.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T21:11:57.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DamageData.cs",
+              "DocumentMoniker": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\DamageData.cs",
+              "RelativeDocumentMoniker": "DamageData.cs",
+              "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\DamageData.cs",
+              "RelativeToolTip": "DamageData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T21:12:43.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FriendlyGolemAI.cs",
+              "DocumentMoniker": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\FriendlyGolemAI.cs",
+              "RelativeDocumentMoniker": "Entities\\Golem\\FriendlyGolemAI.cs",
+              "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\FriendlyGolemAI.cs",
+              "RelativeToolTip": "Entities\\Golem\\FriendlyGolemAI.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAA1wCcAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T19:22:17.198Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GolemStates.cs",
+              "DocumentMoniker": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\GolemStates.cs",
+              "RelativeDocumentMoniker": "Entities\\Golem\\GolemStates.cs",
+              "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\GolemStates.cs",
+              "RelativeToolTip": "Entities\\Golem\\GolemStates.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T18:32:10.027Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -28,7 +92,7 @@
               "RelativeDocumentMoniker": "Entities\\Golem\\GolemAI.cs",
               "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\GolemAI.cs",
               "RelativeToolTip": "Entities\\Golem\\GolemAI.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAgwD8AAABAAAAA",
+              "ViewState": "AQIAAIMAAAAAAAAAAAD4v58AAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-14T03:54:07.896Z",
               "EditorCaption": ""
@@ -41,7 +105,7 @@
               "RelativeDocumentMoniker": "Entities\\Golem\\EnemyGolemAI.cs",
               "ToolTip": "D:\\GodotProjects\\ApproachTheForge\\approach-the-forge\\Entities\\Golem\\EnemyGolemAI.cs",
               "RelativeToolTip": "Entities\\Golem\\EnemyGolemAI.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAABNAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAACsAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-13T23:44:32.933Z",
               "EditorCaption": ""

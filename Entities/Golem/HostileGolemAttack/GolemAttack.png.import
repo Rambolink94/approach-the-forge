@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nrpqs06whdf"
-path="res://.godot/imported/sprite_01.png-f4a250e931ab4d0a7b610689c6d733ca.ctex"
+uid="uid://ckd3jynm5pdpu"
+path="res://.godot/imported/GolemAttack.png-079938a0a7173cd974d61ca664805a1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Golem/GolemWalk/sprite_01.png"
-dest_files=["res://.godot/imported/sprite_01.png-f4a250e931ab4d0a7b610689c6d733ca.ctex"]
+source_file="res://Entities/Golem/HostileGolemAttack/GolemAttack.png"
+dest_files=["res://.godot/imported/GolemAttack.png-079938a0a7173cd974d61ca664805a1f.ctex"]
 
 [params]
 

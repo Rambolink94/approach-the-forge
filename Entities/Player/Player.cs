@@ -3,7 +3,7 @@ using Godot;
 
 namespace ApproachTheForge.Entities.Player;
 
-public partial class Player : Entity
+public partial class Player : Entity, Damageable
 {
 	[Export] private bool _overrideGravity;
 	[Export] private float _gravityOverride = 10;
@@ -98,5 +98,10 @@ public partial class Player : Entity
 		{
 			_isSprinting = !_isSprinting;
 		}
+	}
+
+	public bool ApplyDamage(DamageData damageInstance)
+	{
+		return false;
 	}
 }

@@ -1,13 +1,152 @@
-[gd_scene load_steps=3 format=3 uid="uid://bq2er6obga7om"]
+[gd_scene load_steps=25 format=3 uid="uid://bq2er6obga7om"]
 
 [ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_mgs2c"]
 [ext_resource type="Script" path="res://Entities/Golem/EnemyGolemAI.cs" id="2_ldfi0"]
+[ext_resource type="Texture2D" uid="uid://ckd3jynm5pdpu" path="res://Entities/Golem/HostileGolemAttack/GolemAttack.png" id="3_buvtv"]
+[ext_resource type="Texture2D" uid="uid://bvgdvkxpeu71i" path="res://Entities/Golem/HostileGolemWalk/sprite_00.png" id="3_jvsuw"]
+[ext_resource type="Texture2D" uid="uid://nrpqs06whdf" path="res://Entities/Golem/HostileGolemWalk/sprite_01.png" id="4_5spf1"]
+[ext_resource type="Texture2D" uid="uid://bobhpjdhpiyvf" path="res://Entities/Golem/HostileGolemWalk/sprite_02.png" id="5_y3jyw"]
+[ext_resource type="Texture2D" uid="uid://bf1yc37jqrv2w" path="res://Entities/Golem/HostileGolemWalk/sprite_03.png" id="6_6xfv0"]
+[ext_resource type="Texture2D" uid="uid://coyuw6uhma5sp" path="res://Entities/Golem/HostileGolemWalk/sprite_04.png" id="7_e5ao8"]
+[ext_resource type="Texture2D" uid="uid://y4h73qu1fwv3" path="res://Entities/Golem/HostileGolemWalk/sprite_05.png" id="8_yppsa"]
+[ext_resource type="Texture2D" uid="uid://drcoewkp1gff2" path="res://Entities/Golem/HostileGolemWalk/sprite_06.png" id="9_mlvl1"]
+[ext_resource type="Texture2D" uid="uid://bf5fah5qbvepo" path="res://Entities/Golem/HostileGolemWalk/sprite_07.png" id="10_tpl4u"]
+[ext_resource type="Texture2D" uid="uid://chg15lwius8ve" path="res://Entities/Golem/HostileGolemWalk/sprite_08.png" id="11_l4vr4"]
+[ext_resource type="Texture2D" uid="uid://b4s4r06m5bfa" path="res://Entities/Golem/HostileGolemWalk/sprite_09.png" id="12_7khsc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfndc"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(0, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kubaw"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(48, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p610i"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(96, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0cps"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(144, 0, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i81x7"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(0, 80, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ws1h8"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(48, 80, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyuw5"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(96, 80, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qmj4"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(144, 80, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xc7dv"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(0, 160, 48, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4dke"]
+atlas = ExtResource("3_buvtv")
+region = Rect2(48, 160, 48, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hme2t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfndc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kubaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p610i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0cps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i81x7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ws1h8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyuw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qmj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xc7dv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4dke")
+}],
+"loop": true,
+"name": &"Golem Attack",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jvsuw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5spf1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y3jyw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6xfv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_e5ao8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_yppsa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mlvl1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tpl4u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_l4vr4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7khsc")
+}],
+"loop": true,
+"name": &"Golem Walk",
+"speed": 6.0
+}]
 
 [node name="HostileGolem" instance=ExtResource("1_mgs2c")]
+collision_layer = 16
+collision_mask = 1
 script = ExtResource("2_ldfi0")
 
 [node name="EnvironmentCollision" parent="." index="0"]
-position = Vector2(0.5, 1.5)
+position = Vector2(0, 3)
+
+[node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_hme2t")
+animation = &"Golem Attack"
+
+[node name="Detection Area" parent="." index="2"]
+collision_mask = 14
+
+[node name="Attack Range" parent="Detection Area" index="1"]
+collision_mask = 14
+
+[node name="Wall Detector" parent="." index="3"]
+collision_mask = 1
 
 [node name="AnimatedSprite2D" parent="." index="3"]
 texture_filter = 1
