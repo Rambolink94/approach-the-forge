@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="1_3s7uq"]
-[ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golumn_spawner.tscn" id="3_j6643"]
+[ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golem_spawner.tscn" id="3_j6643"]
 [ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="3_mu17a"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
@@ -23,7 +23,7 @@ size = Vector2(50, 1000)
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
 position = Vector2(1040, -373)
 
-[node name="GolumnSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
+[node name="EnemyGolemSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
 position = Vector2(2683, 163)
 
 [node name="PlacementController" type="Node2D" parent="."]
@@ -35,7 +35,7 @@ target_position = Vector2(0, 5000)
 
 [node name="ValidityRay" type="RayCast2D" parent="PlacementController"]
 target_position = Vector2(0, 5000)
-collision_mask = 4
+collision_mask = 12
 
 [node name="PlaceableParent" type="Node2D" parent="PlacementController"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b2rfeky5c4pqn"]
+[gd_scene load_steps=23 format=3 uid="uid://ceovd1wc8dq88"]
 
 [ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_uqcce"]
 [ext_resource type="Script" path="res://Entities/Golem/FriendlyGolemAI.cs" id="2_eb38k"]
@@ -101,6 +101,7 @@ script = ExtResource("2_eb38k")
 position = Vector2(0, 2)
 
 [node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_oe635")
 animation = &"Golem Walk"
 

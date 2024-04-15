@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3me26vn54ucn"]
+
+[ext_resource type="Script" path="res://Utility/PlaceableTemplate.cs" id="1_ypo5l"]
+[ext_resource type="Texture2D" uid="uid://f6hl8p4t6hyn" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_0.png" id="13_oegv8"]
+
+[node name="Friendly Golem" type="Node2D"]
+script = ExtResource("1_ypo5l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -40)
+texture = ExtResource("13_oegv8")
+flip_h = true

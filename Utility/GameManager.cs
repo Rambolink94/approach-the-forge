@@ -12,7 +12,8 @@ public partial class GameManager : Node2D
 	[Export] private float _spawnRate = 1f;
 	public ResourceManager ResourceManager { get; private set; }
 
-	private Spawner<EnemyGolemAI> _golemSpawner;
+	private Spawner<EnemyGolemAI> _enemyGolemSpawner;
+	private Spawner<Entities.Golem.FriendlyGolemAI> _friendlyGolemSpawner;
 	private int _wave;
 	private float _timeSinceLastSpawn;
 	
@@ -20,9 +21,9 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
-		_golemSpawner = GetNode<Spawner<EnemyGolemAI>>("GolumnSpawner");
+		_enemyGolemSpawner = GetNode<Spawner<EnemyGolemAI>>("EnemyGolemSpawner");
 		
-		_golemSpawner.Spawn();
+		_enemyGolemSpawner.Spawn();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +32,7 @@ public partial class GameManager : Node2D
 		if (_timeSinceLastSpawn >= _spawnRate)
 		{
 			_timeSinceLastSpawn = 0;
-			_golemSpawner.Spawn();
+			_enemyGolemSpawner.Spawn();
 		}
 
 		_timeSinceLastSpawn += (float)delta;

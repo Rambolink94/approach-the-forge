@@ -10,6 +10,12 @@ public interface IPlaceable
     public bool Visible { get; set; }
 	
     public Vector2 GlobalPosition { get; set; }
-	
-    public Sprite2D Sprite { get; }
+    
+    public Color Modulate { get; set; }
+    
+    public Type PlaceableType { get; set; }
+    
+    public ResourceType ResourceType { get; set; }
+    
+    public int ResourceConsumptionAmount { get; set; }
 }

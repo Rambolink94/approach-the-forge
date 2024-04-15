@@ -1,58 +1,51 @@
 using Godot;
+using Godot.Collections;
 
 namespace ApproachTheForge.Utility;
 
 public partial class ResourceManager : Node2D
 {
-	private int _common;
-	private int _rare;
-	private int _super;
-
-	[Export]
-	public int Common
-	{
-		get => _common;
-		set => _common = SetResourceCount(ResourceType.Common, _common, value);
-	}
-
-	[Export]
-	public int Rare
-	{
-		get => _rare;
-		set => _rare = SetResourceCount(ResourceType.Rare, _rare, value);
-	}
-
-	[Export]
-	public int Super
-	{
-		get => _super;
-		set => _super = SetResourceCount(ResourceType.Super, _super, value);
-	}
+	[Export] private int _initialCommon;
+	[Export] private int _initialRare;
+	[Export] private int _initialSuper;
 	
 	public delegate void ResourceChangedEventHandler(ResourceType resourceType, int newCount);
 	public static event ResourceChangedEventHandler ResourceChanged;
+
+	private Dictionary<ResourceType, int> _resourceMap;
     
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_resourceMap = new Dictionary<ResourceType, int>()
+		{
+			{ ResourceType.Common, _initialCommon },
+			{ ResourceType.Rare, _initialRare },
+			{ ResourceType.Super, _initialSuper },
+		};
+		
 		CallDeferred(nameof(Init));
+	}
+
+	public bool TryUseResource(ResourceType resourceType, int count)
+	{
+		if (_resourceMap.TryGetValue(resourceType, out var current) && current >= count)
+		{
+			var newValue = current - count;
+			_resourceMap[resourceType] = newValue;
+			ResourceChanged?.Invoke(resourceType, newValue);
+			
+			return true;
+		}
+
+		return false;
 	}
 
 	private void Init()
 	{
-		ResourceChanged?.Invoke(ResourceType.Common, Common);
-		ResourceChanged?.Invoke(ResourceType.Rare, Rare);
-		ResourceChanged?.Invoke(ResourceType.Super, Super);
-	}
-
-	private static int SetResourceCount(ResourceType resourceType, int currentValue, int newValue)
-	{
-		if (currentValue != newValue)
-		{
-			ResourceChanged?.Invoke(resourceType, newValue);
-		}
-
-		return newValue;
+		ResourceChanged?.Invoke(ResourceType.Common, _initialCommon);
+		ResourceChanged?.Invoke(ResourceType.Rare, _initialRare);
+		ResourceChanged?.Invoke(ResourceType.Super, _initialSuper);
 	}
 }
 
