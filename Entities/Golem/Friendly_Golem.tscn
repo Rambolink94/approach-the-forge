@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://b2rfeky5c4pqn"]
+[gd_scene load_steps=24 format=3 uid="uid://ceovd1wc8dq88"]
 
 [ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_uqcce"]
 [ext_resource type="Script" path="res://Entities/Golem/FriendlyGolemAI.cs" id="2_eb38k"]
 [ext_resource type="Texture2D" uid="uid://bwac5hvvq3xgp" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_00.png" id="2_iq5jl"]
 [ext_resource type="Texture2D" uid="uid://bp75cx2mfcoy3" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_01.png" id="3_3x6rf"]
+[ext_resource type="PackedScene" uid="uid://d4blfn2m78wx3" path="res://Entities/Golem/Friendly_Golem_Placement_Template.tscn" id="3_y7dc8"]
 [ext_resource type="Texture2D" uid="uid://dhoba13borhu" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_02.png" id="4_nhsy2"]
 [ext_resource type="Texture2D" uid="uid://hsjaatrusu3v" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_03.png" id="5_o5cam"]
 [ext_resource type="Texture2D" uid="uid://c2fdq46fc7l6w" path="res://Entities/Golem/FriendlyGolemAttack/spriteAttack_04.png" id="6_hckhu"]
@@ -96,15 +97,21 @@ animations = [{
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("2_eb38k")
+Template = ExtResource("3_y7dc8")
+ResourceType = 1
+ResourceConsumptionAmount = 10
 
 [node name="EnvironmentCollision" parent="." index="0"]
-position = Vector2(0, 2)
+position = Vector2(0, -38)
 
 [node name="Animated Golem" type="AnimatedSprite2D" parent="." index="1"]
+texture_filter = 1
+position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_oe635")
 animation = &"Golem Walk"
 
 [node name="Detection Area" parent="." index="2"]
+position = Vector2(0, -40)
 collision_layer = 16
 collision_mask = 16
 
@@ -112,4 +119,5 @@ collision_mask = 16
 collision_mask = 16
 
 [node name="Wall Detector" parent="." index="3"]
+position = Vector2(0, -40)
 collision_mask = 1
