@@ -42,6 +42,11 @@ public partial class ResourceManager : Node2D
 		return false;
 	}
 
+	public bool TryUseResource(ConsumptionData consumptionData)
+	{
+		return TryUseResource(consumptionData.ResourceType, consumptionData.ResourceConsumptionAmount);
+	}
+
 	public void AddResource(ResourceType resourceType, int count = 1)
 	{
 		if (_resourceMap.TryGetValue(resourceType, out var current))

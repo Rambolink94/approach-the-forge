@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs4065dqd1kys"]
+
+[ext_resource type="Script" path="res://Utility/PlacementTemplate.cs" id="1_7e6wc"]
+[ext_resource type="Resource" uid="uid://cyg6pewt8nnym" path="res://Entities/Tower/tower_consumption_data.tres" id="2_esnyp"]
+[ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_gp0tf"]
+[ext_resource type="PackedScene" uid="uid://vrenkrcqakkv" path="res://Entities/Tower/tower.tscn" id="2_m1y2h"]
+
+[node name="Tower" type="Node2D"]
+script = ExtResource("1_7e6wc")
+ConsumptionData = ExtResource("2_esnyp")
+Placeable = ExtResource("2_m1y2h")
+IsTower = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -96)
+texture = ExtResource("2_gp0tf")

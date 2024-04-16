@@ -206,7 +206,7 @@ namespace ApproachTheForge.Entities.Golem
 		/// </summary>
 		protected void FaceTarget()
 		{
-			float direction = this.Target.Position.X - this.Position.X;
+			float direction = this.Target.GlobalPosition.X - this.GlobalPosition.X;
 
 			this.Bearing = direction > 0 ? Bearing.Right : Bearing.Left;
 
@@ -259,7 +259,10 @@ namespace ApproachTheForge.Entities.Golem
 			{
 				this.Health = 0;
 
-				this.QueueFree();
+				if (IsInstanceValid(this))
+				{
+					this.QueueFree();
+				}
 
 				return true;
 			}
