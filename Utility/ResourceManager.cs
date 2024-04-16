@@ -42,9 +42,9 @@ public partial class ResourceManager : Node2D
 		return false;
 	}
 
-	public bool TryUseResource(ConsumptionData consumptionData)
+	public bool TryUseResource(ResourceData resourceData)
 	{
-		return TryUseResource(consumptionData.ResourceType, consumptionData.ResourceConsumptionAmount);
+		return TryUseResource(resourceData.ResourceType, resourceData.ResourceAmount);
 	}
 
 	public void AddResource(ResourceType resourceType, int count = 1)

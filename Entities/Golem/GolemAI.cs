@@ -1,5 +1,6 @@
 using ApproachTheForge.Utility;
 using Godot;
+using Godot.Collections;
 
 namespace ApproachTheForge.Entities.Golem
 {
@@ -259,10 +260,7 @@ namespace ApproachTheForge.Entities.Golem
 			{
 				this.Health = 0;
 
-				if (IsInstanceValid(this))
-				{
-					this.QueueFree();
-				}
+				Die();
 
 				return true;
 			}

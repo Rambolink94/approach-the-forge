@@ -135,7 +135,8 @@ public partial class PlacementController : Node2D
 		if (Input.IsActionJustPressed("player_action"))
 		{
 			if (_validPlacement
-			    && _gameManager.ResourceManager.TryUseResource((ConsumptionData)_activeTemplate.ConsumptionData))
+			    && _activeTemplate is not null
+			    && _gameManager.ResourceManager.TryUseResource((ResourceData)_activeTemplate.ConsumptionData))
 			{
 				CreatePlaceable(_activeTemplate.GlobalPosition, _activeTemplate.Placeable);
 			}

@@ -14,6 +14,5 @@ namespace ApproachTheForge
         /// <param name="damageData"></param>
         /// <returns> Returns a value indicating whether the target was killed or not. </returns>
         public bool ApplyDamage(DamageData damageData);
-
     }
 }

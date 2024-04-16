@@ -30,6 +30,7 @@ position = Vector2(2683, 163)
 
 [node name="PlacementController" type="Node2D" parent="."]
 script = ExtResource("5_dvmvm")
+_unitSize = null
 _showDebugInfo = false
 
 [node name="PlacementRay" type="RayCast2D" parent="PlacementController"]
@@ -87,85 +88,7 @@ position = Vector2(-5312, 512)
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="ResourcePickup" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-300, 326)
-
-[node name="ResourcePickup2" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-245, 326)
-
-[node name="ResourcePickup3" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-164, 324)
-
-[node name="ResourcePickup4" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-91, 309)
-
-[node name="ResourcePickup5" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(6, 306)
-
-[node name="ResourcePickup6" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(78, 316)
-
-[node name="ResourcePickup7" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(157, 313)
-
-[node name="ResourcePickup8" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(246, 294)
-
-[node name="ResourcePickup9" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(316, 242)
-
-[node name="ResourcePickup10" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(375, 174)
-
-[node name="ResourcePickup11" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(428, 98)
-
-[node name="ResourcePickup12" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(472, 35)
-
-[node name="ResourcePickup13" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(472, 35)
-
-[node name="ResourcePickup14" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(544, -33)
-
-[node name="ResourcePickup15" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(612, -79)
-
-[node name="ResourcePickup16" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(682, -140)
-
-[node name="ResourcePickup17" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(800, -130)
-
-[node name="ResourcePickup18" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(870, -140)
-
-[node name="ResourcePickup19" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(946, -146)
-
-[node name="ResourcePickup20" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1056, -146)
-
-[node name="ResourcePickup21" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1118, -155)
-
-[node name="ResourcePickup22" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1185, -158)
-
-[node name="ResourcePickup23" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1260, -161)
-
-[node name="ResourcePickup24" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1339, -132)
-
-[node name="ResourcePickup25" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1433, -121)
-
-[node name="ResourcePickup26" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1531, -79)
-
-[node name="ResourcePickup27" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1638, -14)
+position = Vector2(948, -100)
 
 [node name="ResourcePickup28" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1638, -14)
+position = Vector2(1200, -100)
