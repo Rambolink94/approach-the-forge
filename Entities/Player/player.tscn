@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dya7savn80y2y"]
+[gd_scene load_steps=14 format=3 uid="uid://dya7savn80y2y"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.cs" id="1_2alft"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="2_tu07s"]
 [ext_resource type="Texture2D" uid="uid://df55qkfq07tlg" path="res://Art/Placeholder/Puff.png" id="3_lhbfh"]
 [ext_resource type="Texture2D" uid="uid://b6angbyhwux8d" path="res://Art/Placeholder/slash.png" id="4_qie1f"]
+[ext_resource type="AudioStream" uid="uid://v1wxr1t8h238" path="res://Audio/sword_swoosh.wav" id="5_ec2sw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06dbx"]
 radius = 14.0
@@ -44,8 +45,10 @@ scale_min = 2.0
 scale_max = 2.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6mwli"]
-random_pitch = 5.0
-random_volume_offset_db = 28.56
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("5_ec2sw")
+stream_0/weight = 1.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -58,6 +61,7 @@ _acceleration = 10.0
 _sprintAcceleration = 40.0
 _deceleration = 10.0
 _jumpVelocity = 500.0
+_knockback = 300.0
 _attackSpeed = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -116,3 +120,4 @@ one_shot = true
 
 [node name="AttackPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_6mwli")
+volume_db = -7.548

@@ -1,10 +1,9 @@
-using System;
 using ApproachTheForge.Utility;
 using Godot;
 
 namespace ApproachTheForge.Entities.Tower;
 
-public partial class Tower : Entity, IPlaceable, IDamageable
+public partial class Tower : Node2D, IPlaceable, IDamageable
 {
 	[Export] public float Health { get; private set; }
 
@@ -28,5 +27,10 @@ public partial class Tower : Entity, IPlaceable, IDamageable
 		}
 
 		return false;
+	}
+
+	private void Die()
+	{
+		GD.Print("Tower died!");
 	}
 }
