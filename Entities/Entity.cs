@@ -7,7 +7,7 @@ namespace ApproachTheForge.Entities;
 
 public abstract partial class Entity : CharacterBody2D
 {
-    [Export] private Array<Resource> _dropTable;
+    [Export] private Array<DropData> _dropTable;
 
     public GameManager GameManager { get; private set; }
     
