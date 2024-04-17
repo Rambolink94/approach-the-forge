@@ -11,6 +11,8 @@ public partial class GameManager : Node2D
 {
 	[Export] private float _spawnRate = 1f;
 	public ResourceManager ResourceManager { get; private set; }
+	public AbilityController AbilityController { get; } = new();
+	public PlacementController PlacementController { get; private set; }
 
 	private EnemyGolemSpawner _enemyGolemSpawner;
 	private PlayerSpawner _playerSpawner;
@@ -21,6 +23,11 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
+		PlacementController = GetNode<PlacementController>("PlacementController");
+		
+		ResourceManager.Initialize(this);
+		PlacementController.Initialize(this);
+		
 		_enemyGolemSpawner = GetNode<EnemyGolemSpawner>("EnemyGolemSpawner");
 		_playerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 
@@ -31,6 +38,8 @@ public partial class GameManager : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		AbilityController.HandleInput();
+		
 		if (_timeSinceLastSpawn >= _spawnRate)
 		{
 			_timeSinceLastSpawn = 0;

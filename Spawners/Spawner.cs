@@ -21,6 +21,7 @@ public abstract partial class Spawner<T> : Node2D
     public virtual T Spawn(Vector2 position = default)
     {
         var entity = EntityScene.Instantiate<T>();
+        entity.Position = position;
         entity.Initialize(_gameManager);
         
         AddChild(entity);

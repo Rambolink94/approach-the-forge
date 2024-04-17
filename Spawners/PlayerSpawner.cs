@@ -7,10 +7,8 @@ public partial class PlayerSpawner : Spawner<Player>
 {
 	protected override PackedScene EntityScene => GD.Load<PackedScene>("res://Entities/Player/player.tscn");
 
-	public override void _Ready()
+	public Player Spawn( Vector2 position = default)
 	{
-		base._Ready();
-		
-		Spawn();
+		return base.Spawn(position);
 	}
 }

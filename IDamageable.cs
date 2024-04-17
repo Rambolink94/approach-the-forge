@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace ApproachTheForge
 {
-    public interface Damageable
+    public interface IDamageable
     {
+        public float Health { get; }
+        
         /// <summary>
         /// 
         /// </summary>

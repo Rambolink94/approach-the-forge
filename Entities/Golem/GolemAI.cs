@@ -9,7 +9,7 @@ namespace ApproachTheForge.Entities.Golem
 		Left = -1,
 		Right = 1,
 	}
-	public abstract partial class GolemAI : Entity, Damageable
+	public abstract partial class GolemAI : Entity, IDamageable
 	{
 		public const float Speed = 100.0f;
 		public const float JumpVelocity = -100.0f;
@@ -65,7 +65,7 @@ namespace ApproachTheForge.Entities.Golem
 		protected abstract DamageData DamageToApply { get; }
 
 		// The health of the golem
-		protected abstract double Health { get; set; }
+		public abstract float Health { get; protected set; }
 
 		// The total knockback the golem as recieved in a game tick
 		protected Vector2 TotalKnockback = new Vector2();
@@ -172,9 +172,9 @@ namespace ApproachTheForge.Entities.Golem
 		{
 			if (this.AttackDelayTimer.TimeLeft == 0)
 			{
-				if (this.Target is Damageable)
+				if (this.Target is IDamageable)
 				{
-					if ((this.Target as Damageable).ApplyDamage(this.DamageToApply))
+					if ((this.Target as IDamageable).ApplyDamage(this.DamageToApply))
 					{
 						// The target will remove itself from the game. Update the target reference
 						this.Target = new Node2D();
@@ -245,7 +245,7 @@ namespace ApproachTheForge.Entities.Golem
 		}
 
 		/// <summary>
-		///		Recieve a Damage Data struct from an attacker and applying the changes due to damage.
+		///		Receive a Damage Data struct from an attacker and applying the changes due to damage.
 		/// </summary>
 		/// <param name="damageData"> A struct containing the necessary data for taking damage properly. </param>
 		/// <returns> True if this object dies, false otherwise. </returns>
@@ -256,19 +256,17 @@ namespace ApproachTheForge.Entities.Golem
 			GD.Print("Damage Taken: True");
 			GD.Print("Current HP: " + this.Health);
 
-			if (this.Health - damageData.Damage <= 0)
+			this.Health -= damageData.Damage;
+			if (this.Health <= 0)
 			{
 				this.Health = 0;
 
-				Die();
+				this.Die();
 
 				return true;
 			}
-			else
-			{
-				this.Health -= damageData.Damage;
-				return false;
-			}
+			
+			return false;
 		}
 	}
 }

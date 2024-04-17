@@ -4,10 +4,9 @@ using Godot;
 
 namespace ApproachTheForge.Entities.Tower;
 
-public partial class Tower : Node2D, IPlaceable
+public partial class Tower : Entity, IPlaceable, IDamageable
 {
-	[Export] public ResourceType ResourceType { get; set; }
-	[Export] public int ResourceConsumptionAmount { get; set; }
+	[Export] public float Health { get; private set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,5 +16,17 @@ public partial class Tower : Node2D, IPlaceable
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+	
+	public bool ApplyDamage(DamageData damageData)
+	{
+		Health -= damageData.Damage;
+		if (Health <= 0)
+		{
+			Die();
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -7,12 +7,14 @@ using Godot;
 
 namespace ApproachTheForge.Utility;
 
-public partial class PlacementController : Node2D
+public partial class PlacementController : Node2D, IGameSystem
 {
 	[Export] private int _unitSize = 64;
 	[Export] private Color _invalidColor = Colors.Red;
 	[Export] private Color _validColor = Colors.Green;
 	[Export] private bool _showDebugInfo = true;
+
+	public bool IsActive => _activeTemplate is not null;
 	
 	// Load templates
 	private PackedScene _tower = GD.Load<PackedScene>("res://Entities/Tower/tower_placement_template.tscn");
@@ -41,7 +43,6 @@ public partial class PlacementController : Node2D
 		_placementRay = GetNode<RayCast2D>("PlacementRay");
 		_validityRay = GetNode<RayCast2D>("ValidityRay");
 		_audioStream = GetNode<AudioStreamPlayer2D>("PlacementPlayer");
-		_gameManager = GetNode<GameManager>("../GameManager");
 
 		PlacementTemplate towerTemplate = CreateTemplate(_tower);
 		PlacementTemplate golemTemplate = CreateTemplate(_golem);
@@ -51,12 +52,18 @@ public partial class PlacementController : Node2D
 			{ "player_tower_select", towerTemplate },
 			{ "player_golem_select", golemTemplate },
 		};
+
+		AbilityController.AbilityChanged += OnAbilityChanged;
+	}
+
+	public void Initialize(GameManager gameManager)
+	{
+		_gameManager = gameManager;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		ProcessInput();
 		DebugDraw();
 
 		if (!_placementActive) return;
@@ -83,6 +90,15 @@ public partial class PlacementController : Node2D
 			MarkValidity(isValid);
 			
 			_activeTemplate.GlobalPosition = point;
+		}
+		
+		if (Input.IsActionJustPressed("player_action"))
+		{
+			if (_validPlacement
+			    && _gameManager.ResourceManager.TryUseResource(_activeTemplate.ConsumptionData))
+			{
+				CreatePlaceable(_activeTemplate.GlobalPosition, _activeTemplate.Placeable);
+			}
 		}
 	}
 
@@ -130,44 +146,34 @@ public partial class PlacementController : Node2D
 		_audioStream.Play();
 	}
 
-	private void ProcessInput()
+	private void OnAbilityChanged(string action, int index)
 	{
-		if (Input.IsActionJustPressed("player_action"))
+		if (!_inputMap.TryGetValue(action, out PlacementTemplate template)
+		    || template == _activeTemplate)
 		{
-			if (_validPlacement
-			    && _activeTemplate is not null
-			    && _gameManager.ResourceManager.TryUseResource((ResourceData)_activeTemplate.ConsumptionData))
-			{
-				CreatePlaceable(_activeTemplate.GlobalPosition, _activeTemplate.Placeable);
-			}
-		}
-		
-		foreach (var pair in _inputMap)
-		{
-			if (!Input.IsActionJustPressed(pair.Key)) continue;
-			
-			if (pair.Value == _activeTemplate)
-			{
-				_placementActive = false;
-				if (_activeTemplate is not null)
-				{
-					_activeTemplate.Visible = false;
-				}
-				
-				_activeTemplate = null;
-				continue;
-			}
-
-			_placementActive = true;
+			_placementActive = false;
 			if (_activeTemplate is not null)
 			{
 				_activeTemplate.Visible = false;
 			}
-			
-			_activeTemplate = pair.Value;
-			_activeTemplate.Visible = true;
+				
+			_activeTemplate = null;
 
 			return;
 		}
+
+		if (template == null)
+		{
+			return;
+		}
+		
+		_placementActive = true;
+		if (_activeTemplate is not null)
+		{
+			_activeTemplate.Visible = false;
+		}
+			
+		_activeTemplate = template;
+		_activeTemplate.Visible = true;
 	}
 }

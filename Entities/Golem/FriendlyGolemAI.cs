@@ -20,7 +20,7 @@ public partial class FriendlyGolemAI : GolemAI, IPlaceable
 		Knockback = new Vector2((int)this.Bearing * 300, 0),
 	};
 
-	protected override double Health { get; set; } = 100;
+	public override float Health { get; protected set; } = 100;
 
 	public override void _PhysicsProcess(double delta)
 	{
