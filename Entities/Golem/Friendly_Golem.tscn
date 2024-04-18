@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ceovd1wc8dq88"]
+[gd_scene load_steps=23 format=3 uid="uid://ceovd1wc8dq88"]
 
 [ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_uqcce"]
 [ext_resource type="Script" path="res://Entities/Golem/FriendlyGolemAI.cs" id="2_eb38k"]

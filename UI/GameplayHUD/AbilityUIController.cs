@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ApproachTheForge.Utility;
+using ApproachTheForge.Utility.Extensions;
 using Godot;
 
 namespace ApproachTheForge.UI.GameplayHUD;
@@ -8,37 +9,44 @@ namespace ApproachTheForge.UI.GameplayHUD;
 public partial class AbilityUIController : CanvasLayer
 {
 	[Export] private TextureRect _selectionRect;
-	private List<TextureButton> _buttons = new();
-
-	private int _currentIndex = -1;
+	
+	private readonly List<MarginContainer> _containers = new();
+	private int _currentIndex;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		var parentButton = _selectionRect.GetParent<MarginContainer>();
+		int index = 0;
 		foreach (var node in GetChild(0).GetChildren())
 		{
-			int index = 0;
 			if (node is TextureButton button)
 			{
-				button.Pressed += () => OnAbilityChanged(string.Empty, index++);
-				_buttons.Add(button);
+				var localIndex = index++;
+				button.Pressed += () => OnAbilityChanged(string.Empty, localIndex);
+				var container = button.GetTypeFromChildren<MarginContainer>();
+				_containers.Add(container);
 			}
 		}
 
-		OnAbilityChanged(string.Empty, _currentIndex);
+		_currentIndex = _containers.IndexOf(parentButton);
+		OnAbilityChanged(string.Empty, -1);
 		AbilityController.AbilityChanged += OnAbilityChanged;
 	}
 
 	public void OnAbilityChanged(string action, int index)
 	{
-		if (_currentIndex == -1 || (_selectionRect.Visible && _currentIndex == index))
+		// TODO: Clean this up. Doing it with indexes and strings is subject to fail
+		// Consider adding ability data object to Ability controller
+		if (index == -1 || (_selectionRect.Visible && _currentIndex == index))
 		{
 			_selectionRect.Visible = false;
 			return;
 		}
 		
-		_buttons[_currentIndex].RemoveChild(_selectionRect);
+		_containers[_currentIndex].RemoveChild(_selectionRect);
 		_currentIndex = index;
-		_buttons[_currentIndex].AddChild(_selectionRect);
+		_containers[_currentIndex].AddChild(_selectionRect);
+		_selectionRect.Visible = true;
 	}
 }

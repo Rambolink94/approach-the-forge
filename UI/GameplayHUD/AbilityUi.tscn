@@ -3,13 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://tyri0xiae4o1" path="res://Art/ResourceImages/resourceBorder-32x32.png" id="1_mjar5"]
 [ext_resource type="Script" path="res://UI/GameplayHUD/AbilityUIController.cs" id="1_nabko"]
 [ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_lysbo"]
-[ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="3_ajaog"]
 [ext_resource type="Texture2D" uid="uid://f6hl8p4t6hyn" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_0.png" id="3_voa7g"]
+[ext_resource type="Texture2D" uid="uid://cbkvoyvifbp2a" path="res://Art/Placeholder/white_border.png" id="4_jal24"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="4_p0ul4"]
 
 [node name="AbilityUI" type="CanvasLayer" node_paths=PackedStringArray("_selectionRect")]
 script = ExtResource("1_nabko")
-_selectionRect = NodePath("HBoxContainer/TowerButton/SelectionRect")
+_selectionRect = NodePath("HBoxContainer/DashButton/MarginContainer/SelectionRect")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 2
@@ -26,79 +26,90 @@ theme_override_constants/separation = 10
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
 texture_normal = ExtResource("1_mjar5")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/DashButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -13.0
-offset_bottom = -13.0
+layout_mode = 2
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_p0ul4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TowerButton" type="TextureButton" parent="HBoxContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-texture_normal = ExtResource("1_mjar5")
-stretch_mode = 4
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TowerButton"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/DashButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -13.0
-offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionRect" type="TextureRect" parent="HBoxContainer/DashButton/MarginContainer"]
+modulate = Color(0, 0.764706, 0.858824, 1)
+layout_mode = 2
+texture = ExtResource("4_jal24")
+flip_v = true
+
+[node name="TowerButton" type="TextureButton" parent="HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("1_mjar5")
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TowerButton"]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_lysbo")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SelectionRect" type="TextureRect" parent="HBoxContainer/TowerButton"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/TowerButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 4.0
-offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_ajaog")
-flip_v = true
 
 [node name="GolemButton" type="TextureButton" parent="HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+disabled = true
 texture_normal = ExtResource("1_mjar5")
 stretch_mode = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/GolemButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -13.0
-offset_bottom = -13.0
+layout_mode = 2
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_voa7g")
 expand_mode = 1
 stretch_mode = 5
 flip_h = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/GolemButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

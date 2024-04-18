@@ -12,9 +12,6 @@ stream_0/weight = 1.0
 
 [node name="PlacementController" type="Node2D"]
 script = ExtResource("1_kc1sw")
-_unitSize = null
-_invalidColor = null
-_validColor = null
 _showDebugInfo = false
 
 [node name="PlacementRay" type="RayCast2D" parent="."]

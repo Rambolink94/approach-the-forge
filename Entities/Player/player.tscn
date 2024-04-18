@@ -35,7 +35,7 @@ turbulence_noise_speed_random = 2.39
 radius = 50.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndko6"]
-size = Vector2(129, 64)
+size = Vector2(82, 64)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o17cn"]
 particle_flag_disable_z = true
@@ -61,8 +61,9 @@ _acceleration = 10.0
 _sprintAcceleration = 40.0
 _deceleration = 10.0
 _jumpVelocity = 500.0
-_knockback = 300.0
-_attackSpeed = 0.5
+_damage = 20.0
+_knockback = 1200.0
+_attackSpeed = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_06dbx")
@@ -105,6 +106,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(-9, 0)
 shape = SubResource("RectangleShape2D_ndko6")
 debug_color = Color(0.556863, 0.105882, 0.0862745, 0.419608)
 
@@ -120,4 +122,4 @@ one_shot = true
 
 [node name="AttackPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_6mwli")
-volume_db = -7.548
+volume_db = -8.387

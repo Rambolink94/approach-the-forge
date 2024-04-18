@@ -76,6 +76,9 @@ namespace ApproachTheForge.Entities.Golem
 		// Get the gravity from the project settings to be synced with RigidBody nodes.
 		public float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
+		private AudioStreamPlayer2D _hurtAudioPlayer;
+		private AudioStreamPlayer2D _deathAudioPlayer;
+
 		/// <summary>
 		///		Called when the object first enters the scene.
 		/// </summary>
@@ -96,6 +99,9 @@ namespace ApproachTheForge.Entities.Golem
 			this.AttackTimer.Start(this.RateOfFire);
 
 			this.AttackDelayTimer = this.GetNode<Timer>("Attack Delay Timer");
+
+			_hurtAudioPlayer = GetNode<AudioStreamPlayer2D>("HurtAudioPlayer");
+			_deathAudioPlayer = GetNode<AudioStreamPlayer2D>("DeathAudioPlayer");
 		}
 
 		/// <summary>
@@ -121,10 +127,10 @@ namespace ApproachTheForge.Entities.Golem
 
 			this.Velocity = this._Velocity + this.TotalKnockback;
 
-			this.TotalKnockback = new Vector2();
-
 			MoveAndSlide();
 			ManageAnimation();
+			
+			this.TotalKnockback = new Vector2();
 		}
 
 		/// <summary>
@@ -262,9 +268,13 @@ namespace ApproachTheForge.Entities.Golem
 				this.Health = 0;
 
 				this.Die();
+				
+				if (IsInstanceValid(this)) _deathAudioPlayer.Play();
 
 				return true;
 			}
+			
+			if (IsInstanceValid(this)) _hurtAudioPlayer.Play();
 			
 			return false;
 		}

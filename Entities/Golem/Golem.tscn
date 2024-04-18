@@ -1,4 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dktkrx7x5q72l"]
+[gd_scene load_steps=9 format=3 uid="uid://dktkrx7x5q72l"]
+
+[ext_resource type="AudioStream" uid="uid://emvbpab4jplj" path="res://Audio/gooey_hit.wav" id="1_acfa7"]
+[ext_resource type="AudioStream" uid="uid://csbhs00wisedb" path="res://Audio/gooey_death.wav" id="2_dmo1b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5heab"]
 size = Vector2(40, 76)
@@ -11,6 +14,18 @@ radius = 35.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_nh1un"]
 b = Vector2(20, 0)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_w275l"]
+random_pitch = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("1_acfa7")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_52kk8"]
+random_pitch = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("2_dmo1b")
+stream_0/weight = 1.0
 
 [node name="Golem" type="CharacterBody2D"]
 collision_layer = 0
@@ -49,3 +64,11 @@ autostart = true
 [node name="Attack Delay Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="HurtAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_w275l")
+volume_db = -21.567
+
+[node name="DeathAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_52kk8")
+volume_db = -31.987
