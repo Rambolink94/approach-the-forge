@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://baqcuvpakfiir"]
 
-[ext_resource type="Texture2D" uid="uid://1kibibw5u7v4" path="res://Atlas/ATFBiggest.png" id="1_vty04"]
+[ext_resource type="Texture2D" uid="uid://1kibibw5u7v4" path="res://Art/Atlas/ATFBiggest.png" id="1_vty04"]
 [ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Entities/Player/player.tscn" id="4_shqql"]
 [ext_resource type="PackedScene" uid="uid://ceovd1wc8dq88" path="res://Entities/Golem/Friendly_Golem.tscn" id="4_xda0f"]
 [ext_resource type="PackedScene" uid="uid://bq2er6obga7om" path="res://Entities/Golem/hostile_golem.tscn" id="5_1lbj1"]

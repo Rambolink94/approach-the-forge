@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=17 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="1_3s7uq"]
 [ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golem_spawner.tscn" id="3_j6643"]
 [ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="3_mu17a"]
+[ext_resource type="PackedScene" uid="uid://cujayu0lcsafg" path="res://Utility/Upgrade/UpgradeManager.tscn" id="4_nxh2n"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
 [ext_resource type="Script" path="res://Utility/PlacementController.cs" id="5_dvmvm"]
@@ -10,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
 [ext_resource type="PackedScene" uid="uid://cawtldme2losh" path="res://Spawners/player_spawner.tscn" id="9_boe08"]
 [ext_resource type="PackedScene" uid="uid://cfpfgeb263qbg" path="res://Pickups/common_pickup.tscn" id="10_ffopp"]
+[ext_resource type="PackedScene" uid="uid://difcayrmalo5" path="res://UI/UpgradeInterface/UpgradeInterface.tscn" id="10_t2fx0"]
 [ext_resource type="PackedScene" uid="uid://2c1pk6hv2me8" path="res://Pickups/rare_pickup.tscn" id="11_kqb3o"]
+[ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/UpgradeScreenCanvas.tscn" id="11_piuif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
 size = Vector2(3000, 383)
@@ -27,6 +30,8 @@ position = Vector2(1040, -373)
 
 [node name="EnemyGolemSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
 position = Vector2(2683, 163)
+
+[node name="UpgradeManager" parent="GameManager" instance=ExtResource("4_nxh2n")]
 
 [node name="PlacementController" type="Node2D" parent="."]
 script = ExtResource("5_dvmvm")
@@ -79,10 +84,17 @@ shape = SubResource("RectangleShape2D_lc6w6")
 [node name="Tileset" parent="Environment" instance=ExtResource("5_4aey8")]
 texture_filter = 1
 position = Vector2(-5312, 512)
+layer_0/z_index = -1
+
+[node name="UpgradePoint" parent="Environment" instance=ExtResource("10_t2fx0")]
+position = Vector2(-5040, 487)
 
 [node name="AbilityUI" parent="." instance=ExtResource("7_sjsh6")]
 
 [node name="ResourceDisplay" parent="." instance=ExtResource("8_cca78")]
+
+[node name="Upgrade Screen Canvas" parent="." instance=ExtResource("11_piuif")]
+visible = false
 
 [node name="Pickups" type="Node2D" parent="."]
 

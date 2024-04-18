@@ -14,7 +14,7 @@ public partial class ResourceManager : Node2D
 	public static event ResourceChangedEventHandler ResourceChanged;
 
 	private Godot.Collections.Dictionary<ResourceType, int> _resourceMap;
-    
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
