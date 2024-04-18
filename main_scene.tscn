@@ -24,7 +24,6 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
-_spawnRate = null
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
 position = Vector2(1040, -373)
@@ -36,9 +35,6 @@ position = Vector2(2683, 163)
 
 [node name="PlacementController" type="Node2D" parent="."]
 script = ExtResource("5_dvmvm")
-_unitSize = null
-_invalidColor = null
-_validColor = null
 _showDebugInfo = false
 
 [node name="PlacementRay" type="RayCast2D" parent="PlacementController"]

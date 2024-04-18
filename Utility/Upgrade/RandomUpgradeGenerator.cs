@@ -66,6 +66,7 @@ namespace ApproachTheForge.Utility.Upgrade
             // exactly to a desired upgrade value
             int upgradeValue = (int)Math.Round(random.Randfn(projectedCost, 1));
 
+            upgradeValue = Mathf.Clamp(upgradeValue, 1, 7);
             if(upgradeValue > 7)
             {
                 upgradeValue = 7;
