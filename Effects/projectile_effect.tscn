@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://c05qke2ac8jro"]
+
+[ext_resource type="Script" path="res://Effects/EnergyProjectile.cs" id="1_gcl8r"]
+[ext_resource type="Texture2D" uid="uid://cdtcsvohseaks" path="res://Art/Placeholder/electric_ball.png" id="1_wm2um"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u0hq8"]
+radius = 20.0
+
+[sub_resource type="Curve" id="Curve_mhj3r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_im532"]
+curve = SubResource("Curve_mhj3r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e052h"]
+particle_flag_disable_z = true
+angle_max = 360.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.75
+scale_curve = SubResource("CurveTexture_im532")
+color = Color(0.713726, 0.905882, 1, 1)
+
+[node name="ProjectileEffect" type="Area2D"]
+collision_layer = 64
+collision_mask = 16
+script = ExtResource("1_gcl8r")
+_speed = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u0hq8")
+
+[node name="Projectile" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_e052h")
+texture = ExtResource("1_wm2um")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]

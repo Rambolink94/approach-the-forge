@@ -61,9 +61,7 @@ _acceleration = 10.0
 _sprintAcceleration = 40.0
 _deceleration = 10.0
 _jumpVelocity = 500.0
-_damage = 20.0
-_knockback = 1200.0
-_attackSpeed = 0.25
+_damage = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_06dbx")

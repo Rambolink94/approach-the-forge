@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using ApproachTheForge.Utility;
 using ApproachTheForge.Utility.Extensions;
 using Godot;
@@ -8,15 +8,20 @@ namespace ApproachTheForge.UI.GameplayHUD;
 
 public partial class AbilityUIController : CanvasLayer
 {
-	[Export] private TextureRect _selectionRect;
-	
 	private readonly List<MarginContainer> _containers = new();
+	private TextureRect _selectionRect;
 	private int _currentIndex;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_selectionRect = GetNode<TextureRect>("HBoxContainer/DashButton/MarginContainer/SelectionRect");
 		var parentButton = _selectionRect.GetParent<MarginContainer>();
+		if (parentButton is null)
+		{
+			throw new NullReferenceException("The provided selection rect was not parented...somehow");
+		}
+		
 		int index = 0;
 		foreach (var node in GetChild(0).GetChildren())
 		{
@@ -28,7 +33,7 @@ public partial class AbilityUIController : CanvasLayer
 				_containers.Add(container);
 			}
 		}
-
+		
 		_currentIndex = _containers.IndexOf(parentButton);
 		OnAbilityChanged(string.Empty, -1);
 		AbilityController.AbilityChanged += OnAbilityChanged;

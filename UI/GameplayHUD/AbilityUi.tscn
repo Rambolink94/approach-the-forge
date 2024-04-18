@@ -7,9 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cbkvoyvifbp2a" path="res://Art/Placeholder/white_border.png" id="4_jal24"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="4_p0ul4"]
 
-[node name="AbilityUI" type="CanvasLayer" node_paths=PackedStringArray("_selectionRect")]
+[node name="AbilityUI" type="CanvasLayer"]
 script = ExtResource("1_nabko")
-_selectionRect = NodePath("HBoxContainer/DashButton/MarginContainer/SelectionRect")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 2

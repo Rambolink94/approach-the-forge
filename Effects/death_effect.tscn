@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://c12bwku6njtrs"]
+
+[ext_resource type="Texture2D" uid="uid://big410wa8qfnq" path="res://Art/Placeholder/white_square.png" id="1_cg0tt"]
+[ext_resource type="Script" path="res://DeathEffect.cs" id="2_ewwoh"]
+[ext_resource type="AudioStream" uid="uid://csbhs00wisedb" path="res://Audio/gooey_death.wav" id="3_qw2rb"]
+
+[sub_resource type="Curve" id="Curve_s1vhn"]
+_data = [Vector2(0, 1), 0.0, 0.252524, 0, 0, Vector2(0.853774, 0.447674), -1.57767, -1.57767, 0, 0, Vector2(1, 0), -3.28682, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dcdru"]
+curve = SubResource("Curve_s1vhn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8l1l"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(30, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, -90, 0)
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_dcdru")
+scale_over_velocity_max = 1.0
+color = Color(0.537255, 0, 0, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q3h2y"]
+random_pitch = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("3_qw2rb")
+stream_0/weight = 1.0
+
+[node name="DeathEffect" type="GPUParticles2D"]
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_i8l1l")
+texture = ExtResource("1_cg0tt")
+lifetime = 2.0
+one_shot = true
+script = ExtResource("2_ewwoh")
+
+[node name="DeathAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_q3h2y")
+volume_db = -16.051
