@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://c5r5vv2pasxtv"]
 
 [ext_resource type="Texture2D" uid="uid://b3u6wyyc08xop" path="res://Art/ResourceImages/commonDrop_32x32.png" id="1_hklfl"]
-[ext_resource type="Script" path="res://UI/UpgradeInterface/upgrade_screen_canvas.cs" id="1_sch75"]
+[ext_resource type="Script" path="res://UI/UpgradeInterface/UpgradeScreenCanvas.cs" id="1_sch75"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgh2g"]
 content_margin_left = 3.0

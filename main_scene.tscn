@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cfpfgeb263qbg" path="res://Pickups/common_pickup.tscn" id="10_ffopp"]
 [ext_resource type="PackedScene" uid="uid://difcayrmalo5" path="res://UI/UpgradeInterface/UpgradeInterface.tscn" id="10_t2fx0"]
 [ext_resource type="PackedScene" uid="uid://2c1pk6hv2me8" path="res://Pickups/rare_pickup.tscn" id="11_kqb3o"]
-[ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/upgrade_screen_canvas.tscn" id="11_piuif"]
+[ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/UpgradeScreenCanvas.tscn" id="11_piuif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
 size = Vector2(3000, 383)
@@ -24,7 +24,6 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
-_spawnRate = null
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
 position = Vector2(1040, -373)
@@ -36,9 +35,6 @@ position = Vector2(2683, 163)
 
 [node name="PlacementController" type="Node2D" parent="."]
 script = ExtResource("5_dvmvm")
-_unitSize = null
-_invalidColor = null
-_validColor = null
 _showDebugInfo = false
 
 [node name="PlacementRay" type="RayCast2D" parent="PlacementController"]
