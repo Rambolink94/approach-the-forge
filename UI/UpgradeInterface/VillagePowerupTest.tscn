@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="2_8giuh"]
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="3_etrsh"]
 [ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Entities/Player/player.tscn" id="5_q8h36"]
-[ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/upgrade_screen_canvas.tscn" id="5_rflcm"]
+[ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/UpgradeScreenCanvas.tscn" id="5_rflcm"]
 [ext_resource type="PackedScene" uid="uid://difcayrmalo5" path="res://UI/UpgradeInterface/UpgradeInterface.tscn" id="5_wgv4h"]
 
 [node name="Game" type="Node2D"]

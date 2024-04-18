@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ApproachTheForge.UI.Village
 {
-	public partial class upgrade_screen_canvas : CanvasLayer
+	public partial class UpgradeScreenCanvas : CanvasLayer
 	{
 
 		private GameManager GameManager;
