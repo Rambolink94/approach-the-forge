@@ -31,7 +31,7 @@ public partial class ResourceManager : Node2D
 	
 	public delegate void ResourceChangedEventHandler(ResourceType resourceType, int newCount);
 	public static event ResourceChangedEventHandler ResourceChanged;
-    
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

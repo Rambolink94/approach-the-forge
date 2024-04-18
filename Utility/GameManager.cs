@@ -10,6 +10,7 @@ namespace ApproachTheForge.Utility;
 public partial class GameManager : Node2D
 {
 	public ResourceManager ResourceManager { get; private set; }
+	public UpgradeManager UpgradeManager { get; private set; }
 
 	private Spawner<EnemyGolemAI> _golemSpawner;
 	private int _wave;
@@ -18,6 +19,7 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
+		UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
 		_golemSpawner = GetNode<Spawner<EnemyGolemAI>>("GolumnSpawner");
 		
 		_golemSpawner.Spawn(1);
