@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using ApproachTheForge.Entities.Golem;
+using ApproachTheForge.Entities.Tower;
 using Godot;
 
 namespace ApproachTheForge.Utility;
@@ -10,21 +14,21 @@ public partial class PlacementController : Node2D
 	[Export] private Color _validColor = Colors.Green;
 	[Export] private bool _showDebugInfo = true;
 	
-	private PackedScene _tower = GD.Load<PackedScene>("res://Entities/Tower/tower.tscn");
-	private PackedScene _towerArtwork = GD.Load<PackedScene>("res://Entities/Tower/tower_placement_template.tscn");
-
-	private System.Collections.Generic.Dictionary<string, IPlaceable> _inputMap;
-	private System.Collections.Generic.Dictionary<IPlaceable, PackedScene> _instanceMap;
-	private IPlaceable _activePlaceable;
-	private bool _placementActive;
-	private bool _validPlacement;
-	private bool _mouseButtonConsumed = true;
+	// Load templates
+	private PackedScene _tower = GD.Load<PackedScene>("res://Entities/Tower/tower_placement_template.tscn");
+	private PackedScene _golem = GD.Load<PackedScene>("res://Entities/Golem/Friendly_Golem_Placement_Template.tscn");
 	
 	private RayCast2D _placementRay;
 	private RayCast2D _validityRay;
 	private Camera2D _camera;
 	private Node2D _placeableParent;
 	private AudioStreamPlayer2D _audioStream;
+	private GameManager _gameManager;
+	
+	private Dictionary<string, PlacementTemplate> _inputMap;
+	private PlacementTemplate _activeTemplate;
+	private bool _placementActive;
+	private bool _validPlacement;
 	
 	// Debug
 	private Vector2 _leftInvalidPosition;
@@ -37,17 +41,15 @@ public partial class PlacementController : Node2D
 		_placementRay = GetNode<RayCast2D>("PlacementRay");
 		_validityRay = GetNode<RayCast2D>("ValidityRay");
 		_audioStream = GetNode<AudioStreamPlayer2D>("PlacementPlayer");
+		_gameManager = GetNode<GameManager>("../GameManager");
 
-		var tower = CreatePlaceable<IPlaceable>(GlobalPosition, _towerArtwork, false, this);
+		PlacementTemplate towerTemplate = CreateTemplate(_tower);
+		PlacementTemplate golemTemplate = CreateTemplate(_golem);
 
-		_inputMap = new System.Collections.Generic.Dictionary<string, IPlaceable>
+		_inputMap = new Dictionary<string, PlacementTemplate>
 		{
-			{ "player_tower_select", tower },
-		};
-
-		_instanceMap = new System.Collections.Generic.Dictionary<IPlaceable, PackedScene>
-		{
-			{ tower, _tower },
+			{ "player_tower_select", towerTemplate },
+			{ "player_golem_select", golemTemplate },
 		};
 	}
 
@@ -70,18 +72,25 @@ public partial class PlacementController : Node2D
 		{
 			Vector2 normal = _placementRay.GetCollisionNormal();
 			Vector2 point = _placementRay.GetCollisionPoint();
-			bool isValid = normal.Dot(Vector2.Up) >= 1 && !_validityRay.IsColliding();
+			
+			// This is gross...but it works
+			var isValid = normal.Dot(Vector2.Up) >= 1
+			               && (!_validityRay.IsColliding()
+			                   || _validityRay.GetCollider() is Node2D collider
+			                   && collider.GetParentOrNull<Tower>() is not null
+			                   && !_activeTemplate.IsTower);
+			
 			MarkValidity(isValid);
 			
-			_activePlaceable.GlobalPosition = point;
+			_activeTemplate.GlobalPosition = point;
 		}
 	}
 
 	public override void _Draw()
 	{
-		if (_activePlaceable is null) return;
+		if (_activeTemplate is null) return;
 		
-		var position = _activePlaceable.GlobalPosition;
+		var position = _activeTemplate.GlobalPosition;
 		DrawLine(
 			position + Vector2.Up * GetViewport().GetVisibleRect().Size.Y,
 			position, Colors.Aqua, 4f);
@@ -99,37 +108,36 @@ public partial class PlacementController : Node2D
 	private void MarkValidity(bool isValid)
 	{
 		_validPlacement = isValid;
-		_activePlaceable.Sprite.Modulate = isValid ? _validColor : _invalidColor;
+		_activeTemplate.Modulate = isValid ? _validColor : _invalidColor;
 	}
 
-	private T CreatePlaceable<T>(Vector2 position, PackedScene package, bool isVisible, Node2D parent = null, bool isReal = false)
-		where T : class, IPlaceable
+	private PlacementTemplate CreateTemplate(PackedScene package)
 	{
-		var placeable = package.Instantiate<T>();
-		placeable.Visible = isVisible;
+		var towerTemplate = package.Instantiate<PlacementTemplate>();
+		towerTemplate.Visible = false;
+		
+		AddChild(towerTemplate);
+		
+		return towerTemplate;
+	}
+	
+	private void CreatePlaceable(Vector2 position, PackedScene package)
+	{
+		var placeable = package.Instantiate<IPlaceable>();
 		placeable.GlobalPosition = position;
 		
-		parent ??= _placeableParent;
-		if (placeable is Node2D node)
-		{
-			parent.AddChild(node);
-		}
-
-		if (isReal)
-		{
-			_audioStream.Play();
-		}
-
-		return placeable;
+		_placeableParent.AddChild(placeable as Node2D);
+		_audioStream.Play();
 	}
 
 	private void ProcessInput()
 	{
 		if (Input.IsActionJustPressed("player_action"))
 		{
-			if (_validPlacement && _instanceMap.TryGetValue(_activePlaceable, out PackedScene package))
+			if (_validPlacement
+			    && _gameManager.ResourceManager.TryUseResource((ConsumptionData)_activeTemplate.ConsumptionData))
 			{
-				CreatePlaceable<IPlaceable>(_activePlaceable.GlobalPosition, package, true, isReal: true);
+				CreatePlaceable(_activeTemplate.GlobalPosition, _activeTemplate.Placeable);
 			}
 		}
 		
@@ -137,21 +145,26 @@ public partial class PlacementController : Node2D
 		{
 			if (!Input.IsActionJustPressed(pair.Key)) continue;
 			
-			if (pair.Value == _activePlaceable)
+			if (pair.Value == _activeTemplate)
 			{
 				_placementActive = false;
-				if (_activePlaceable is not null)
+				if (_activeTemplate is not null)
 				{
-					_activePlaceable.Visible = false;
+					_activeTemplate.Visible = false;
 				}
-
-				_activePlaceable = null;
+				
+				_activeTemplate = null;
 				continue;
 			}
 
 			_placementActive = true;
-			_activePlaceable = pair.Value;
-			_activePlaceable.Visible = true;
+			if (_activeTemplate is not null)
+			{
+				_activeTemplate.Visible = false;
+			}
+			
+			_activeTemplate = pair.Value;
+			_activeTemplate.Visible = true;
 
 			return;
 		}

@@ -1,20 +1,24 @@
-using ApproachTheForge;
-using Godot;
+using System;
 using System.Linq;
+using ApproachTheForge.Utility;
+using Godot;
 
-namespace ApproachTheForge.Entities.Golem
+namespace ApproachTheForge.Entities.Golem;
+
+public partial class FriendlyGolemAI : GolemAI, IPlaceable
 {
-	public partial class FriendlyGolemAI : GolemAI
-	{
-		protected override Bearing ObjectiveBearing => Bearing.Right;
+	[Export] public ResourceType ResourceType { get; set; }
+	[Export] public int ResourceConsumptionAmount { get; set; }
+
+	protected override Bearing ObjectiveBearing => Bearing.Right;
 
 		protected override double RateOfFire => 1.5;
 
-		protected override DamageData DamageToApply => new DamageData()
-		{
-			Damage = 30,
-			Knockback = new Vector2((int)this.Bearing * 300, 0),
-		};
+	protected override DamageData DamageToApply => new ()
+	{
+		Damage = 30,
+		Knockback = new Vector2((int)this.Bearing * 300, 0),
+	};
 
 		protected override double Health { get; set; } = 100;
 

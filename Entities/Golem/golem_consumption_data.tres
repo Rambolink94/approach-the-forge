@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b4e6vkfdbggcb"]
+
+[ext_resource type="Script" path="res://Utility/ConsumptionData.cs" id="1_tmpqm"]
+
+[resource]
+script = ExtResource("1_tmpqm")
+ResourceType = 1
+ResourceConsumptionAmount = 10

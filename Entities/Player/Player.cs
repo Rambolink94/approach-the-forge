@@ -1,3 +1,4 @@
+using ApproachTheForge.Pickups;
 using ApproachTheForge.Utility;
 using Godot;
 
@@ -69,7 +70,9 @@ public partial class Player : Entity, Damageable
 
 	private void OnAreaEntered(Node2D resource)
 	{
+		if (resource is not ResourcePickup pickup) return;
 		
+		GameManager.ResourceManager.AddResource(pickup.ResourceType);
 	}
 
 	private void HandleInput()

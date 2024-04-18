@@ -259,7 +259,10 @@ namespace ApproachTheForge.Entities.Golem
 			{
 				this.Health = 0;
 
-				this.QueueFree();
+				if (IsInstanceValid(this))
+				{
+					this.QueueFree();
+				}
 
 				return true;
 			}

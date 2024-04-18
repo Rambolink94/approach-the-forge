@@ -1,8 +1,7 @@
 using ApproachTheForge.Entities.Player;
-using ApproachTheForge.Spawners;
 using Godot;
 
-namespace ApproachTheForge;
+namespace ApproachTheForge.Spawners;
 
 public partial class PlayerSpawner : Spawner<Player>
 {

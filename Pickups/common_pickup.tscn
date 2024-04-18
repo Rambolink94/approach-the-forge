@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfpfgeb263qbg"]
+
+[ext_resource type="PackedScene" uid="uid://ctpx14cf7ks8" path="res://Pickups/resource_pickup.tscn" id="1_qtynl"]
+[ext_resource type="Texture2D" uid="uid://b3u6wyyc08xop" path="res://Art/ResourceImages/commonDrop_32x32.png" id="2_0vphl"]
+
+[node name="ResourcePickup" instance=ExtResource("1_qtynl")]
+ResourceType = 1
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_0vphl")
