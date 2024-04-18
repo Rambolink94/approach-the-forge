@@ -22,8 +22,8 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
-        UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
-        _enemyGolemSpawner = GetNode<EnemyGolemSpawner>("EnemyGolemSpawner");
+		UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
+		_enemyGolemSpawner = GetNode<EnemyGolemSpawner>("EnemyGolemSpawner");
 		_playerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 
 		_playerSpawner.Spawn();

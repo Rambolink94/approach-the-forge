@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://p0ka1iyokbfn"]
 
-[ext_resource type="Script" path="res://PlayerSpawner.cs" id="1_n318u"]
+[ext_resource type="Script" path="res://Spawners/PlayerSpawner.cs" id="1_n318u"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="2_8giuh"]
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="3_etrsh"]
 [ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Entities/Player/player.tscn" id="5_q8h36"]

@@ -10,7 +10,5 @@ public partial class PlayerSpawner : Spawner<Player>
 	public override void _Ready()
 	{
 		base._Ready();
-		
-		Spawn();
 	}
 }

@@ -2,9 +2,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApproachTheForge.Utility.Upgrade
 {
@@ -38,7 +35,7 @@ namespace ApproachTheForge.Utility.Upgrade
         {
             RandomNumberGenerator random = new RandomNumberGenerator();
 
-            int randomThree = random.RandiRange(0, 2);
+            int randomThree = random.RandiRange(1, 3);
 
             return (ResourceType)randomThree;
         }
@@ -69,6 +66,14 @@ namespace ApproachTheForge.Utility.Upgrade
             // exactly to a desired upgrade value
             int upgradeValue = (int)Math.Round(random.Randfn(projectedCost, 1));
 
+            if(upgradeValue > 7)
+            {
+                upgradeValue = 7;
+            }
+            else if(upgradeValue < 1)
+            {
+                upgradeValue = 1;
+            }
             // Multiply the value by 5 to convert the range [1,7] to [5,35]
             return upgradeValue * 5;
         }

@@ -1,9 +1,7 @@
 using ApproachTheForge.Utility;
 using ApproachTheForge.Utility.Upgrade;
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace ApproachTheForge.UI.Village
 {

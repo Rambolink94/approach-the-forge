@@ -18,13 +18,13 @@ public abstract partial class Spawner<T> : Node2D
 		_gameManager = root.GetNode<GameManager>("GameManager");
 	}
 
-    public virtual T Spawn(Vector2 position = default)
-    {
-        var entity = EntityScene.Instantiate<T>();
-        entity.Initialize(_gameManager);
-        
-        AddChild(entity);
+	public virtual T Spawn(Vector2 position = default)
+	{
+		var entity = EntityScene.Instantiate<T>();
+		entity.Initialize(_gameManager);
+		
+		AddChild(entity);
 
-        return entity;
-    }
+		return entity;
+	}
 }

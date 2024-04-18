@@ -14,7 +14,7 @@ outline_size = 1
 script = ExtResource("1_kxu33")
 
 [node name="Player Detection" type="Area2D" parent="."]
-collision_layer = 32
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player Detection"]
@@ -23,6 +23,7 @@ shape = SubResource("RectangleShape2D_8pq4t")
 debug_color = Color(0.752941, 0.294118, 0.87451, 0.419608)
 
 [node name="Label" type="Label" parent="."]
+z_index = 2
 offset_left = -32.0
 offset_top = -128.0
 offset_right = 39.0
