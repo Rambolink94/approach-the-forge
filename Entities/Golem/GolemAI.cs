@@ -70,7 +70,7 @@ namespace ApproachTheForge.Entities.Golem
 		protected abstract double Health { get; set; }
 
 		// The damage of the golem
-		protected abstract double Damage { get; }
+		protected abstract double Damage { get; set; }
 
 		// The total knockback the golem as recieved in a game tick
 		protected Vector2 TotalKnockback = new Vector2();

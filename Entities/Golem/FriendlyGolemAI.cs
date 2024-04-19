@@ -16,7 +16,7 @@ namespace ApproachTheForge.Entities.Golem
 
 		protected override double Health { get; set; }
 
-		protected override double Damage => this.CalculateUpgradedValue(this.BaseDamage, EntityStatistics.Damage);
+		protected override double Damage { get; set; }
 
 		protected override DamageData DamageToApply => new()
 		{
@@ -28,6 +28,7 @@ namespace ApproachTheForge.Entities.Golem
 		{
 			base._Ready();
 
+			this.Damage = this.CalculateUpgradedValue(this.Damage, EntityStatistics.Damage);
 			this.Speed = (float)this.CalculateUpgradedValue(this.Speed, EntityStatistics.Speed);
 		}
 
@@ -75,7 +76,8 @@ namespace ApproachTheForge.Entities.Golem
 
 		public double CalculateUpgradedValue(double health, EntityStatistics stat)
 		{
-			IEnumerable<GolemUpgrade> upgrades = this.GameManager.UpgradeManager.GetUpgrades<GolemUpgrade>().
+			IEnumerable<GolemUpgrade> upgrades = this.GameManager.UpgradeManager.
+				GetUpgrades<GolemUpgrade>().
 				Where(upgrade => upgrade.UpgradedStat == stat);
 
 			foreach (GolemUpgrade upgrade in upgrades)
