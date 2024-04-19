@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ApproachTheForge.Entities;
 using ApproachTheForge.Entities.Golem;
+using ApproachTheForge.Entities.Player;
 using ApproachTheForge.Spawners;
 using Godot;
 
@@ -13,6 +14,8 @@ public partial class GameManager : Node2D
 	public ResourceManager ResourceManager { get; private set; }
 	public AbilityController AbilityController { get; } = new();
 	public PlacementController PlacementController { get; private set; }
+	
+	public Player Player { get; private set; }
 
 	private EnemyGolemSpawner _enemyGolemSpawner;
 	private PlayerSpawner _playerSpawner;
@@ -31,7 +34,7 @@ public partial class GameManager : Node2D
 		_enemyGolemSpawner = GetNode<EnemyGolemSpawner>("EnemyGolemSpawner");
 		_playerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 
-		_playerSpawner.Spawn();
+		Player = _playerSpawner.Spawn();
 		_enemyGolemSpawner.Spawn();
 	}
 

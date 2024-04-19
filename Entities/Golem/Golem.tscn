@@ -15,7 +15,7 @@ radius = 35.0
 b = Vector2(20, 0)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_w275l"]
-random_pitch = 3.0
+random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("1_acfa7")
 stream_0/weight = 1.0
@@ -60,4 +60,4 @@ autostart = true
 
 [node name="HurtAudioPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_w275l")
-volume_db = -21.567
+volume_db = -10.0

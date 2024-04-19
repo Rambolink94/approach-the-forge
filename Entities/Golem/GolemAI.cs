@@ -139,7 +139,7 @@ namespace ApproachTheForge.Entities.Golem
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
-
+			
 			if(IsAttacking)
 			{
 				this.ApplyDamageOnDelay();
@@ -266,9 +266,11 @@ namespace ApproachTheForge.Entities.Golem
 			{
 				this.Health = 0;
 
-				var deathEffect = _deathEffectScene.Instantiate<DeathEffect>();
-				deathEffect.GlobalPosition = GlobalPosition;
+				if (!IsInstanceValid(this)) return true;
+
+				var deathEffect = _deathEffectScene.Instantiate<Effects.DeathEffect>();
 				this.GetParent().AddChild(deathEffect);
+				deathEffect.GlobalPosition = GlobalPosition;
 				this.Die();
 
 				return true;

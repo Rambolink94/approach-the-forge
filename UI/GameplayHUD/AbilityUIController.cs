@@ -10,12 +10,21 @@ public partial class AbilityUIController : CanvasLayer
 {
 	private readonly List<MarginContainer> _containers = new();
 	private TextureRect _selectionRect;
+	private ProgressBar _healthBar;
+	private GameManager _gameManager;
 	private int _currentIndex;
+	private bool _healthBarInitialized;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_selectionRect = GetNode<TextureRect>("HBoxContainer/DashButton/MarginContainer/SelectionRect");
+		_healthBar = GetNode<ProgressBar>("VBoxContainer/Health/HBoxContainer/HealthBar");
+		_gameManager = GetTree().Root.GetNode("Game").GetNode<GameManager>("GameManager");
+		_gameManager.Player.HealthChanged += UpdateHealth;
+		UpdateHealth(_gameManager.Player.Health);
+
+		_selectionRect = 
+			GetNode<TextureRect>("VBoxContainer/Abilities/HBoxContainer/DashButton/MarginContainer/SelectionRect");
 		var parentButton = _selectionRect.GetParent<MarginContainer>();
 		if (parentButton is null)
 		{
@@ -23,7 +32,8 @@ public partial class AbilityUIController : CanvasLayer
 		}
 		
 		int index = 0;
-		foreach (var node in GetChild(0).GetChildren())
+		var buttonRoot = GetNode("VBoxContainer/Abilities/HBoxContainer");
+		foreach (var node in buttonRoot.GetChildren())
 		{
 			if (node is TextureButton button)
 			{
@@ -53,5 +63,16 @@ public partial class AbilityUIController : CanvasLayer
 		_currentIndex = index;
 		_containers[_currentIndex].AddChild(_selectionRect);
 		_selectionRect.Visible = true;
+	}
+
+	private void UpdateHealth(float health)
+	{
+		if (!_healthBarInitialized)
+		{
+			_healthBar.MaxValue = health;
+			_healthBarInitialized = true;
+		}
+		
+		_healthBar.Value = health;
 	}
 }

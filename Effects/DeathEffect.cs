@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ApproachTheForge;
+namespace ApproachTheForge.Effects;
 
 public partial class DeathEffect : GpuParticles2D
 {

@@ -11,15 +11,12 @@ public partial class Projectile : Area2D
     public event HitEventHandler Hit;
 
     private Node2D _target;
+    private Vector2 _lastDirection;
+    private bool _targetGenerated;
     private float _lifetime;
 
     public override void _Ready()
     {
-        AreaEntered += (_) =>
-        {
-            GD.Print("HERE yo!");
-        };
-        
         BodyEntered += OnHit;
     }
 
@@ -31,14 +28,17 @@ public partial class Projectile : Area2D
             OnHit(null);
         }
 
-        if (!IsInstanceValid(_target)) return;
+        if (!IsInstanceValid(_target) && !_targetGenerated)
+        {
+            // Generate new target to allow continued movement
+            _target = new Node2D();
+            _target.GlobalPosition = _lastDirection.Normalized() * 100f;
+            _targetGenerated = true;
+        }
+
+        _lastDirection = _target.GlobalPosition - GlobalPosition;
             
         GlobalPosition = GlobalPosition.Lerp(_target.GlobalPosition, _speed * (float)delta);
-
-        if (GetOverlappingBodies().Count > 0)
-        {
-            GD.Print("HIT SOMETHING");
-        }
     }
 
     public void SetTarget(Node2D target)

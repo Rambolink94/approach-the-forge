@@ -58,10 +58,12 @@ shape = SubResource("RectangleShape2D_i3hdm")
 
 [node name="PreShotParticle" type="GPUParticles2D" parent="."]
 position = Vector2(0, -165)
+emitting = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_ywaxa")
 texture = ExtResource("3_ksmep")
 lifetime = 3.0
+one_shot = true
 
 [node name="PreShotAudio" type="AudioStreamPlayer2D" parent="PreShotParticle"]
 position = Vector2(0, 165)

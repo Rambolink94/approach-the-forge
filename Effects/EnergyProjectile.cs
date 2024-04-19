@@ -10,6 +10,8 @@ public partial class EnergyProjectile : Projectile
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		base._Ready();
+		
 		_hitSound = GetNode<AudioStreamPlayer2D>("ExplosionSound");
 	}
 

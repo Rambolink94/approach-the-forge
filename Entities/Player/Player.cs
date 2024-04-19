@@ -1,3 +1,4 @@
+using System;
 using ApproachTheForge.Pickups;
 using ApproachTheForge.Utility;
 using Godot;
@@ -19,9 +20,9 @@ public partial class Player : Entity, IDamageable
 	[Export] private float _damage = 10f;
 	[Export] private float _knockback = 100f;
 	[Export] private float _attackSpeed = 0.1f;
-	
-	public float Health { get; private set; }
-	
+	[Export] public float Health { get; private set; } = 500f;
+
+	public event Action<float> HealthChanged;
 	private readonly float _defaultGravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 	
 	private Vector2 _input;
@@ -36,7 +37,10 @@ public partial class Player : Entity, IDamageable
 	private float _timeSinceLastAttack;
 	private bool _attackReady;
 	private AudioStreamPlayer2D _attackAudioPlayer;
+	private AudioStreamPlayer2D _hurtSound;
 	private GpuParticles2D _attackParticle;
+	private Texture2D _reversedParticleTexture;
+	private Texture2D _originalParticleTexture;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -47,7 +51,10 @@ public partial class Player : Entity, IDamageable
 		_collectionArea = GetNode<Area2D>("CollectionArea");
 		_damageArea = GetNode<Area2D>("DamageArea");
 		_attackAudioPlayer = GetNode<AudioStreamPlayer2D>("AttackPlayer");
+		_hurtSound = GetNode<AudioStreamPlayer2D>("HurtSound");
 		_attackParticle = GetNode<GpuParticles2D>("DamageArea/AttackParticle");
+		_originalParticleTexture = _attackParticle.Texture;
+		_reversedParticleTexture = GD.Load<Texture2D>("res://Art/Placeholder/slash_reversed.png");
 
 		_collectionArea.BodyEntered += OnAreaEntered;
 		AbilityController.AbilityChanged += (action, _) =>
@@ -55,6 +62,10 @@ public partial class Player : Entity, IDamageable
 			if (action == "player_stealth_sprint")
 			{
 				_isSprinting = !_isSprinting;
+			}
+			else
+			{
+				_isSprinting = false;
 			}
 		};
 	}
@@ -147,6 +158,8 @@ public partial class Player : Entity, IDamageable
 	public bool ApplyDamage(DamageData damageInstance)
 	{
 		Health -= damageInstance.Damage;
+		_hurtSound.Play();
+		HealthChanged?.Invoke(Health);
 		if (Health <= 0)
 		{
 			Die(false);
@@ -159,6 +172,11 @@ public partial class Player : Entity, IDamageable
 
 	private void Attack()
 	{
+		if (_isSprinting)
+		{
+			AbilityController.ChangeAbility("player_stealth_sprint");	// TODO: This is gross. Destroy it.
+		}
+		
 		foreach (Node2D body in _damageArea.GetOverlappingBodies())
 		{
 			if (body is IDamageable damageable)
@@ -188,6 +206,9 @@ public partial class Player : Entity, IDamageable
 			Vector2 pos = _damageArea.Position;
 			pos.X *= -1;
 			_damageArea.Position = pos;
+			_attackParticle.Texture = _attackParticle.Texture == _reversedParticleTexture
+				? _originalParticleTexture
+				: _reversedParticleTexture;
 		}
 	}
 }

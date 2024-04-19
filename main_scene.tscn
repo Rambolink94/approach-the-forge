@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="1_3s7uq"]
 [ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golem_spawner.tscn" id="3_j6643"]
-[ext_resource type="PackedScene" uid="uid://633q7c0yj8q8" path="res://placement_controller.tscn" id="4_wv48p"]
+[ext_resource type="PackedScene" path="res://placement_controller.tscn" id="4_wv48p"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
 [ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
@@ -18,12 +18,13 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
+_spawnRate = 5.0
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
-position = Vector2(2413, 178)
+position = Vector2(-4563, 378)
 
 [node name="EnemyGolemSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
-position = Vector2(3473, 199)
+position = Vector2(6289, 381)
 
 [node name="PlacementController" parent="GameManager" instance=ExtResource("4_wv48p")]
 _invalidColor = Color(0.886275, 0, 0, 1)
