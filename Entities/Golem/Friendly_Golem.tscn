@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ceovd1wc8dq88"]
+[gd_scene load_steps=23 format=3 uid="uid://ceovd1wc8dq88"]
 
 [ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_uqcce"]
 [ext_resource type="Script" path="res://Entities/Golem/FriendlyGolemAI.cs" id="2_eb38k"]
@@ -96,6 +96,8 @@ animations = [{
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("2_eb38k")
+BaseHealth = 100.0
+BaseDamage = 30.0
 
 [node name="EnvironmentCollision" parent="." index="0"]
 position = Vector2(0, -38)

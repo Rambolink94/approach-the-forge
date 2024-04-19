@@ -7,15 +7,17 @@ namespace ApproachTheForge.Entities.Golem
 	{
 		protected override Bearing ObjectiveBearing => Bearing.Left;
 
-		protected override double RateOfFire => 1.5;
-
-		protected override DamageData DamageToApply => new DamageData() 
+		protected override DamageData DamageToApply => new DamageData()
 		{
-			Damage = 30,
+			Damage = (float)this.Damage,
 			Knockback = new Vector2((int)this.Bearing * 300, 0),
 		};
 
-		protected override double Health { get; set; } = 100;
+		protected override double MaxHealth { get; } = 100;
+
+		protected override double Health { get; set; }
+
+		protected override double Damage { get; } = 30;
 
 		public override void _PhysicsProcess(double delta)
 		{

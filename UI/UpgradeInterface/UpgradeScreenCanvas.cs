@@ -74,9 +74,6 @@ namespace ApproachTheForge.UI.Village
 				this.Visible = false; 
 				this.GenerateNewRandomUpgradeWrappers();
 			}
-
-			GD.Print("Attempted to use: " + upgradeWrapper.Cost.ToString() +
-				" of " + upgradeWrapper.ResourceType.ToString());
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.

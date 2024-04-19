@@ -125,6 +125,7 @@ public partial class PlacementController : Node2D
 	{
 		var placeable = package.Instantiate<IPlaceable>();
 		placeable.GlobalPosition = position;
+		placeable.Initialize(this._gameManager);
 		
 		_placeableParent.AddChild(placeable as Node2D);
 		_audioStream.Play();

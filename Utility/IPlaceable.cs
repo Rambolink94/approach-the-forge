@@ -10,4 +10,6 @@ public interface IPlaceable
     public Vector2 GlobalPosition { get; set; }
     
     public Color Modulate { get; set; }
+
+    public void Initialize(GameManager gameManager);
 }

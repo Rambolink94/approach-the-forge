@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://vrenkrcqakkv"]
+[gd_scene load_steps=4 format=3 uid="uid://vrenkrcqakkv"]
 
 [ext_resource type="Script" path="res://Entities/Tower/Tower.cs" id="1_yu8en"]
 [ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_q6c2o"]

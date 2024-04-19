@@ -10,7 +10,7 @@ namespace ApproachTheForge.Entities.Golem
 	}
 	public abstract partial class GolemAI : Entity, Damageable
 	{
-		public const float Speed = 100.0f;
+		public float Speed = 100.0f;
 		public const float JumpVelocity = -100.0f;
 
 		// The direction the golem is facing
@@ -53,9 +53,11 @@ namespace ApproachTheForge.Entities.Golem
 		/// <summary>
 		///		Combat fields and properties
 		/// </summary>
-		
-		// The rate of fire of the golem
-		protected abstract double RateOfFire { get; }
+		[Export] public double BaseHealth { get; set; }
+
+		[Export] public double BaseDamage { get; set; }
+
+		public double RateOfFire { get; set; } = 1.5;
 
 		// A flag for whether the attack cooldown as passed
 		protected bool CanAttack => this.AttackTimer.TimeLeft == 0;
@@ -64,7 +66,11 @@ namespace ApproachTheForge.Entities.Golem
 		protected abstract DamageData DamageToApply { get; }
 
 		// The health of the golem
+		protected abstract double MaxHealth { get; }
 		protected abstract double Health { get; set; }
+
+		// The damage of the golem
+		protected abstract double Damage { get; }
 
 		// The total knockback the golem as recieved in a game tick
 		protected Vector2 TotalKnockback = new Vector2();
@@ -95,6 +101,9 @@ namespace ApproachTheForge.Entities.Golem
 			this.AttackTimer.Start(this.RateOfFire);
 
 			this.AttackDelayTimer = this.GetNode<Timer>("Attack Delay Timer");
+
+			// Instantiate the golem with the correct amount of HP
+			this.Health = this.MaxHealth;
 		}
 
 		/// <summary>
@@ -252,7 +261,7 @@ namespace ApproachTheForge.Entities.Golem
 		{
 			this.TotalKnockback += damageData.Knockback;
 
-			GD.Print("Damage Taken: True");
+			GD.Print("Damage Taken: " + damageData.Damage);
 			GD.Print("Current HP: " + this.Health);
 
 			if (this.Health - damageData.Damage <= 0)
