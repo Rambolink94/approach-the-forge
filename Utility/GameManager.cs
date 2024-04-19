@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using ApproachTheForge.Entities;
-using ApproachTheForge.Entities.Golem;
 using ApproachTheForge.Spawners;
 using Godot;
 
