@@ -1,6 +1,5 @@
 using Godot;
 using System.Linq;
-using Godot;
 
 namespace ApproachTheForge.Entities.Golem
 {
