@@ -14,6 +14,7 @@ script = ExtResource("1_n318u")
 position = Vector2(2234.17, -962.46)
 
 [node name="GameManager" parent="." instance=ExtResource("3_etrsh")]
+_spawnRate = null
 
 [node name="Player" parent="." instance=ExtResource("5_q8h36")]
 position = Vector2(3055, -1072)

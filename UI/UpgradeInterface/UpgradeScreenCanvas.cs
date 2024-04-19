@@ -41,35 +41,42 @@ namespace ApproachTheForge.UI.Village
 			this.PlayerButton = upgradeContainer.GetNode<Button>("PlayerUpgrade");
 			this.PlayerButton.ButtonUp += () => 
 			{
-				this.GameManager.UpgradeManager.AddUpgrade(this.PlayerUpgradeWrapper.Upgrade);
-				this.Visible = false;
-				this.GenerateNewRandomUpgradeWrappers();
-
+				this.ProcessUpgrade(this.PlayerUpgradeWrapper);
 			};
 
 			// Set up golem upgrade button
 			this.GolemButton = upgradeContainer.GetNode<Button>("GolemUpgrade");
 			this.GolemButton.ButtonUp += () =>
 			{
-				this.GameManager.UpgradeManager.AddUpgrade(this.GolemUpgradeWrapper.Upgrade);
-				this.Visible = false;
-				this.GenerateNewRandomUpgradeWrappers();
-
+				this.ProcessUpgrade(this.GolemUpgradeWrapper);
 			};
 
 			// Set up tower upgrade button
 			this.TowerButton = upgradeContainer.GetNode<Button>("TowerUpgrade");
 			this.TowerButton.ButtonUp += () =>
 			{
-				this.GameManager.UpgradeManager.AddUpgrade(this.TowerUpgradeWrapper.Upgrade);
-				this.Visible = false;
-				this.GenerateNewRandomUpgradeWrappers();
-
+				this.ProcessUpgrade(this.TowerUpgradeWrapper);
 			};
 
 			// Populate the buttons whenever the visibility changes
 			this.VisibilityChanged += this.PopulateButtons;
 			this.GenerateNewRandomUpgradeWrappers();
+		}
+
+		public void ProcessUpgrade<T>(UpgradeWrapper<T> upgradeWrapper)
+			where T : IUpgrade
+		{
+			if(this.GameManager.ResourceManager.
+					TryUseResource(upgradeWrapper.ResourceType,
+					upgradeWrapper.Cost))
+			{
+				this.GameManager.UpgradeManager.AddUpgrade(upgradeWrapper.Upgrade);
+				this.Visible = false; 
+				this.GenerateNewRandomUpgradeWrappers();
+			}
+
+			GD.Print("Attempted to use: " + upgradeWrapper.Cost.ToString() +
+				" of " + upgradeWrapper.ResourceType.ToString());
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -95,8 +102,8 @@ namespace ApproachTheForge.UI.Village
 		private void PopulateButtons()
 		{
 			this.PopulateButton(this.PlayerButton, this.PlayerUpgradeWrapper, "Player");
-			this.PopulateButton(this.TowerButton, this.GolemUpgradeWrapper, "Tower");
-			this.PopulateButton(this.GolemButton, this.TowerUpgradeWrapper, "Golem");
+			this.PopulateButton(this.TowerButton, this.TowerUpgradeWrapper, "Tower");
+			this.PopulateButton(this.GolemButton, this.GolemUpgradeWrapper, "Golem");
 		}
 
 		private void PopulateButton<T>(Button button, UpgradeWrapper<T> upgrade, string entityName)

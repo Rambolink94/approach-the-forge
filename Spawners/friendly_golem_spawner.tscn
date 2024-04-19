@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7ei011efimjh"]
-
-[ext_resource type="Script" path="res://PlayerGolemSpawner.cs" id="1_ridgt"]
-
-[node name="FriendlyGolemSpawner" type="Node2D"]
-script = ExtResource("1_ridgt")

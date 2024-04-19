@@ -1,10 +1,10 @@
-﻿namespace ApproachTheForge.Utility.Upgrade
+namespace ApproachTheForge.Utility.Upgrade
 {
-    public enum EntityStatistics
-    {
-        Health,
-        Damage,
-        Speed,
-        Rate_Of_Fire,
-    }
+	public enum EntityStatistics
+	{
+		Health,
+		Damage,
+		Speed,
+		Rate_Of_Fire,
+	}
 }
