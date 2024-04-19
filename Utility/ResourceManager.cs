@@ -35,8 +35,7 @@ public partial class ResourceManager : Node2D, IGameSystem
 	
 	public void Initialize(GameManager gameManager)
 	{
-		
-		CallDeferred(nameof(Init));
+		CallDeferred(nameof(HookEvents));
 	}
 
 	public bool TryUseResource(ResourceType resourceType, int count)

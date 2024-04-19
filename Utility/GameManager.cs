@@ -1,3 +1,4 @@
+using ApproachTheForge.Entities.Player;
 using ApproachTheForge.Spawners;
 using Godot;
 
@@ -22,7 +23,12 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
+		PlacementController = GetNode<PlacementController>("PlacementController");
 		UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
+
+		ResourceManager.Initialize(this);
+		PlacementController.Initialize(this);
+		
 		_enemyGolemSpawner = GetNode<EnemyGolemSpawner>("EnemyGolemSpawner");
 		_playerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 

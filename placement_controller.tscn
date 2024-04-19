@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://633q7c0yj8q8"]
+[gd_scene load_steps=4 format=3 uid="uid://haxrwr0ddi7h"]
 
 [ext_resource type="Script" path="res://Utility/PlacementController.cs" id="1_kc1sw"]
 [ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="2_bjc7b"]
@@ -12,7 +12,6 @@ stream_0/weight = 1.0
 
 [node name="PlacementController" type="Node2D"]
 script = ExtResource("1_kc1sw")
-_showDebugInfo = false
 
 [node name="PlacementRay" type="RayCast2D" parent="."]
 target_position = Vector2(0, 5000)

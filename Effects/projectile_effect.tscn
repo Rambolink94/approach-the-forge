@@ -29,7 +29,7 @@ color_ramp = SubResource("GradientTexture1D_3b1o3")
 radius = 25.0
 
 [node name="ProjectileEffect" type="Area2D"]
-collision_layer = 64
+collision_layer = 128
 collision_mask = 17
 script = ExtResource("1_gcl8r")
 _speed = 6.0
