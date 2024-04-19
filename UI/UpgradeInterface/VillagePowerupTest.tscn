@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://p0ka1iyokbfn"]
+
+[ext_resource type="Script" path="res://Spawners/PlayerSpawner.cs" id="1_n318u"]
+[ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="2_8giuh"]
+[ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="3_etrsh"]
+[ext_resource type="PackedScene" uid="uid://dya7savn80y2y" path="res://Entities/Player/player.tscn" id="5_q8h36"]
+[ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/UpgradeScreenCanvas.tscn" id="5_rflcm"]
+[ext_resource type="PackedScene" uid="uid://difcayrmalo5" path="res://UI/UpgradeInterface/UpgradeInterface.tscn" id="5_wgv4h"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_n318u")
+
+[node name="TileMap" parent="." instance=ExtResource("2_8giuh")]
+position = Vector2(2234.17, -962.46)
+
+[node name="GameManager" parent="." instance=ExtResource("3_etrsh")]
+
+[node name="Player" parent="." instance=ExtResource("5_q8h36")]
+position = Vector2(3055, -1072)
+
+[node name="Upgrade Screen Canvas" parent="." instance=ExtResource("5_rflcm")]
+visible = false
+
+[node name="VillageInterface" parent="." instance=ExtResource("5_wgv4h")]
+position = Vector2(2502, -1010)

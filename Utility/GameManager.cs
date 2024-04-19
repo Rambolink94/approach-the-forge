@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using ApproachTheForge.Entities;
-using ApproachTheForge.Entities.Golem;
-using ApproachTheForge.Entities.Player;
 using ApproachTheForge.Spawners;
 using Godot;
 
@@ -12,6 +7,7 @@ public partial class GameManager : Node2D
 {
 	[Export] private float _spawnRate = 1f;
 	public ResourceManager ResourceManager { get; private set; }
+	public UpgradeManager UpgradeManager { get; private set; }
 	public AbilityController AbilityController { get; } = new();
 	public PlacementController PlacementController { get; private set; }
 	
@@ -26,11 +22,7 @@ public partial class GameManager : Node2D
 	public override void _Ready()
 	{
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
-		PlacementController = GetNode<PlacementController>("PlacementController");
-		
-		ResourceManager.Initialize(this);
-		PlacementController.Initialize(this);
-		
+		UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
 		_enemyGolemSpawner = GetNode<EnemyGolemSpawner>("EnemyGolemSpawner");
 		_playerSpawner = GetNode<PlayerSpawner>("PlayerSpawner");
 

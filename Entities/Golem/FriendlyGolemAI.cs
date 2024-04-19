@@ -1,66 +1,68 @@
-using System;
 using System.Linq;
 using ApproachTheForge.Utility;
 using Godot;
 
-namespace ApproachTheForge.Entities.Golem;
-
-public partial class FriendlyGolemAI : GolemAI, IPlaceable
+namespace ApproachTheForge.Entities.Golem
 {
-	[Export] public ResourceType ResourceType { get; set; }
-	[Export] public int ResourceConsumptionAmount { get; set; }
-
-	protected override Bearing ObjectiveBearing => Bearing.Right;
-
-	protected override double RateOfFire => 1.5;
-
-	protected override DamageData DamageToApply => new ()
+	public partial class FriendlyGolemAI : GolemAI, IPlaceable
 	{
-		Damage = 30,
-		Knockback = new Vector2((int)this.Bearing * 300, 0),
-	};
+		[Export] public ResourceType ResourceType { get; set; }
+		[Export] public int ResourceConsumptionAmount { get; set; }
 
-	public override float Health { get; protected set; } = 100;
+		protected override Bearing ObjectiveBearing => Bearing.Right;
 
-	public override void _PhysicsProcess(double delta)
-	{
-		base._PhysicsProcess(delta);
+		protected override double RateOfFire => 1.5;
 
-		if (SearchForEnemies())
+		protected override DamageData DamageToApply => new()
 		{
-			this.FaceTarget();
+			Damage = 30,
+			Knockback = new Vector2((int)this.Bearing * 300, 0),
+		};
+
+		protected override double Health { get; set; } = 100;
+
+		public override void _PhysicsProcess(double delta)
+		{
+			base._PhysicsProcess(delta);
+
+			if (SearchForEnemies())
+			{
+				this.FaceTarget();
+			}
+			else
+			{
+				this.FaceObjective();
+			}
 		}
-		else
-		{
-			this.FaceObjective();
-		}
-	}
 
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
+		public override void _Process(double delta)
+		{
+			base._Process(delta);
 
-		if (SearchForEnemies())
-		{
-			this.AttackTargetInRange();
+			if (SearchForEnemies())
+			{
+				this.AttackTargetInRange();
+			}
+			else
+			{
+				this.FaceObjective();
+			}
 		}
-		else
-		{
-			this.FaceObjective();
-		}
-	}
 
-	public bool SearchForEnemies()
-	{
-		if (this.DetectionArea.HasOverlappingBodies())
+		public bool SearchForEnemies()
 		{
-			this.Target = this.DetectionArea.GetOverlappingBodies().FirstOrDefault();
+			if (this.DetectionArea.HasOverlappingBodies())
+			{
+				this.Target = this.DetectionArea.GetOverlappingBodies().FirstOrDefault();
 
-			return true;
-		}
-		else
-		{
-			return false;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }
+
+
