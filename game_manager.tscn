@@ -1,13 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://mofr601tdp43"]
+[gd_scene load_steps=6 format=3 uid="uid://mofr601tdp43"]
 
 [ext_resource type="Script" path="res://Utility/GameManager.cs" id="1_ow743"]
 [ext_resource type="Script" path="res://Utility/ResourceManager.cs" id="2_g3bmv"]
+[ext_resource type="PackedScene" uid="uid://2c1pk6hv2me8" path="res://Pickups/rare_pickup.tscn" id="3_irlt4"]
+[ext_resource type="PackedScene" uid="uid://cfpfgeb263qbg" path="res://Pickups/common_pickup.tscn" id="3_rquv3"]
+[ext_resource type="PackedScene" uid="uid://ct54nmjon1ddh" path="res://Pickups/super_pickup.tscn" id="4_621qf"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_ow743")
 
 [node name="ResourceManager" type="Node2D" parent="."]
 script = ExtResource("2_g3bmv")
-Common = 50
-Rare = 99
-Super = 420
+_initialCommon = 50
+_initialRare = 20
+_resourceInstanceMap = {
+0: null,
+1: ExtResource("3_rquv3"),
+2: ExtResource("3_irlt4"),
+3: ExtResource("4_621qf")
+}

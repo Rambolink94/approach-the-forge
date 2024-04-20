@@ -1,13 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://vrenkrcqakkv"]
+[gd_scene load_steps=11 format=3 uid="uid://vrenkrcqakkv"]
 
 [ext_resource type="Script" path="res://Entities/Tower/Tower.cs" id="1_yu8en"]
 [ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_q6c2o"]
+[ext_resource type="Texture2D" uid="uid://0cjhte2a7mxj" path="res://Art/Placeholder/lil_swoosh.png" id="3_ksmep"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3hdm"]
 size = Vector2(76, 152)
 
+[sub_resource type="Gradient" id="Gradient_pj4ng"]
+colors = PackedColorArray(0.00784314, 0.623529, 0.905882, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ri3db"]
+gradient = SubResource("Gradient_pj4ng")
+
+[sub_resource type="Curve" id="Curve_65e62"]
+_data = [Vector2(0, 0), 0.0, 3.85174, 0, 0, Vector2(1, 0), -4.07692, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c307q"]
+curve = SubResource("Curve_65e62")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ywaxa"]
+particle_flag_disable_z = true
+angle_max = 45.0
+angular_velocity_min = 360.0
+angular_velocity_max = 360.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+scale_min = 1.7
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_c307q")
+color_ramp = SubResource("GradientTexture1D_ri3db")
+turbulence_noise_strength = 1.43
+turbulence_noise_speed = Vector3(0, 6.72, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4j0op"]
+radius = 350.0
+
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_yu8en")
+Health = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -96)
@@ -20,3 +55,23 @@ collision_mask = 20
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, -76)
 shape = SubResource("RectangleShape2D_i3hdm")
+
+[node name="PreShotParticle" type="GPUParticles2D" parent="."]
+position = Vector2(0, -165)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_ywaxa")
+texture = ExtResource("3_ksmep")
+lifetime = 3.0
+one_shot = true
+
+[node name="PreShotAudio" type="AudioStreamPlayer2D" parent="PreShotParticle"]
+position = Vector2(0, 165)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(0, -165)
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_4j0op")

@@ -1,18 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=14 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="1_3s7uq"]
 [ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golem_spawner.tscn" id="3_j6643"]
-[ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="3_mu17a"]
 [ext_resource type="PackedScene" uid="uid://cujayu0lcsafg" path="res://Utility/Upgrade/UpgradeManager.tscn" id="4_nxh2n"]
+[ext_resource type="PackedScene" uid="uid://haxrwr0ddi7h" path="res://placement_controller.tscn" id="4_wv48p"]
 [ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
-[ext_resource type="Script" path="res://Utility/PlacementController.cs" id="5_dvmvm"]
 [ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
 [ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
 [ext_resource type="PackedScene" uid="uid://cawtldme2losh" path="res://Spawners/player_spawner.tscn" id="9_boe08"]
-[ext_resource type="PackedScene" uid="uid://cfpfgeb263qbg" path="res://Pickups/common_pickup.tscn" id="10_ffopp"]
 [ext_resource type="PackedScene" uid="uid://difcayrmalo5" path="res://UI/UpgradeInterface/UpgradeInterface.tscn" id="10_t2fx0"]
-[ext_resource type="PackedScene" uid="uid://2c1pk6hv2me8" path="res://Pickups/rare_pickup.tscn" id="11_kqb3o"]
 [ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/UpgradeScreenCanvas.tscn" id="11_piuif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
@@ -24,32 +21,20 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
+_spawnRate = 5.0
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
-position = Vector2(1040, -373)
+position = Vector2(-4563, 378)
 
 [node name="EnemyGolemSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
 position = Vector2(2683, 163)
 
 [node name="UpgradeManager" parent="GameManager" instance=ExtResource("4_nxh2n")]
 
-[node name="PlacementController" type="Node2D" parent="."]
-script = ExtResource("5_dvmvm")
+[node name="PlacementController" parent="GameManager" instance=ExtResource("4_wv48p")]
+_invalidColor = Color(0.886275, 0, 0, 1)
+_validColor = Color(0, 0.721569, 0, 1)
 _showDebugInfo = false
-
-[node name="PlacementRay" type="RayCast2D" parent="PlacementController"]
-target_position = Vector2(0, 5000)
-
-[node name="ValidityRay" type="RayCast2D" parent="PlacementController"]
-target_position = Vector2(0, 5000)
-collision_mask = 12
-
-[node name="PlaceableParent" type="Node2D" parent="PlacementController"]
-
-[node name="PlacementPlayer" type="AudioStreamPlayer2D" parent="PlacementController"]
-stream = ExtResource("3_mu17a")
-volume_db = 5.0
-max_distance = 10000.0
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -95,89 +80,3 @@ position = Vector2(-5040, 487)
 
 [node name="Upgrade Screen Canvas" parent="." instance=ExtResource("11_piuif")]
 visible = false
-
-[node name="Pickups" type="Node2D" parent="."]
-
-[node name="ResourcePickup" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-300, 326)
-
-[node name="ResourcePickup2" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-245, 326)
-
-[node name="ResourcePickup3" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-164, 324)
-
-[node name="ResourcePickup4" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(-91, 309)
-
-[node name="ResourcePickup5" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(6, 306)
-
-[node name="ResourcePickup6" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(78, 316)
-
-[node name="ResourcePickup7" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(157, 313)
-
-[node name="ResourcePickup8" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(246, 294)
-
-[node name="ResourcePickup9" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(316, 242)
-
-[node name="ResourcePickup10" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(375, 174)
-
-[node name="ResourcePickup11" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(428, 98)
-
-[node name="ResourcePickup12" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(472, 35)
-
-[node name="ResourcePickup13" parent="Pickups" instance=ExtResource("10_ffopp")]
-position = Vector2(472, 35)
-
-[node name="ResourcePickup14" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(544, -33)
-
-[node name="ResourcePickup15" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(612, -79)
-
-[node name="ResourcePickup16" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(682, -140)
-
-[node name="ResourcePickup17" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(800, -130)
-
-[node name="ResourcePickup18" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(870, -140)
-
-[node name="ResourcePickup19" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(946, -146)
-
-[node name="ResourcePickup20" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1056, -146)
-
-[node name="ResourcePickup21" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1118, -155)
-
-[node name="ResourcePickup22" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1185, -158)
-
-[node name="ResourcePickup23" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1260, -161)
-
-[node name="ResourcePickup24" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1339, -132)
-
-[node name="ResourcePickup25" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1433, -121)
-
-[node name="ResourcePickup26" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1531, -79)
-
-[node name="ResourcePickup27" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1638, -14)
-
-[node name="ResourcePickup28" parent="Pickups" instance=ExtResource("11_kqb3o")]
-position = Vector2(1638, -14)

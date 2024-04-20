@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://bq2er6obga7om"]
+[gd_scene load_steps=29 format=3 uid="uid://bq2er6obga7om"]
 
 [ext_resource type="PackedScene" uid="uid://dktkrx7x5q72l" path="res://Entities/Golem/Golem.tscn" id="1_mgs2c"]
 [ext_resource type="Script" path="res://Entities/Golem/EnemyGolemAI.cs" id="2_ldfi0"]
+[ext_resource type="Script" path="res://Utility/DropData.cs" id="3_3v063"]
 [ext_resource type="Texture2D" uid="uid://ckd3jynm5pdpu" path="res://Entities/Golem/HostileGolemAttack/GolemAttack.png" id="3_buvtv"]
 [ext_resource type="Texture2D" uid="uid://bvgdvkxpeu71i" path="res://Entities/Golem/HostileGolemWalk/sprite_00.png" id="3_jvsuw"]
 [ext_resource type="Texture2D" uid="uid://nrpqs06whdf" path="res://Entities/Golem/HostileGolemWalk/sprite_01.png" id="4_5spf1"]
@@ -13,6 +14,24 @@
 [ext_resource type="Texture2D" uid="uid://bf5fah5qbvepo" path="res://Entities/Golem/HostileGolemWalk/sprite_07.png" id="10_tpl4u"]
 [ext_resource type="Texture2D" uid="uid://chg15lwius8ve" path="res://Entities/Golem/HostileGolemWalk/sprite_08.png" id="11_l4vr4"]
 [ext_resource type="Texture2D" uid="uid://b4s4r06m5bfa" path="res://Entities/Golem/HostileGolemWalk/sprite_09.png" id="12_7khsc"]
+
+[sub_resource type="Resource" id="Resource_nk0fp"]
+script = ExtResource("3_3v063")
+DropChance = 0.3
+ResourceType = 0
+ResourceAmount = 0
+
+[sub_resource type="Resource" id="Resource_qx6ph"]
+script = ExtResource("3_3v063")
+DropChance = 0.6
+ResourceType = 1
+ResourceAmount = 1
+
+[sub_resource type="Resource" id="Resource_r7cuy"]
+script = ExtResource("3_3v063")
+DropChance = 0.1
+ResourceType = 2
+ResourceAmount = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfndc"]
 atlas = ExtResource("3_buvtv")
@@ -131,6 +150,7 @@ animations = [{
 collision_layer = 16
 collision_mask = 1
 script = ExtResource("2_ldfi0")
+_dropTable = Array[Resource]([SubResource("Resource_nk0fp"), SubResource("Resource_qx6ph"), SubResource("Resource_r7cuy")])
 
 [node name="EnvironmentCollision" parent="." index="0"]
 position = Vector2(0, 3)

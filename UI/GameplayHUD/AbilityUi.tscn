@@ -1,73 +1,146 @@
-[gd_scene load_steps=2 format=3 uid="uid://bexgxquxepwnq"]
+[gd_scene load_steps=8 format=3 uid="uid://bexgxquxepwnq"]
 
 [ext_resource type="Texture2D" uid="uid://tyri0xiae4o1" path="res://Art/ResourceImages/resourceBorder-32x32.png" id="1_mjar5"]
+[ext_resource type="Script" path="res://UI/GameplayHUD/AbilityUIController.cs" id="1_nabko"]
+[ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_lysbo"]
+[ext_resource type="Texture2D" uid="uid://f6hl8p4t6hyn" path="res://Entities/Golem/FriendlyGolemWalk/sprite_friendly_0.png" id="3_voa7g"]
+[ext_resource type="Texture2D" uid="uid://cbkvoyvifbp2a" path="res://Art/Placeholder/white_border.png" id="4_jal24"]
+[ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="4_p0ul4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fp625"]
+bg_color = Color(0.603922, 0, 0.0431373, 1)
 
 [node name="AbilityUI" type="CanvasLayer"]
+script = ExtResource("1_nabko")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 8.59
-offset_top = -88.0
-offset_right = 268.59
-offset_bottom = -8.0
+offset_top = -84.0
+offset_right = 260.0
 grow_vertical = 0
+
+[node name="Health" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Health"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Health/HBoxContainer"]
+layout_mode = 2
+text = "HP
+"
+
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/Health/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_fp625")
+value = 50.0
+show_percentage = false
+
+[node name="Abilities" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Abilities"]
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="TowerButton" type="TextureButton" parent="HBoxContainer"]
+[node name="DashButton" type="TextureButton" parent="VBoxContainer/Abilities/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
 texture_normal = ExtResource("1_mjar5")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="HBoxContainer/TowerButton"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Abilities/HBoxContainer/DashButton"]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_p0ul4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Abilities/HBoxContainer/DashButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "TOWER"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
 
-[node name="GolemButton" type="TextureButton" parent="HBoxContainer"]
+[node name="SelectionRect" type="TextureRect" parent="VBoxContainer/Abilities/HBoxContainer/DashButton/MarginContainer"]
+modulate = Color(0, 0.764706, 0.858824, 1)
+layout_mode = 2
+texture = ExtResource("4_jal24")
+flip_v = true
+
+[node name="TowerButton" type="TextureButton" parent="VBoxContainer/Abilities/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+disabled = true
 texture_normal = ExtResource("1_mjar5")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="HBoxContainer/GolemButton"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Abilities/HBoxContainer/TowerButton"]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_lysbo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Abilities/HBoxContainer/TowerButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "GOLEM"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
 
-[node name="DashButton" type="TextureButton" parent="HBoxContainer"]
+[node name="GolemButton" type="TextureButton" parent="VBoxContainer/Abilities/HBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+disabled = true
 texture_normal = ExtResource("1_mjar5")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="HBoxContainer/DashButton"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Abilities/HBoxContainer/GolemButton"]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_voa7g")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Abilities/HBoxContainer/GolemButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "DASH"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true

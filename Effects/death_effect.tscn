@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://c12bwku6njtrs"]
+
+[ext_resource type="Texture2D" uid="uid://liqkl8h6ccf1" path="res://Art/Placeholder/circle.png" id="1_82b3w"]
+[ext_resource type="Script" path="res://Effects/DeathEffect.cs" id="2_ffoh0"]
+[ext_resource type="AudioStream" uid="uid://csbhs00wisedb" path="res://Audio/gooey_death.wav" id="3_qw2rb"]
+
+[sub_resource type="Curve" id="Curve_hclo7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.938679, 0.418605), -2.07994, -2.07994, 0, 0, Vector2(1, 0.0174417), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hdbex"]
+curve = SubResource("Curve_hclo7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8l1l"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 90, 0)
+scale_min = 0.3
+scale_max = 0.4
+scale_over_velocity_max = 1.0
+color = Color(0.603922, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_hdbex")
+collision_use_scale = true
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q3h2y"]
+random_pitch = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("3_qw2rb")
+stream_0/weight = 1.0
+
+[node name="DeathEffect" type="GPUParticles2D"]
+emitting = false
+amount = 24
+process_material = SubResource("ParticleProcessMaterial_i8l1l")
+texture = ExtResource("1_82b3w")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_ffoh0")
+
+[node name="DeathAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_q3h2y")
+volume_db = -16.051

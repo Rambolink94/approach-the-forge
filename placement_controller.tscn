@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://haxrwr0ddi7h"]
+
+[ext_resource type="Script" path="res://Utility/PlacementController.cs" id="1_kc1sw"]
+[ext_resource type="AudioStream" uid="uid://dnuesaddf5y4k" path="res://Audio/placement.wav" id="2_bjc7b"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hivs6"]
+random_pitch = 2.0
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("2_bjc7b")
+stream_0/weight = 1.0
+
+[node name="PlacementController" type="Node2D"]
+script = ExtResource("1_kc1sw")
+
+[node name="PlacementRay" type="RayCast2D" parent="."]
+target_position = Vector2(0, 5000)
+
+[node name="ValidityRay" type="RayCast2D" parent="."]
+target_position = Vector2(0, 5000)
+collision_mask = 12
+
+[node name="PlaceableParent" type="Node2D" parent="."]
+
+[node name="PlacementPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_hivs6")
+volume_db = 5.0
+max_distance = 10000.0

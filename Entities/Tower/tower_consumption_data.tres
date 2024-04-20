@@ -1,8 +1,8 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cyg6pewt8nnym"]
+[gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://cyg6pewt8nnym"]
 
-[ext_resource type="Script" path="res://Utility/ConsumptionData.cs" id="1_crpqy"]
+[ext_resource type="Script" path="res://Utility/ResourceData.cs" id="1_r68m5"]
 
 [resource]
-script = ExtResource("1_crpqy")
+script = ExtResource("1_r68m5")
 ResourceType = 2
-ResourceConsumptionAmount = 20
+ResourceAmount = 20

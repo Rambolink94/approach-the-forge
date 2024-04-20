@@ -1,5 +1,6 @@
 using ApproachTheForge.Utility;
 using Godot;
+using Godot.Collections;
 
 namespace ApproachTheForge.Entities.Golem
 {
@@ -8,7 +9,7 @@ namespace ApproachTheForge.Entities.Golem
 		Left = -1,
 		Right = 1,
 	}
-	public abstract partial class GolemAI : Entity, Damageable
+	public abstract partial class GolemAI : Entity, IDamageable
 	{
 		public const float Speed = 100.0f;
 		public const float JumpVelocity = -100.0f;
@@ -64,7 +65,7 @@ namespace ApproachTheForge.Entities.Golem
 		protected abstract DamageData DamageToApply { get; }
 
 		// The health of the golem
-		protected abstract double Health { get; set; }
+		public abstract float Health { get; protected set; }
 
 		// The total knockback the golem as recieved in a game tick
 		protected Vector2 TotalKnockback = new Vector2();
@@ -74,6 +75,9 @@ namespace ApproachTheForge.Entities.Golem
 
 		// Get the gravity from the project settings to be synced with RigidBody nodes.
 		public float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+		private PackedScene _deathEffectScene = GD.Load<PackedScene>("res://Effects/death_effect.tscn");
+
+		private AudioStreamPlayer2D _hurtAudioPlayer;
 
 		/// <summary>
 		///		Called when the object first enters the scene.
@@ -95,6 +99,8 @@ namespace ApproachTheForge.Entities.Golem
 			this.AttackTimer.Start(this.RateOfFire);
 
 			this.AttackDelayTimer = this.GetNode<Timer>("Attack Delay Timer");
+
+			_hurtAudioPlayer = GetNode<AudioStreamPlayer2D>("HurtAudioPlayer");
 		}
 
 		/// <summary>
@@ -120,10 +126,10 @@ namespace ApproachTheForge.Entities.Golem
 
 			this.Velocity = this._Velocity + this.TotalKnockback;
 
-			this.TotalKnockback = new Vector2();
-
 			MoveAndSlide();
 			ManageAnimation();
+			
+			this.TotalKnockback = new Vector2();
 		}
 
 		/// <summary>
@@ -133,7 +139,7 @@ namespace ApproachTheForge.Entities.Golem
 		public override void _Process(double delta)
 		{
 			base._Process(delta);
-
+			
 			if(IsAttacking)
 			{
 				this.ApplyDamageOnDelay();
@@ -171,9 +177,9 @@ namespace ApproachTheForge.Entities.Golem
 		{
 			if (this.AttackDelayTimer.TimeLeft == 0)
 			{
-				if (this.Target is Damageable)
+				if (this.Target is IDamageable)
 				{
-					if ((this.Target as Damageable).ApplyDamage(this.DamageToApply))
+					if ((this.Target as IDamageable).ApplyDamage(this.DamageToApply))
 					{
 						// The target will remove itself from the game. Update the target reference
 						this.Target = new Node2D();
@@ -244,7 +250,7 @@ namespace ApproachTheForge.Entities.Golem
 		}
 
 		/// <summary>
-		///		Recieve a Damage Data struct from an attacker and applying the changes due to damage.
+		///		Receive a Damage Data struct from an attacker and applying the changes due to damage.
 		/// </summary>
 		/// <param name="damageData"> A struct containing the necessary data for taking damage properly. </param>
 		/// <returns> True if this object dies, false otherwise. </returns>
@@ -255,22 +261,24 @@ namespace ApproachTheForge.Entities.Golem
 			GD.Print("Damage Taken: True");
 			GD.Print("Current HP: " + this.Health);
 
-			if (this.Health - damageData.Damage <= 0)
+			this.Health -= damageData.Damage;
+			if (this.Health <= 0)
 			{
 				this.Health = 0;
 
-				if (IsInstanceValid(this))
-				{
-					this.QueueFree();
-				}
+				if (!IsInstanceValid(this)) return true;
+
+				var deathEffect = _deathEffectScene.Instantiate<Effects.DeathEffect>();
+				this.GetParent().AddChild(deathEffect);
+				deathEffect.GlobalPosition = GlobalPosition;
+				this.Die();
 
 				return true;
 			}
-			else
-			{
-				this.Health -= damageData.Damage;
-				return false;
-			}
+			
+			if (IsInstanceValid(this)) _hurtAudioPlayer.Play();
+			
+			return false;
 		}
 	}
 }
