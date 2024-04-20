@@ -1,7 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://kg5ulxh1auyb"]
+[gd_scene load_steps=8 format=3 uid="uid://kg5ulxh1auyb"]
 
 [ext_resource type="Script" path="res://Spawners/EnemyGolemSpawner.cs" id="1_cmyh8"]
+[ext_resource type="Texture2D" uid="uid://0cjhte2a7mxj" path="res://Art/Placeholder/lil_swoosh.png" id="2_8xcm5"]
+
+[sub_resource type="Gradient" id="Gradient_mnm06"]
+colors = PackedColorArray(0.603622, 0, 0.0739564, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ri3db"]
+gradient = SubResource("Gradient_mnm06")
+
+[sub_resource type="Curve" id="Curve_is5cx"]
+_data = [Vector2(0, 0), 0.0, 3.85174, 0, 0, Vector2(1, 0), -4.07692, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c307q"]
+curve = SubResource("Curve_is5cx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nt5gc"]
+particle_flag_disable_z = true
+angle_max = 45.0
+angular_velocity_min = 360.0
+angular_velocity_max = 360.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+scale_min = 1.7
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_c307q")
+color_ramp = SubResource("GradientTexture1D_ri3db")
+turbulence_noise_strength = 1.43
+turbulence_noise_speed = Vector3(0, 6.72, 0)
 
 [node name="GolumnSpawner" type="Node2D"]
-position = Vector2(6365, 370)
 script = ExtResource("1_cmyh8")
+
+[node name="PreShotParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_nt5gc")
+texture = ExtResource("2_8xcm5")
+lifetime = 3.0
+one_shot = true

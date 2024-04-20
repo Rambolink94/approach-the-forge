@@ -179,9 +179,17 @@ namespace ApproachTheForge.Entities.Golem
 		{
 			if (this.AttackDelayTimer.TimeLeft == 0)
 			{
-				if (this.Target is IDamageable)
+				if (this.Target is IDamageable target)
 				{
-					if ((this.Target as IDamageable).ApplyDamage(this.DamageToApply))
+					if (target.ApplyDamage(this.DamageToApply))
+					{
+						// The target will remove itself from the game. Update the target reference
+						this.Target = new Node2D();
+					}
+				}
+				else if (this.Target?.GetParent() is IDamageable parent)
+				{
+					if (parent.ApplyDamage(this.DamageToApply))
 					{
 						// The target will remove itself from the game. Update the target reference
 						this.Target = new Node2D();

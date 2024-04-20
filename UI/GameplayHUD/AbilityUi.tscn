@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bexgxquxepwnq"]
+[gd_scene load_steps=10 format=3 uid="uid://bexgxquxepwnq"]
 
 [ext_resource type="Texture2D" uid="uid://tyri0xiae4o1" path="res://Art/ResourceImages/resourceBorder-32x32.png" id="1_mjar5"]
 [ext_resource type="Script" path="res://UI/GameplayHUD/AbilityUIController.cs" id="1_nabko"]
@@ -7,18 +7,44 @@
 [ext_resource type="Texture2D" uid="uid://cbkvoyvifbp2a" path="res://Art/Placeholder/white_border.png" id="4_jal24"]
 [ext_resource type="Texture2D" uid="uid://vurhx7bgc58x" path="res://Art/Placeholder/player.png" id="4_p0ul4"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t888b"]
+bg_color = Color(0.203922, 0.701961, 0.47451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3rgt"]
+bg_color = Color(0.694118, 0.592157, 0.207843, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fp625"]
 bg_color = Color(0.603922, 0, 0.0431373, 1)
 
 [node name="AbilityUI" type="CanvasLayer"]
 script = ExtResource("1_nabko")
 
+[node name="WaveProgress" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -253.0
+offset_right = 253.0
+offset_bottom = 127.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+
+[node name="CurrentWave" type="ProgressBar" parent="WaveProgress"]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_t888b")
+value = 50.0
+
+[node name="TimeWave" type="ProgressBar" parent="WaveProgress"]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_p3rgt")
+value = 50.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -84.0
-offset_right = 260.0
+offset_top = -127.0
+offset_right = 280.0
 grow_vertical = 0
 
 [node name="Health" type="MarginContainer" parent="VBoxContainer"]
@@ -144,3 +170,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="WaveContainer" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_bottom = 80.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="WaveContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Wave"
+
+[node name="WaveNumberLabel" type="Label" parent="WaveContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1

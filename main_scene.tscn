@@ -18,13 +18,13 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
-_spawnRate = 5.0
+_initialSpawnCount = 30
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
 position = Vector2(-4563, 378)
 
 [node name="EnemyGolemSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
-position = Vector2(-3607, 123)
+position = Vector2(6360, 402)
 
 [node name="UpgradeManager" parent="GameManager" instance=ExtResource("4_nxh2n")]
 

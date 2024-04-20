@@ -49,6 +49,7 @@ bg_color = Color(0.635294, 0.113725, 0, 1)
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_yu8en")
 Health = 200.0
+_attackSpeed = 1.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -96)

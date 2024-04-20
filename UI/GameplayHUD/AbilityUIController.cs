@@ -12,6 +12,9 @@ public partial class AbilityUIController : CanvasLayer
 	private TextureRect _selectionRect;
 	private ProgressBar _healthBar;
 	private GameManager _gameManager;
+	private Label _waveNumberLabel;
+	private ProgressBar _currentWaveProgress;
+	private ProgressBar _timeWaveProgress;
 	private int _currentIndex;
 	private bool _healthBarInitialized;
 	
@@ -19,8 +22,14 @@ public partial class AbilityUIController : CanvasLayer
 	public override void _Ready()
 	{
 		_healthBar = GetNode<ProgressBar>("VBoxContainer/Health/HBoxContainer/HealthBar");
+		_waveNumberLabel = GetNode<Label>("WaveContainer/WaveNumberLabel");
+		_currentWaveProgress = GetNode<ProgressBar>("WaveProgress/CurrentWave");
+		_timeWaveProgress = GetNode<ProgressBar>("WaveProgress/TimeWave");
+		
 		_gameManager = GetTree().Root.GetNode("Game").GetNode<GameManager>("GameManager");
 		_gameManager.Player.HealthChanged += UpdateHealth;
+		_gameManager.WaveProgress += UpdateWaveProgress;
+		_gameManager.WaveChanged += SetWaveData;
 		UpdateHealth(_gameManager.Player.Health);
 
 		_selectionRect = 
@@ -46,6 +55,7 @@ public partial class AbilityUIController : CanvasLayer
 		
 		_currentIndex = _containers.IndexOf(parentButton);
 		OnAbilityChanged(string.Empty, -1);
+		
 		_gameManager.AbilityController.AbilityChanged += OnAbilityChanged;
 	}
 
@@ -74,5 +84,21 @@ public partial class AbilityUIController : CanvasLayer
 		}
 		
 		_healthBar.Value = health;
+	}
+
+	private void UpdateWaveProgress(float timeRemaining, int killsInWave)
+	{
+		_timeWaveProgress.Value = timeRemaining;
+		_currentWaveProgress.Value = killsInWave;
+	}
+	
+	private void SetWaveData(int wave, float waveLength, int spawnCount)
+	{
+		_waveNumberLabel.Text = wave.ToString();
+		_timeWaveProgress.MaxValue = waveLength;
+		_currentWaveProgress.MaxValue = spawnCount;
+		
+		_timeWaveProgress.Value = 0;
+		_currentWaveProgress.Value = 0;
 	}
 }
