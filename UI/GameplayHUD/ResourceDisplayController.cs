@@ -17,7 +17,10 @@ public partial class ResourceDisplayController : CanvasLayer
 		_rareLabel = GetNode<Label>("ResourceIcons/Rare/Quantity/Number");
 		_epicLabel = GetNode<Label>("ResourceIcons/Epic/Quantity/Number");
 
-		ResourceManager.ResourceChanged += OnResourceChanged;
+		GetTree().Root
+			.GetNode("Game")
+			.GetNode<GameManager>("GameManager")
+			.ResourceManager.ResourceChanged += OnResourceChanged;
 	}
 
 	private void OnResourceChanged(ResourceType resourceType, int newCount)

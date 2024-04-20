@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Godot;
 
 namespace ApproachTheForge.Utility;
@@ -7,7 +6,7 @@ namespace ApproachTheForge.Utility;
 public class AbilityController
 {
     public delegate void AbilityChangedEventHandler(string action, int index);
-    public static event AbilityChangedEventHandler AbilityChanged;
+    public event AbilityChangedEventHandler AbilityChanged;
 
     private static readonly Dictionary<string, int> ActionMap = new()
     {
@@ -27,7 +26,7 @@ public class AbilityController
         }
     }
 
-    public static void ChangeAbility(string input)
+    public void ChangeAbility(string input)
     {
         if (ActionMap.TryGetValue(input, out int index))
         {

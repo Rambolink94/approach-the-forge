@@ -50,13 +50,12 @@ public partial class PlacementController : Node2D, IGameSystem
 			{ "player_tower_select", towerTemplate },
 			{ "player_golem_select", golemTemplate },
 		};
-
-		AbilityController.AbilityChanged += OnAbilityChanged;
 	}
 
 	public void Initialize(GameManager gameManager)
 	{
 		_gameManager = gameManager;
+		_gameManager.AbilityController.AbilityChanged += OnAbilityChanged;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -130,17 +129,17 @@ public partial class PlacementController : Node2D, IGameSystem
 		var towerTemplate = package.Instantiate<PlacementTemplate>();
 		towerTemplate.Visible = false;
 		
-		AddChild(towerTemplate);
+		_placeableParent.AddChild(towerTemplate);
 		
 		return towerTemplate;
 	}
 	
 	private void CreatePlaceable(Vector2 position, PackedScene package)
 	{
-		var placeable = package.Instantiate<IPlaceable>();
+		var placeable = package.Instantiate<Node2D>();
 		placeable.GlobalPosition = position;
 		
-		_placeableParent.AddChild(placeable as Node2D);
+		_placeableParent.AddChild(placeable);
 		_audioStream.Play();
 	}
 

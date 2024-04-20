@@ -13,6 +13,7 @@ public abstract partial class Entity : CharacterBody2D
 
     protected GameManager GameManager { get; private set; }
     
+    protected ProgressBar HealthBar;
     private bool _dropTableValid;
 
     public override void _Ready()

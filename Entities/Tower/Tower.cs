@@ -21,6 +21,8 @@ public partial class Tower : Node2D, IPlaceable, IDamageable
 	private Area2D _detectionArea;
 	private GpuParticles2D _preShotParticle;
 	private AudioStreamPlayer2D _preShotAudio;
+	private AudioStreamPlayer2D _shotAudio;
+	private ProgressBar _healthBar;
 	private float _timeSinceLastAttack;
 	private float _currentAttackDelay;
 	private Node2D _parent;
@@ -35,11 +37,16 @@ public partial class Tower : Node2D, IPlaceable, IDamageable
 		_detectionArea = GetNode<Area2D>("DetectionArea");
 		_preShotParticle = GetNode<GpuParticles2D>("PreShotParticle");
 		_preShotAudio = GetNode<AudioStreamPlayer2D>("PreShotParticle/PreShotAudio");
+		_shotAudio = GetNode<AudioStreamPlayer2D>("PreShotParticle/ShotAudio");
 
 		_preShotParticle.Emitting = false;
 
 		_detectionArea.BodyEntered += OnEnemyDetected;
 		_detectionArea.BodyExited += OnEnemyLost;
+		
+		_healthBar = GetNode<ProgressBar>("HealthBar");
+		_healthBar.MaxValue = Health;
+		_healthBar.Value = Health;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,6 +57,7 @@ public partial class Tower : Node2D, IPlaceable, IDamageable
 		{
 			if (!_preShotParticle.Emitting)
 			{
+				_preShotAudio.Play();
 				_preShotParticle.Restart();
 			}
             
@@ -65,6 +73,8 @@ public partial class Tower : Node2D, IPlaceable, IDamageable
 				projectile.Hit += OnProjectileHit;
 				_activeProjectiles.Add(projectile);
 				AddChild(projectile);
+				
+				_shotAudio.Play();
 
 				_timeSinceLastAttack = 0;
 				_currentAttackDelay = 0;
@@ -81,6 +91,7 @@ public partial class Tower : Node2D, IPlaceable, IDamageable
 	public bool ApplyDamage(DamageData damageData)
 	{
 		Health -= damageData.Damage;
+		_healthBar.Value = Health;
 		if (Health <= 0)
 		{
 			Die();

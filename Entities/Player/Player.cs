@@ -57,7 +57,7 @@ public partial class Player : Entity, IDamageable
 		_reversedParticleTexture = GD.Load<Texture2D>("res://Art/Placeholder/slash_reversed.png");
 
 		_collectionArea.BodyEntered += OnAreaEntered;
-		AbilityController.AbilityChanged += (action, _) =>
+		GameManager.AbilityController.AbilityChanged += (action, _) =>
 		{
 			if (action == "player_stealth_sprint")
 			{
@@ -113,6 +113,8 @@ public partial class Player : Entity, IDamageable
 	protected override void Die(bool removeOnDeath = true)
 	{
 		base.Die(removeOnDeath);
+		
+		GameManager.GameOverScreen.Open(true);
 		
 		GD.Print("You Died!");
 	}
@@ -174,7 +176,7 @@ public partial class Player : Entity, IDamageable
 	{
 		if (_isSprinting)
 		{
-			AbilityController.ChangeAbility("player_stealth_sprint");	// TODO: This is gross. Destroy it.
+			GameManager.AbilityController.ChangeAbility("player_stealth_sprint");	// TODO: This is gross. Destroy it.
 		}
 		
 		foreach (Node2D body in _damageArea.GetOverlappingBodies())

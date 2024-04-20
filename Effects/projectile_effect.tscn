@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c05qke2ac8jro"]
+[gd_scene load_steps=11 format=3 uid="uid://c05qke2ac8jro"]
 
 [ext_resource type="Script" path="res://Effects/EnergyProjectile.cs" id="1_gcl8r"]
 [ext_resource type="Texture2D" uid="uid://cdtcsvohseaks" path="res://Art/Placeholder/electric_ball.png" id="1_wm2um"]
+[ext_resource type="AudioStream" uid="uid://coudghfcmwiej" path="res://Audio/particle_hit.wav" id="3_0wpt8"]
 
 [sub_resource type="Gradient" id="Gradient_554e5"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0.0068954, 0.999999, 1)
@@ -20,13 +21,20 @@ curve = SubResource("Curve_mhj3r")
 particle_flag_disable_z = true
 angle_max = 360.0
 gravity = Vector3(0, 98, 0)
-scale_min = 0.75
+scale_min = 0.5
+scale_max = 0.6
 scale_curve = SubResource("CurveTexture_im532")
 color = Color(0.713726, 0.905882, 1, 1)
 color_ramp = SubResource("GradientTexture1D_3b1o3")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_370bc"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("3_0wpt8")
+stream_0/weight = 1.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_u0hq8"]
-radius = 25.0
+radius = 8.544
 
 [node name="ProjectileEffect" type="Area2D"]
 collision_layer = 128
@@ -41,6 +49,7 @@ texture = ExtResource("1_wm2um")
 lifetime = 0.5
 
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_370bc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_u0hq8")

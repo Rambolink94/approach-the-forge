@@ -12,6 +12,8 @@ public partial class GameManager : Node2D
 	public AbilityController AbilityController { get; } = new();
 	public PlacementController PlacementController { get; private set; }
 	
+	public GameOverController GameOverScreen { get; private set; }
+	
 	public Player Player { get; private set; }
 
 	private EnemyGolemSpawner _enemyGolemSpawner;
@@ -25,6 +27,7 @@ public partial class GameManager : Node2D
 		ResourceManager = GetNode<ResourceManager>("ResourceManager");
 		PlacementController = GetNode<PlacementController>("PlacementController");
 		UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
+		GameOverScreen = GetNode<GameOverController>("GameOverScreen");
 
 		ResourceManager.Initialize(this);
 		PlacementController.Initialize(this);

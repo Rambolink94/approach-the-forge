@@ -1,6 +1,4 @@
-using ApproachTheForge.Utility;
 using Godot;
-using Godot.Collections;
 
 namespace ApproachTheForge.Entities.Golem
 {
@@ -101,6 +99,10 @@ namespace ApproachTheForge.Entities.Golem
 			this.AttackDelayTimer = this.GetNode<Timer>("Attack Delay Timer");
 
 			_hurtAudioPlayer = GetNode<AudioStreamPlayer2D>("HurtAudioPlayer");
+
+			HealthBar = GetNode<ProgressBar>("HealthBar");
+			HealthBar.MaxValue = Health;
+			HealthBar.Value = Health;
 		}
 
 		/// <summary>
@@ -275,8 +277,12 @@ namespace ApproachTheForge.Entities.Golem
 
 				return true;
 			}
-			
-			if (IsInstanceValid(this)) _hurtAudioPlayer.Play();
+
+			if (IsInstanceValid(this))
+			{
+				_hurtAudioPlayer.Play();
+				this.HealthBar.Value = this.Health;
+			}
 			
 			return false;
 		}

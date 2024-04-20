@@ -46,7 +46,7 @@ public partial class AbilityUIController : CanvasLayer
 		
 		_currentIndex = _containers.IndexOf(parentButton);
 		OnAbilityChanged(string.Empty, -1);
-		AbilityController.AbilityChanged += OnAbilityChanged;
+		_gameManager.AbilityController.AbilityChanged += OnAbilityChanged;
 	}
 
 	public void OnAbilityChanged(string action, int index)
