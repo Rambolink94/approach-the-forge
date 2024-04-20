@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dktkrx7x5q72l"]
+[gd_scene load_steps=8 format=3 uid="uid://dktkrx7x5q72l"]
 
 [ext_resource type="AudioStream" uid="uid://emvbpab4jplj" path="res://Audio/gooey_hit.wav" id="1_acfa7"]
 
@@ -19,6 +19,9 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("1_acfa7")
 stream_0/weight = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ku2x1"]
+bg_color = Color(0.635294, 0.113725, 0, 0.654902)
 
 [node name="Golem" type="CharacterBody2D"]
 collision_layer = 0
@@ -61,3 +64,12 @@ autostart = true
 [node name="HurtAudioPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_w275l")
 volume_db = -10.0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -27.0
+offset_top = -47.0
+offset_right = 27.0
+offset_bottom = -39.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_ku2x1")
+value = 50.0
+show_percentage = false

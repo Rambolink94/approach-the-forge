@@ -98,6 +98,7 @@ explosiveness = 1.0
 local_coords = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
+process_mode = 3
 current = true
 
 [node name="CollectionArea" type="Area2D" parent="."]

@@ -1,19 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://x0sjujl3kg1d"]
+[gd_scene load_steps=13 format=3 uid="uid://x0sjujl3kg1d"]
 
 [ext_resource type="PackedScene" uid="uid://mofr601tdp43" path="res://game_manager.tscn" id="1_3s7uq"]
 [ext_resource type="PackedScene" uid="uid://kg5ulxh1auyb" path="res://Spawners/golem_spawner.tscn" id="3_j6643"]
 [ext_resource type="PackedScene" uid="uid://cujayu0lcsafg" path="res://Utility/Upgrade/UpgradeManager.tscn" id="4_nxh2n"]
 [ext_resource type="PackedScene" uid="uid://haxrwr0ddi7h" path="res://placement_controller.tscn" id="4_wv48p"]
-[ext_resource type="Texture2D" uid="uid://bu70a73hdo87c" path="res://Art/Placeholder/floor.png" id="4_x7sl4"]
 [ext_resource type="PackedScene" uid="uid://d4esrlhcnb4nm" path="res://tileScene.tscn" id="5_4aey8"]
 [ext_resource type="PackedScene" uid="uid://bexgxquxepwnq" path="res://UI/GameplayHUD/AbilityUi.tscn" id="7_sjsh6"]
 [ext_resource type="PackedScene" uid="uid://1qccvg77muwg" path="res://UI/GameplayHUD/ResourceDisplay.tscn" id="8_cca78"]
 [ext_resource type="PackedScene" uid="uid://cawtldme2losh" path="res://Spawners/player_spawner.tscn" id="9_boe08"]
 [ext_resource type="PackedScene" uid="uid://difcayrmalo5" path="res://UI/UpgradeInterface/UpgradeInterface.tscn" id="10_t2fx0"]
 [ext_resource type="PackedScene" uid="uid://c5r5vv2pasxtv" path="res://UI/UpgradeScreenCanvas.tscn" id="11_piuif"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aqxm"]
-size = Vector2(3000, 383)
+[ext_resource type="PackedScene" uid="uid://d0lfhxa6ujsau" path="res://UI/game_over_screen.tscn" id="11_tpr78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lc6w6"]
 size = Vector2(50, 1000)
@@ -21,13 +18,13 @@ size = Vector2(50, 1000)
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_3s7uq")]
-_spawnRate = 5.0
+_initialSpawnCount = 30
 
 [node name="PlayerSpawner" parent="GameManager" instance=ExtResource("9_boe08")]
 position = Vector2(-4563, 378)
 
 [node name="EnemyGolemSpawner" parent="GameManager" instance=ExtResource("3_j6643")]
-position = Vector2(2683, 163)
+position = Vector2(6360, 402)
 
 [node name="UpgradeManager" parent="GameManager" instance=ExtResource("4_nxh2n")]
 
@@ -36,21 +33,10 @@ _invalidColor = Color(0.886275, 0, 0, 1)
 _validColor = Color(0, 0.721569, 0, 1)
 _showDebugInfo = false
 
+[node name="GameOverScreen" parent="GameManager" instance=ExtResource("11_tpr78")]
+visible = false
+
 [node name="Environment" type="Node2D" parent="."]
-
-[node name="Floor" type="Sprite2D" parent="Environment"]
-texture_filter = 1
-texture_repeat = 3
-position = Vector2(5599, 542)
-texture = ExtResource("4_x7sl4")
-region_enabled = true
-region_rect = Rect2(0, 0, 3000, 63)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Floor"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor/StaticBody2D"]
-position = Vector2(0, 160.5)
-shape = SubResource("RectangleShape2D_1aqxm")
 
 [node name="Wall" type="StaticBody2D" parent="Environment"]
 position = Vector2(-5313, 0)

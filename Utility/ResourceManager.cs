@@ -16,7 +16,7 @@ public partial class ResourceManager : Node2D, IGameSystem
 	[Export] private Dictionary<ResourceType, PackedScene> _resourceInstanceMap;
 	
 	public delegate void ResourceChangedEventHandler(ResourceType resourceType, int newCount);
-	public static event ResourceChangedEventHandler ResourceChanged;
+	public event ResourceChangedEventHandler ResourceChanged;
 
 	private System.Collections.Generic.Dictionary<ResourceType, int> _resourceMap;
     
@@ -29,8 +29,6 @@ public partial class ResourceManager : Node2D, IGameSystem
 			{ ResourceType.Rare, _initialRare },
 			{ ResourceType.Super, _initialSuper },
 		};
-
-		CallDeferred(nameof(HookEvents));
 	}
 	
 	public void Initialize(GameManager gameManager)

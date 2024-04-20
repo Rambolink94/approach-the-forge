@@ -12,7 +12,10 @@ public abstract partial class Entity : CharacterBody2D
     [Export] private Array<DropData> _dropTable;
 
     protected GameManager GameManager { get; private set; }
+
+    public event Action Removed;
     
+    protected ProgressBar HealthBar;
     private bool _dropTableValid;
 
     public override void _Ready()
@@ -26,7 +29,7 @@ public abstract partial class Entity : CharacterBody2D
             total += resource.DropChance;
         }
 
-        if (total is > 1.0f or < 1.0f)
+        if (total is > 1.1f or < 0.9f)
         {
             throw new InvalidOperationException($"DropTable on {GetType()} does not add to 1f");
         }
@@ -69,5 +72,10 @@ public abstract partial class Entity : CharacterBody2D
 
         ResourcePickup pickup =
             GameManager.ResourceManager.CreatePickupInstance(validDropData.ResourceType, GlobalPosition);
+    }
+
+    public override void _ExitTree()
+    {
+        Removed?.Invoke();
     }
 }

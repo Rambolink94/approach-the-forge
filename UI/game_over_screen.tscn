@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0lfhxa6ujsau"]
+
+[ext_resource type="Script" path="res://GameOverController.cs" id="1_hb1yp"]
+[ext_resource type="AudioStream" uid="uid://bq2wdl6iebb8x" path="res://Audio/fail_voice.wav" id="2_msib7"]
+[ext_resource type="AudioStream" uid="uid://bwe861ahohjjw" path="res://Audio/failure_sound.wav" id="3_uc0td"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hqbc"]
+bg_color = Color(0, 0, 0, 0.207843)
+
+[node name="GameOverScreen" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_hb1yp")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hqbc")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -11.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 106
+text = "You Died!"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="RestartButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Main Menu"
+
+[node name="FailureMusicAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_msib7")
+
+[node name="FailureVoiceAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_uc0td")
+
+[node name="TransitionPanel" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

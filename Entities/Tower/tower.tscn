@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://vrenkrcqakkv"]
+[gd_scene load_steps=13 format=3 uid="uid://vrenkrcqakkv"]
 
 [ext_resource type="Script" path="res://Entities/Tower/Tower.cs" id="1_yu8en"]
 [ext_resource type="Texture2D" uid="uid://dwia1wff8rovq" path="res://Art/Placeholder/Tower.png" id="2_q6c2o"]
@@ -37,12 +37,19 @@ color_ramp = SubResource("GradientTexture1D_ri3db")
 turbulence_noise_strength = 1.43
 turbulence_noise_speed = Vector3(0, 6.72, 0)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0r4iu"]
+random_pitch = 1.2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4j0op"]
 radius = 350.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cj68o"]
+bg_color = Color(0.635294, 0.113725, 0, 1)
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("1_yu8en")
 Health = 200.0
+_attackSpeed = 1.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -96)
@@ -67,6 +74,12 @@ one_shot = true
 
 [node name="PreShotAudio" type="AudioStreamPlayer2D" parent="PreShotParticle"]
 position = Vector2(0, 165)
+stream = SubResource("AudioStreamRandomizer_0r4iu")
+
+[node name="ShotAudio" type="AudioStreamPlayer2D" parent="PreShotParticle"]
+position = Vector2(0, 165)
+stream = SubResource("AudioStreamRandomizer_0r4iu")
+volume_db = -5.0
 
 [node name="DetectionArea" type="Area2D" parent="."]
 position = Vector2(0, -165)
@@ -75,3 +88,12 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_4j0op")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -42.0
+offset_top = -216.0
+offset_right = 42.0
+offset_bottom = -208.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_cj68o")
+value = 50.0
+show_percentage = false

@@ -19,7 +19,11 @@ public partial class Player : Entity, IDamageable
 	[ExportCategory("Damage Data")]
 	[Export] private float _damage = 10f;
 	[Export] private float _knockback = 100f;
+	[Export] private float _sprintDamageReduction = 2f;
 	[Export] private float _attackSpeed = 0.1f;
+	[Export] private float _recoveryAmount = 2f;
+	[Export] public float _recoveryRate = 0.1f;
+	[Export] public float _recoveryDelay = 0.5f;
 	[Export] public float Health { get; private set; } = 500f;
 
 	public event Action<float> HealthChanged;
@@ -35,6 +39,8 @@ public partial class Player : Entity, IDamageable
 	private Area2D _damageArea;
 	private bool _flipState;
 	private float _timeSinceLastAttack;
+	private float _timeSinceLastRecovery;
+	private float _recoveryDelayCurrent;
 	private bool _attackReady;
 	private AudioStreamPlayer2D _attackAudioPlayer;
 	private AudioStreamPlayer2D _hurtSound;
@@ -57,7 +63,7 @@ public partial class Player : Entity, IDamageable
 		_reversedParticleTexture = GD.Load<Texture2D>("res://Art/Placeholder/slash_reversed.png");
 
 		_collectionArea.BodyEntered += OnAreaEntered;
-		AbilityController.AbilityChanged += (action, _) =>
+		GameManager.AbilityController.AbilityChanged += (action, _) =>
 		{
 			if (action == "player_stealth_sprint")
 			{
@@ -73,13 +79,22 @@ public partial class Player : Entity, IDamageable
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		_timeSinceLastAttack += (float)delta;
 		if (_timeSinceLastAttack >= _attackSpeed)
 		{
 			_attackReady = true;
 			_timeSinceLastAttack = 0;
 		}
 
-		_timeSinceLastAttack += (float)delta;
+		_recoveryDelayCurrent += (float)delta;
+		if (_recoveryDelayCurrent >= _recoveryDelay)
+		{
+			_timeSinceLastRecovery += (float)delta;
+			if (_timeSinceLastRecovery >= _recoveryRate)
+			{
+				Health += _recoveryAmount;
+			}
+		}
 		
 		HandleInput();
 	}
@@ -113,6 +128,8 @@ public partial class Player : Entity, IDamageable
 	protected override void Die(bool removeOnDeath = true)
 	{
 		base.Die(removeOnDeath);
+		
+		GameManager.GameOverScreen.Open(true);
 		
 		GD.Print("You Died!");
 	}
@@ -157,7 +174,14 @@ public partial class Player : Entity, IDamageable
 
 	public bool ApplyDamage(DamageData damageInstance)
 	{
-		Health -= damageInstance.Damage;
+		// If sprinting, apply a damage reduction value
+		var damage = damageInstance.Damage;
+		if (_isSprinting)
+		{
+			damage /= _sprintDamageReduction;
+		}
+		
+		Health -= damage;
 		_hurtSound.Play();
 		HealthChanged?.Invoke(Health);
 		if (Health <= 0)
@@ -174,7 +198,7 @@ public partial class Player : Entity, IDamageable
 	{
 		if (_isSprinting)
 		{
-			AbilityController.ChangeAbility("player_stealth_sprint");	// TODO: This is gross. Destroy it.
+			GameManager.AbilityController.ChangeAbility("player_stealth_sprint");	// TODO: This is gross. Destroy it.
 		}
 		
 		foreach (Node2D body in _damageArea.GetOverlappingBodies())
