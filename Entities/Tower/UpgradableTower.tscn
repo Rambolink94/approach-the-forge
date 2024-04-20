@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv7y5mhd1vcqk"]
+[gd_scene load_steps=3 format=3 uid="uid://wituj2tr8a67"]
 
 [ext_resource type="PackedScene" uid="uid://vrenkrcqakkv" path="res://Entities/Tower/tower.tscn" id="1_xfdwq"]
 [ext_resource type="Script" path="res://Entities/Tower/UpgradableTower.cs" id="2_edlei"]

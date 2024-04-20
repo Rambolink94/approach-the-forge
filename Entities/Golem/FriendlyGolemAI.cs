@@ -26,10 +26,10 @@ namespace ApproachTheForge.Entities.Golem
 
 		public override void _Ready()
 		{
-			base._Ready();
-
-			this.Damage = this.CalculateUpgradedValue(this.Damage, EntityStatistics.Damage);
+			this.Damage = this.CalculateUpgradedValue(this.BaseDamage, EntityStatistics.Damage);
 			this.Speed = (float)this.CalculateUpgradedValue(this.Speed, EntityStatistics.Speed);
+
+			base._Ready();
 		}
 
 		public override void _PhysicsProcess(double delta)

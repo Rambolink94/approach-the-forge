@@ -22,13 +22,13 @@ public partial class UpgradableTower : Tower
 
 	private double RateOfFire { get; set; }
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
 	{
-        this.Health = this.MaxHealth;
+		this.Health = this.MaxHealth;
 		this.Damage = this.CalculateUpgradedStat(this.BaseDamage, EntityStatistics.Damage);
 		this.RateOfFire = this.CalculateUpgradedStat(this.BaseRateOfFire, EntityStatistics.Rate_Of_Fire);
-    }
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -37,7 +37,7 @@ public partial class UpgradableTower : Tower
 
 	private double CalculateUpgradedStat(double baseStat, EntityStatistics stat)
 	{
-        IEnumerable<TowerUpgrade> towerUpgrades = this._gameManager.UpgradeManager.
+		IEnumerable<TowerUpgrade> towerUpgrades = this._gameManager.UpgradeManager.
 			GetUpgrades<TowerUpgrade>().
 			Where(upgrade => upgrade.UpgradedStat == stat);
 
@@ -47,5 +47,5 @@ public partial class UpgradableTower : Tower
 		}
 
 		return baseStat;
-    }
+	}
 }
