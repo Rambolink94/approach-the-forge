@@ -51,9 +51,10 @@ namespace ApproachTheForge.Entities.Golem
 
 		public bool SearchForEnemies()
 		{
-			if (this.DetectionArea.HasOverlappingBodies())
+			if (this.DetectionArea.HasOverlappingBodies() || this.DetectionArea.HasOverlappingAreas())
 			{
 				this.Target = this.DetectionArea.GetOverlappingBodies().FirstOrDefault();
+				this.Target = this.DetectionArea.GetOverlappingAreas().FirstOrDefault() ?? this.Target;
 
 				return true;
 			}

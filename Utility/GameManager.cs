@@ -50,6 +50,7 @@ public partial class GameManager : Node2D
 		UpgradeManager = GetNode<UpgradeManager>("UpgradeManager");
 		GameOverScreen = GetNode<GameOverController>("GameOverScreen");
 
+
 		ResourceManager.Initialize(this);
 		PlacementController.Initialize(this);
 		

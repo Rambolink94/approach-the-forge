@@ -24,7 +24,9 @@ public partial class Player : Entity, IDamageable
 	[Export] private float _recoveryAmount = 2f;
 	[Export] public float _recoveryRate = 0.1f;
 	[Export] public float _recoveryDelay = 0.5f;
-	[Export] public float Health { get; private set; } = 500f;
+	[Export] public float BaseHealth { get; private set; } = 500f;
+	public float Health { get; set; }
+	private float MaxHealth { get; set; }
 
 	public event Action<float> HealthChanged;
 	private readonly float _defaultGravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -74,6 +76,14 @@ public partial class Player : Entity, IDamageable
 				_isSprinting = false;
 			}
 		};
+
+		this.SetStats();
+	}
+
+	private void SetStats()
+	{
+		this.Health = this.BaseHealth;
+		this.MaxHealth = this.BaseHealth;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -92,7 +102,14 @@ public partial class Player : Entity, IDamageable
 			_timeSinceLastRecovery += (float)delta;
 			if (_timeSinceLastRecovery >= _recoveryRate)
 			{
-				Health += _recoveryAmount;
+				if(this.Health + this._recoveryAmount > this.MaxHealth)
+				{
+					this.Health = this.MaxHealth;
+				}
+				else
+				{
+					Health += _recoveryAmount;
+				}
 			}
 		}
 		
@@ -129,7 +146,7 @@ public partial class Player : Entity, IDamageable
 	{
 		base.Die(removeOnDeath);
 		
-		GameManager.GameOverScreen.Open(true);
+		GameManager.GameOverScreen.Open("You Died!", true);
 		
 		GD.Print("You Died!");
 	}
@@ -164,8 +181,8 @@ public partial class Player : Entity, IDamageable
 		}
 
 		if (Input.IsActionPressed("player_action")
-		    && !GameManager.PlacementController.IsActive
-		    && _attackReady)
+			&& !GameManager.PlacementController.IsActive
+			&& _attackReady)
 		{
 			_attackReady = false;
 			Attack();
@@ -200,12 +217,11 @@ public partial class Player : Entity, IDamageable
 		{
 			GameManager.AbilityController.ChangeAbility("player_stealth_sprint");	// TODO: This is gross. Destroy it.
 		}
-		
 		foreach (Node2D body in _damageArea.GetOverlappingBodies())
 		{
 			if (body is IDamageable damageable)
 			{
-				Vector2 direction = (body.GlobalPosition - GlobalPosition).Normalized();
+				Vector2 direction = new Vector2(body.GlobalPosition.X - GlobalPosition.X, 0).Normalized();
 				var data = new DamageData
 				{
 					Damage = _damage,
@@ -215,11 +231,35 @@ public partial class Player : Entity, IDamageable
 				damageable.ApplyDamage(data);
 			}
 		}
+
+		foreach (Area2D area in _damageArea.GetOverlappingAreas())
+		{
+			if(area is IDamageable damageable)
+			{
+				var data = new DamageData
+				{
+					Damage = _damage,
+					Knockback = new Vector2(),
+				};
+
+				damageable.ApplyDamage(data);
+			}
+			else if(area?.GetParent() is IDamageable parent)
+			{
+				var data = new DamageData
+				{
+					Damage = _damage,
+					Knockback = new Vector2(),
+				};
+
+				parent.ApplyDamage(data);
+			}
+		}
 		
 		_attackParticle.Restart();
 		_attackAudioPlayer.Play();
 	}
-    
+	
 	private void Flip(Vector2 direction)
 	{
 		var currentDirection = _damageArea.Position;

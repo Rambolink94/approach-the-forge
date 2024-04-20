@@ -5,12 +5,13 @@ namespace ApproachTheForge;
 public partial class GameOverController : CanvasLayer
 {
 	private PackedScene _mainMenu = ResourceLoader.Load<PackedScene>("res://MainMenu.tscn");
-    
+	
 	private Button _restartButton;
 	private Button _quitButton;
 	private AudioStreamPlayer2D _failureMusicAudio;
 	private AudioStreamPlayer2D _failureVoiceAudio;
 	private ColorRect _transitionPanel;
+	private Label _menuLabel;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -18,6 +19,7 @@ public partial class GameOverController : CanvasLayer
 		_transitionPanel = GetNode<ColorRect>("TransitionPanel");
 		_restartButton = GetNode<Button>("Panel/MarginContainer/VBoxContainer/RestartButton");
 		_quitButton = GetNode<Button>("Panel/MarginContainer/VBoxContainer/QuitButton");
+		_menuLabel = GetNode<Label>("Panel/MarginContainer/VBoxContainer/MenuLabel");
 		_failureMusicAudio = GetNode<AudioStreamPlayer2D>("FailureMusicAudio");
 		_failureVoiceAudio = GetNode<AudioStreamPlayer2D>("FailureVoiceAudio");
 
@@ -57,18 +59,18 @@ public partial class GameOverController : CanvasLayer
 			}
 			else
 			{
-				Open();
+				Open("Game Paused");
 			}
 		}
 	}
 
-	public void Open(bool isfailure = false)
+	public void Open(string menuMessage, bool isfailure = false)
 	{
 		if (isfailure)
 		{
 			_failureMusicAudio.Play();
 		}
-		
+		_menuLabel.Text = menuMessage;
 		GetTree().Paused = true;
 		Visible = true;
 	}

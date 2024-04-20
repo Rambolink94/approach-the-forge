@@ -60,7 +60,7 @@ public partial class Tower : Node2D, IPlaceable, IDamageable
 				_preShotAudio.Play();
 				_preShotParticle.Restart();
 			}
-            
+			
 			_currentAttackDelay += (float)delta;
 			if (_currentAttackDelay >= _attackDelay && _trackedEnemies.Count > 0)
 			{

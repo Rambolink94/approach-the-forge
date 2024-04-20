@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyn6fboh6m4o5"]
+
+[ext_resource type="PackedScene" uid="uid://vbh3spcf7oud" path="res://GameObjective.tscn" id="1_k7p0j"]
+
+[node name="GameObjective" instance=ExtResource("1_k7p0j")]
+_baseHealth = 5000.0
+
+[node name="Hitbox" parent="." index="0"]
+collision_layer = 16
+collision_mask = 0

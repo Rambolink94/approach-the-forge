@@ -101,6 +101,7 @@ namespace ApproachTheForge.Entities.Golem
 			_hurtAudioPlayer = GetNode<AudioStreamPlayer2D>("HurtAudioPlayer");
 
 			HealthBar = GetNode<ProgressBar>("HealthBar");
+
 			HealthBar.MaxValue = Health;
 			HealthBar.Value = Health;
 		}
@@ -153,7 +154,7 @@ namespace ApproachTheForge.Entities.Golem
 		/// </summary>
 		protected void AttackTargetInRange()
 		{
-			if (this.AttackRange.GetOverlappingBodies().Contains(this.Target))
+			if (this.AttackRange.GetOverlappingBodies().Contains(this.Target) || this.AttackRange.HasOverlappingAreas())
 			{
 				this.CurrentState = GolemStates.Attacking;
 
@@ -177,7 +178,7 @@ namespace ApproachTheForge.Entities.Golem
 
 		protected void ApplyDamageOnDelay()
 		{
-			if (this.AttackDelayTimer.TimeLeft == 0)
+			if (this.AttackDelayTimer.TimeLeft == 0 && this.IsAttacking)
 			{
 				if (this.Target is IDamageable target)
 				{
@@ -267,9 +268,6 @@ namespace ApproachTheForge.Entities.Golem
 		public bool ApplyDamage(DamageData damageData)
 		{
 			this.TotalKnockback += damageData.Knockback;
-
-			GD.Print("Damage Taken: True");
-			GD.Print("Current HP: " + this.Health);
 
 			this.Health -= damageData.Damage;
 			if (this.Health <= 0)
