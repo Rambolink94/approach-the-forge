@@ -198,9 +198,8 @@ public partial class Player : Entity, IDamageable
     
 	private void Flip(Vector2 direction)
 	{
-		var currentDirection = _damageArea.Position.Normalized();
-		var dot = currentDirection.Dot(direction);
-		if (currentDirection.Dot(direction) < 1)
+		var currentDirection = _damageArea.Position;
+		if (Mathf.Sign(currentDirection.Dot(direction)) < 0)
 		{
 			_sprite.FlipH = !_sprite.FlipH;
 			Vector2 pos = _damageArea.Position;

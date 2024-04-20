@@ -17,13 +17,13 @@
 
 [sub_resource type="Resource" id="Resource_nk0fp"]
 script = ExtResource("3_3v063")
-DropChance = 0.5
+DropChance = 0.3
 ResourceType = 0
 ResourceAmount = 0
 
 [sub_resource type="Resource" id="Resource_qx6ph"]
 script = ExtResource("3_3v063")
-DropChance = 0.4
+DropChance = 0.6
 ResourceType = 1
 ResourceAmount = 1
 
